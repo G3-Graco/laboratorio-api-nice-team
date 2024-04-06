@@ -9,5 +9,7 @@ namespace Core.Entidades
         public DateTime Fecha {get; set;}
         public int Id_Estado {get; set;}
         public virtual Estado_Prestamo Estado {get; set;}
+        public int Id_Cuenta {get; set;}
+        public virtual Cuenta cuenta {get; set;}
     }
 }
