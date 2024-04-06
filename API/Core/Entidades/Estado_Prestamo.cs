@@ -1,6 +1,6 @@
 namespace Core.Entidades
 {
-    public class Estado_Prestamo : Base
+    public class Estado_Prestamo : TablaAuxiliarBase
     {
         
     }
