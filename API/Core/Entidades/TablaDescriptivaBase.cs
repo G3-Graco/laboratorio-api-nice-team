@@ -1,6 +1,6 @@
 namespace Core.Entidades
 {
-    public abstract class TablaAuxiliarBase
+    public abstract class TablaDescriptivaBase
 	{
         public int Id {get; set;}
         public string Nombre {get; set;}

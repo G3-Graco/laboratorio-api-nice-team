@@ -1,14 +1,14 @@
 namespace Core.Interfaces.Repositorios
 {
-    public interface IBaseRepositorio<TEntity> where TEntity : class
+    public interface IBaseRepositorio<Entidad> where Entidad : class
     {
 
-        ValueTask<TEntity> GetByIdAsync(int id);
-        Task<IEnumerable<TEntity>> GetAllAsync();
-        void Remove(TEntity entity);
-        void RemoveRange(IEnumerable<TEntity> entities);
-        Task Update(TEntity entity);
-        Task AddAsync(TEntity entity);
+        ValueTask<Entidad> ObternerPorIdAsincrono(int id);
+        Task<IEnumerable<Entidad>> ObternerTodosAsincrono();
+        void Remover(Entidad entidad);
+        void RemoverRango(IEnumerable<Entidad> entidades);
+        Task Actualizar(Entidad entidad);
+        Task AgregarAsincrono(Entidad entidad);
 
 
     }

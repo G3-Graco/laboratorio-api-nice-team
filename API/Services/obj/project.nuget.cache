@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NgY9LjO8QYprXyJ+0Y0r6i7fYaWELbO3REgdkexU2u9ufT5iuGR3tBXq4sJm34eHPY701gl5GfqVT9S8PC9Ypw==",
+  "dgSpecHash": "l4rSJOPM4HiGc5RnpCqzVgOdLPYCtGckUA8aOjGZnjlzjuxj2lrw5EX5G/SiwgnGterDKJk13My9N8OySYoqtQ==",
   "success": true,
-  "projectFilePath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\API\\Services\\Services.csproj",
+  "projectFilePath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Services\\Services.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

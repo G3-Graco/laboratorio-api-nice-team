@@ -1,6 +1,6 @@
 ﻿namespace Core.Entidades
 {
-	public class TipoMovimiento : TablaAuxiliarBase
+	public class TipoMovimiento : TablaDescriptivaBase
 	{
 	}
 }
