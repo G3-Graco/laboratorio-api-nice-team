@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qjZ+SCeNyDPPNoENGKSXI9lRXDOiu6dzMpE1jKJ3kHoMKIY7t9BgE2wlwQSMlCiXnGGrXZ4j5plzIXGEMtulBA==",
+  "dgSpecHash": "9z2dUiUs120f0cQruTmg4kVx7WquGPAEAApNEXC8mjEQatoduVQUvzw7rxOEye2BKjLESUWF2wXFJqh/Y3LevQ==",
   "success": true,
-  "projectFilePath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Web\\Web.csproj",
+  "projectFilePath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Web\\Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Siberia\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.1\\microsoft.aspnetcore.openapi.8.0.1.nupkg.sha512",
     "C:\\Users\\Siberia\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",

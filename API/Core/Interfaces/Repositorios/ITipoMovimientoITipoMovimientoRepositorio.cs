@@ -2,7 +2,7 @@
 
 namespace Core.Interfaces.Repositorios
 {
-	public interface ITipoMovimiento : IBaseRepositorio<TipoMovimiento>
+	public interface ITipoMovimientoRepositorio : IBaseRepositorio<TipoMovimiento>
 	{
 	}
 }
