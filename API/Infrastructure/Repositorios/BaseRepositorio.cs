@@ -17,12 +17,12 @@ public class BaseRepositorio<Entidad> : IBaseRepositorio<Entidad> where Entidad 
     }
 
 
-	public virtual async ValueTask<Entidad> ObternerPorIdAsincrono(int id)
+	public virtual async ValueTask<Entidad> ObtenerPorIdAsincrono(int id)
 	{
 		return await dbSet.FindAsync(id);
 	}
 
-	public virtual async Task<IEnumerable<Entidad>> ObternerTodosAsincrono()
+	public virtual async Task<IEnumerable<Entidad>> ObtenerTodosAsincrono()
 	{
 		return await dbSet.ToListAsync();
 	}

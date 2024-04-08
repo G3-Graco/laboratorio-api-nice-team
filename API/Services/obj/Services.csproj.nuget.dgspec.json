@@ -4,14 +4,14 @@
     "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Services\\Services.csproj": {}
   },
   "projects": {
-    "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Services\\Services.csproj": {
+    "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Services\\Services.csproj",
-        "projectName": "Services",
-        "projectPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Services\\Services.csproj",
+        "projectUniqueName": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\Core.csproj",
+        "projectName": "Core",
+        "projectPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\Core.csproj",
         "packagesPath": "C:\\Users\\d\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Services\\obj\\",
+        "outputPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\d\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -44,6 +44,159 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Infrastructure\\Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Infrastructure\\Infrastructure.csproj",
+        "projectName": "Infrastructure",
+        "projectPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Infrastructure\\Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\d\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\d\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.3, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Services\\Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Services\\Services.csproj",
+        "projectName": "Services",
+        "projectPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Services\\Services.csproj",
+        "packagesPath": "C:\\Users\\d\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\d\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\Core.csproj"
+              },
+              "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Infrastructure\\Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.9.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

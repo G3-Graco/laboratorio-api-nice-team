@@ -1,12 +1,12 @@
 namespace Core.Interfaces.Servicios
 {
-    public interface IBaseServicio<Entity> where Entity : class
+    public interface IBaseServicio<Entitidad> where Entitidad : class
     {
         
-        Task<Entity> GetById(int id);
-        Task<IEnumerable<Entity>> GetAll();
-        Task<Entity> Create(Entity newEntity);
-        Task<Entity> Update(int entidadToBeUpdatedId, Entity newEntidadValues);
-        Task Delete(int entityId);
+        Task<Entitidad> ObternerPorIdAsincrono(int id);
+        Task<IEnumerable<Entitidad>> ObternerTodosAsincrono();
+        Task<Entitidad> Agregar(Entitidad nuevaEntitidad);
+        Task<Entitidad> Actualizar(int entidadParaActualizarId, Entitidad nuevosValoresEntidad);
+        Task Remover(int entidadId);
     }
 }
