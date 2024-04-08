@@ -14,7 +14,7 @@ public class AppDbContext : DbContext
 	public DbSet<TipoMovimiento> TipoMovimientos { get; set; }
 	public DbSet<FechaActual> FechaActual { get; set; }
 	public DbSet<Plazo> Plazos { get; set; }
-	public DbSet<Cuota> Cuotas { get; set; }
+ 	public DbSet<Cuota> Cuotas { get; set; }
 	public DbSet<Documento> Documentos { get; set; }
 	public DbSet<TipoDocumento> TipoDocumentos { get; set; }
 	public DbSet<Prestamo> Prestamos { get; set; }

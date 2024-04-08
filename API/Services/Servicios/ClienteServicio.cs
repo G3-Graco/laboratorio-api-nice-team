@@ -3,7 +3,6 @@ using Core.Interfaces;
 using Core.Interfaces.Servicios;
 using Core.Respuestas;
 using Services.Validadores;
-using System.ComponentModel.DataAnnotations;
 
 namespace Services.Servicios
 {
@@ -68,10 +67,9 @@ namespace Services.Servicios
 			return new Respuesta<Cliente>{Ok = true, Mensaje = "Cliente obtenido", Datos = await _unidadDeTrabajo.ClienteRepositorio.ObtenerPorIdAsincrono(id)};
 		}
 
-		public async Task<Respuesta<IEnumerable<Cliente>> ObternerTodosAsincrono()
+		public async Task<Respuesta<IEnumerable<Cliente>>> ObternerTodosAsincrono()
 		{
-			
-			return await _unidadDeTrabajo.ClienteRepositorio.ObtenerTodosAsincrono();
+			return new Respuesta<IEnumerable<Cliente>>{Ok = true, Mensaje = "Clientes obtenidos", Datos = await _unidadDeTrabajo.ClienteRepositorio.ObtenerTodosAsincrono()};
 		}
 
 		public async Task<Respuesta<Cliente>> Remover(int entidadId)
@@ -79,6 +77,7 @@ namespace Services.Servicios
 			Cliente cliente = await _unidadDeTrabajo.ClienteRepositorio.ObtenerPorIdAsincrono(entidadId);
 			_unidadDeTrabajo.ClienteRepositorio.Remover(cliente);
 			await _unidadDeTrabajo.CommitAsync();
+			return new Respuesta<Cliente>{Ok = true, Mensaje = "Cliente eliminado", Datos = null};
 		}
 	}
 }
