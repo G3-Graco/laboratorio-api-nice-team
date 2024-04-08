@@ -7,7 +7,8 @@ namespace Core.Entidades
         public int Id {get; set;}
         public DateTime Fecha {get; set;}
         public DateTime FechaPago {get; set;}
-        public int Id_Prestamo {get; set;}
-        public virtual Prestamo prestamo {get; set;}
+        public double Pago {get; set;}
+        public int IdPrestamo {get; set;}
+        public virtual Prestamo? prestamo {get; set;}
     }
 }

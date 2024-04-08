@@ -13,6 +13,12 @@ public class AppDbContext : DbContext
 	public DbSet<Movimiento> Movimientos { get; set; }
 	public DbSet<TipoMovimiento> TipoMovimientos { get; set; }
 	public DbSet<FechaActual> FechaActual { get; set; }
+	public DbSet<Plazo> Plazos { get; set; }
+	public DbSet<Cuota> Cuotas { get; set; }
+	public DbSet<Documento> Documentos { get; set; }
+	public DbSet<TipoDocumento> TipoDocumentos { get; set; }
+	public DbSet<Prestamo> Prestamos { get; set; }
+	public DbSet<EstadoPrestamo> EstadoPrestamos { get; set; }
 
 	public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
@@ -28,6 +34,12 @@ public class AppDbContext : DbContext
 		builder.ApplyConfiguration(new MovimientoConfiguracion());
 		builder.ApplyConfiguration(new TipoMovimientoConfiguracion());
 		builder.ApplyConfiguration(new FechaActualConfiguracion());
+		builder.ApplyConfiguration(new PlazoConfiguracion());
+		builder.ApplyConfiguration(new CuotaConfiguracion());
+		builder.ApplyConfiguration(new DocumentoConfiguracion());
+		builder.ApplyConfiguration(new TipoDocumentoCofiguracion());
+		builder.ApplyConfiguration(new PrestamoConfiguracion());
+		builder.ApplyConfiguration(new EstadoPrestamoConfiguracion());
 	}
 
     // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -7,9 +7,11 @@ namespace Core.Entidades
         public double MontoTotal {get; set;}
         public double CuotaMensual {get; set;}
         public DateTime Fecha {get; set;}
-        public int Id_Estado {get; set;}
-        public virtual Estado_Prestamo Estado {get; set;}
-        //colocar clienteid
-        //colocar plazoid
+        public int IdEstado {get; set;}
+        public virtual EstadoPrestamo? Estado {get; set;}
+        public int IdCliente {get; set;}
+        public virtual Cliente cliente {get; set;}
+        public int IdPlazo {get; set;}
+        public virtual Plazo? plazo {get; set;}
     }
 }
