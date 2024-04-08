@@ -1,6 +1,7 @@
 ﻿using Core.Entidades;
 using Core.Interfaces;
 using Core.Interfaces.Servicios;
+using Core.Respuestas;
 using Services.Validadores;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,7 +14,7 @@ namespace Services.Servicios
 		{
 			_unidadDeTrabajo = unidadDeTrabajo;
 		}
-		public async Task<Cliente> Agregar(Cliente nuevaEntitidad)
+		public async Task<Respuesta<Cliente>> Agregar(Cliente nuevaEntitidad)
 		{
 			ClienteValidador validador = new();
 
@@ -27,11 +28,10 @@ namespace Services.Servicios
 			await _unidadDeTrabajo.ClienteRepositorio.AgregarAsincrono(nuevaEntitidad);
 			await _unidadDeTrabajo.CommitAsync();
 		
-			return nuevaEntitidad; //
-
+			return new Respuesta<Cliente>{Ok = true, Mensaje = "Cliente creado con éxito", Datos = nuevaEntitidad};
 		}
 
-		public async Task<Cliente> Actualizar(int entidadParaActualizarId, Cliente nuevosValoresEntidad)
+		public async Task<Respuesta<Cliente>> Actualizar(int entidadParaActualizarId, Cliente nuevosValoresEntidad)
 		{
 			ClienteValidador validador = new();
 
@@ -39,6 +39,7 @@ namespace Services.Servicios
 
 			if (!resultadoValidacion.IsValid)
 			{
+				//new Respuesta<Cliente>{Ok = false, Mensaje = resultadoValidacion.Errors[0].ErrorMessage.ToString(), Datos = null};
 				throw new ArgumentException(resultadoValidacion.Errors[0].ErrorMessage.ToString());
 				
 			}
@@ -57,22 +58,23 @@ namespace Services.Servicios
 			ClienteParaActualizar.Direccion = nuevosValoresEntidad.Direccion;
 
 			await _unidadDeTrabajo.CommitAsync();
-
-			return await _unidadDeTrabajo.ClienteRepositorio.ObtenerPorIdAsincrono(entidadParaActualizarId);
+			
+			return new Respuesta<Cliente>{Ok = true, Mensaje = "Cliente actualizado con éxito", Datos = await _unidadDeTrabajo.ClienteRepositorio.ObtenerPorIdAsincrono(entidadParaActualizarId)};
+			
 		}
 
-
-		public async Task<Cliente> ObternerPorIdAsincrono(int id)
+		public async Task<Respuesta<Cliente>> ObternerPorIdAsincrono(int id)
 		{
-			return await _unidadDeTrabajo.ClienteRepositorio.ObtenerPorIdAsincrono(id);
+			return new Respuesta<Cliente>{Ok = true, Mensaje = "Cliente obtenido", Datos = await _unidadDeTrabajo.ClienteRepositorio.ObtenerPorIdAsincrono(id)};
 		}
 
-		public async Task<IEnumerable<Cliente>> ObternerTodosAsincrono()
+		public async Task<Respuesta<IEnumerable<Cliente>> ObternerTodosAsincrono()
 		{
+			
 			return await _unidadDeTrabajo.ClienteRepositorio.ObtenerTodosAsincrono();
 		}
 
-		public async Task Remover(int entidadId)
+		public async Task<Respuesta<Cliente>> Remover(int entidadId)
 		{
 			Cliente cliente = await _unidadDeTrabajo.ClienteRepositorio.ObtenerPorIdAsincrono(entidadId);
 			_unidadDeTrabajo.ClienteRepositorio.Remover(cliente);

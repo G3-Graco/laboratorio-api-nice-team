@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\Core.csproj": {}
+    "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\Core.csproj": {
+    "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\Core.csproj",
+        "projectUniqueName": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\Core.csproj",
-        "packagesPath": "C:\\Users\\d\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\obj\\",
+        "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\Core.csproj",
+        "packagesPath": "C:\\Users\\Siberia\\.nuget\\packages\\",
+        "outputPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\d\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Siberia\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,11 +34,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -60,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

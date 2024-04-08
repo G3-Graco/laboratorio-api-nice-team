@@ -1,12 +1,14 @@
+using Core.Respuestas;
+
 namespace Core.Interfaces.Servicios
 {
-    public interface IBaseServicio<Entitidad> where Entitidad : class
+    public interface IBaseServicio<Entidad> where Entidad : class
     {
         
-        Task<Entitidad> ObternerPorIdAsincrono(int id);
-        Task<IEnumerable<Entitidad>> ObternerTodosAsincrono();
-        Task<Entitidad> Agregar(Entitidad nuevaEntitidad);
-        Task<Entitidad> Actualizar(int entidadParaActualizarId, Entitidad nuevosValoresEntidad);
-        Task Remover(int entidadId);
+        Task<Respuesta<Entidad>> ObternerPorIdAsincrono(int id);
+        Task<Respuesta<IEnumerable<Entidad>>> ObternerTodosAsincrono();
+        Task<Respuesta<Entidad>> Agregar(Entidad nuevaEntitidad);
+        Task<Respuesta<Entidad>> Actualizar(int entidadParaActualizarId, Entidad nuevosValoresEntidad);
+        Task<Respuesta<Entidad>>Remover(int entidadId);
     }
 }

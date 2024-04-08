@@ -789,19 +789,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\d\\.nuget\\packages\\": {}
+    "C:\\Users\\Siberia\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Services\\Services.csproj",
+      "projectUniqueName": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Services\\Services.csproj",
       "projectName": "Services",
-      "projectPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Services\\Services.csproj",
-      "packagesPath": "C:\\Users\\d\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Services\\obj\\",
+      "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Services\\Services.csproj",
+      "packagesPath": "C:\\Users\\Siberia\\.nuget\\packages\\",
+      "outputPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Services\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\d\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Siberia\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -815,11 +815,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\Core.csproj": {
-              "projectPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\Core.csproj"
+            "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\Core.csproj": {
+              "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\Core.csproj"
             },
-            "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Infrastructure\\Infrastructure.csproj"
+            "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
@@ -828,11 +828,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -860,16 +855,8 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema al leer el archivo de caché C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Services\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }
