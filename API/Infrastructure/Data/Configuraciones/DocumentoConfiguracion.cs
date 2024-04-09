@@ -16,7 +16,7 @@ namespace Infrastructure.Data.Configuraciones
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.documento).IsRequired();
             builder.Property(x => x.IdTipo).IsRequired();
-            builder.Property(x => x.IdPrestamo).IsRequired();
+            builder.Property(x => x.IdPrestamo);
 
             builder.HasOne(x => x.Tipo).WithMany().HasForeignKey(x => x.IdTipo);
             builder.HasOne(x => x.prestamo).WithMany().HasForeignKey(x => x.IdPrestamo);
