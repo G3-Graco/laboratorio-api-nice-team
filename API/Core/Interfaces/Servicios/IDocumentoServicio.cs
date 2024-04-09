@@ -4,6 +4,6 @@ namespace Core.Interfaces.Servicios
 {
     public interface IDocumentoServicio : IBaseServicio<Documento>
     {
-         
+        
     }
 }
