@@ -31,5 +31,16 @@ namespace Services.Servicios
             throw new NotImplementedException();
         }
 
+        public Task<Respuesta<Pago>> RealizarPago(Pago pago)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Pensar bien como hacer esta
+        public Task<Respuesta<IEnumerable<Pago>>> ConsultarPagosPorPrestamo(int IdPrestamo)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

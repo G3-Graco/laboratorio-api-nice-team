@@ -31,5 +31,20 @@ namespace Services.Servicios
             throw new NotImplementedException();
         }
 
+        public Task<Respuesta<Movimiento>> RealizarTransferencia(Movimiento movimiento)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Respuesta<Movimiento>> RealizarDeposito(Movimiento movimiento)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Respuesta<Movimiento>> RealizarRetiro(Movimiento movimiento)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

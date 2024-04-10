@@ -31,8 +31,18 @@ namespace Services.Servicios
             throw new NotImplementedException();
         }
 
-        public Task<Respuesta<bool>> GuardarDocumento(Documento documento) {
-            var respuesta = new Respuesta<bool>();
+        public Task<Respuesta<Documento>> GuardarDocumento(Documento documento) 
+        {
+            var respuesta = new Respuesta<Documento>();
+            throw new NotImplementedException();
+        }
+
+        public Task<Respuesta<IEnumerable<Prestamo>>> ConsultarPrestamosDeCliente(int IdCliente) {
+            throw new NotImplementedException();
+        }
+
+        public Task<Respuesta<IEnumerable<Documento>>> ConsultarDocumentos(int IdPrestamo)
+        {
             throw new NotImplementedException();
         }
     }
