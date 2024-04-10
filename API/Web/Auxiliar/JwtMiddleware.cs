@@ -24,13 +24,29 @@ namespace Web.Helpers
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-            if (token != null)
+            //validar algun día si alguien no ingresa el idsesion en el query
+            var idsesion = context.Request.Query["idsesion"].ToString();
+
+
+			if (!String.IsNullOrEmpty(idsesion))
+			{
+                await attachUserToContextaaa();
+			}
+
+			if (token != null)
                 await attachUserToContext(context, usuarioServicio, token);
+
 
             await _next(context);
         }
 
-        private async Task attachUserToContext(HttpContext context, IUsuarioServicio usuarioServicio, string token)
+		private async Task attachUserToContextaaa()
+        {
+            //validacion
+        }
+
+
+		private async Task attachUserToContext(HttpContext context, IUsuarioServicio usuarioServicio, string token)
         {
             try
             {

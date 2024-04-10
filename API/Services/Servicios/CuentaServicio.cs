@@ -79,7 +79,7 @@ namespace Services.Servicios
 			await _unidadDeTrabajo.CommitAsync();
 			return new Respuesta<Cuenta> { Ok = true, Mensaje = "Cuenta eliminada", Datos = null };
 		}
-		public async Task<Respuesta<Cuenta>> ConsultarCuentaDeUnCliente(int idCliente, HttpContext context)
+		public async Task<Respuesta<Cuenta>> ConsultarCuentaDeUnCliente(int idCliente)
 		{
 			var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 

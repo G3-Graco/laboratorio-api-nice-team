@@ -96,7 +96,7 @@ namespace Services.Servicios
 			}
 
 			var tokenHandler = new JwtSecurityTokenHandler();
-			var key = Encoding.ASCII.GetBytes("c2c3111663e00afe901d9c00ab169d36");
+			var key = Encoding.ASCII.GetBytes("siberiaypaulamejoresamigasporsiempre");
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
 				Subject = new ClaimsIdentity(new Claim[]
@@ -116,7 +116,7 @@ namespace Services.Servicios
 		{
 			var tokenHandler = new JwtSecurityTokenHandler();
 		
-			var key = Encoding.ASCII.GetBytes("c2c3111663e00afe901d9c00ab169d36");
+			var key = Encoding.ASCII.GetBytes("siberiaypaulamejoresamigasporsiempre");
 			tokenHandler.ValidateToken(token, new TokenValidationParameters
 			{
 				IssuerSigningKey = new SymmetricSecurityKey(key),			

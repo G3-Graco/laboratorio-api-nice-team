@@ -114,12 +114,12 @@ namespace Web.Controladores
 		/// Método para obtener una cuenta de un cliente en específico
 		/// </summary>
 		/// <returns>Respuesta con objeto cuenta</returns>
-		[HttpGet("cuentacliente/{idcliente}")]
-		public async Task<ActionResult<Respuesta<Cuenta>>> GetCuentaCliente(int id)
+		[HttpGet("cuentacliente")]
+		public async Task<ActionResult<Respuesta<Cuenta>>> GetCuentaCliente(int idsesion) //query
 		{
 			try
 			{
-				var Respuesta = await _servicio.ConsultarCuentaDeUnCliente(id, context); //?
+				var Respuesta = await _servicio.ConsultarCuentaDeUnCliente(id); //?
 
 				return Ok(Respuesta);
 			}
