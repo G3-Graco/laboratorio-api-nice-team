@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Web\\Web.csproj": {}
+    "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Web\\Web.csproj": {}
   },
   "projects": {
-    "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\Core.csproj": {
+    "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\Core.csproj",
+        "projectUniqueName": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\Core.csproj",
+        "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Core\\Core.csproj",
         "packagesPath": "C:\\Users\\Siberia\\.nuget\\packages\\",
-        "outputPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\obj\\",
+        "outputPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Siberia\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -59,14 +59,14 @@
         }
       }
     },
-    "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Infrastructure\\Infrastructure.csproj": {
+    "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Infrastructure\\Infrastructure.csproj",
+        "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Infrastructure\\Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Siberia\\.nuget\\packages\\",
-        "outputPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Infrastructure\\obj\\",
+        "outputPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Siberia\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -83,8 +83,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\Core.csproj": {
-                "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\Core.csproj"
+              "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Core\\Core.csproj": {
+                "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Core\\Core.csproj"
               }
             }
           }
@@ -134,14 +134,14 @@
         }
       }
     },
-    "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Services\\Services.csproj": {
+    "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Services\\Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Services\\Services.csproj",
+        "projectUniqueName": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Services\\Services.csproj",
         "projectName": "Services",
-        "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Services\\Services.csproj",
+        "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Services\\Services.csproj",
         "packagesPath": "C:\\Users\\Siberia\\.nuget\\packages\\",
-        "outputPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Services\\obj\\",
+        "outputPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Siberia\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -158,11 +158,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\Core.csproj": {
-                "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\Core.csproj"
+              "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Core\\Core.csproj": {
+                "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Core\\Core.csproj"
               },
-              "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Infrastructure\\Infrastructure.csproj"
+              "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }
@@ -202,14 +202,14 @@
         }
       }
     },
-    "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Web\\Web.csproj": {
+    "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Web\\Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Web\\Web.csproj",
+        "projectUniqueName": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Web\\Web.csproj",
         "projectName": "Web",
-        "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Web\\Web.csproj",
+        "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Web\\Web.csproj",
         "packagesPath": "C:\\Users\\Siberia\\.nuget\\packages\\",
-        "outputPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Web\\obj\\",
+        "outputPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Siberia\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -226,14 +226,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\Core.csproj": {
-                "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Core\\Core.csproj"
+              "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Core\\Core.csproj": {
+                "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Core\\Core.csproj"
               },
-              "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Infrastructure\\Infrastructure.csproj"
+              "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Infrastructure\\Infrastructure.csproj"
               },
-              "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Services\\Services.csproj": {
-                "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Services\\Services.csproj"
+              "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Services\\Services.csproj": {
+                "projectPath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Services\\Services.csproj"
               }
             }
           }

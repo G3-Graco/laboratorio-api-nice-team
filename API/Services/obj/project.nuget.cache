@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "U4uTYr0GaTWiHhChqvFGDLKIB8N1mgsjn+tHmJCVvcsTMGdin0syCtj4II6NMe60Cw8IRT1cHKXaOGqvvowwxw==",
+  "dgSpecHash": "/1Iwul7/+hUScLTeO5lnWd7Sjbkz891U6mSW1PEHZ/VmfRLjFhtPdduPHJmZfnGJOgRXm9NJk2c6CArjCPLq1Q==",
   "success": true,
-  "projectFilePath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Services\\Services.csproj",
+  "projectFilePath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Services\\Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Siberia\\.nuget\\packages\\fluentvalidation\\11.9.0\\fluentvalidation.11.9.0.nupkg.sha512",
     "C:\\Users\\Siberia\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.3\\microsoft.entityframeworkcore.8.0.3.nupkg.sha512",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "58QzAPWQ7Pzl92TMd+JY8EigSnKgQy5AHqjAu44Erqq7DHT3aIOzpoKLQOliJumtOvzg2128qhRk0p6QaU/Jfw==",
+  "dgSpecHash": "tGEyUQ2B/+/jCcw26EBQxOffCsWhmTrWpwpW5eNXK4Es6IwQ5Q70Fj/uSkFUqrpl6f1uR4MLLI42GOZYwzTpqQ==",
   "success": true,
-  "projectFilePath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\API\\Infrastructure\\Infrastructure.csproj",
+  "projectFilePath": "D:\\Siberia\\Estudios\\Gracosoft b\\Nivel III\\Siberia 3\\ASP.NET Core\\Laboratorio\\src\\api\\api\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Siberia\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Siberia\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
