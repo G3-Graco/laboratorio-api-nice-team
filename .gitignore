@@ -486,3 +486,8 @@ $RECYCLE.BIN/
 # Built Visual Studio Code Extensions
 *.vsix
 *.vsidx
+
+.vs
+
+obj
+

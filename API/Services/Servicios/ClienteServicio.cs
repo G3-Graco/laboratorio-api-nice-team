@@ -46,7 +46,7 @@ namespace Services.Servicios
 			Cliente ClienteParaActualizar = await _unidadDeTrabajo.ClienteRepositorio.ObtenerPorIdAsincrono(entidadParaActualizarId);
 
 			if (ClienteParaActualizar == null)
-				throw new ArgumentException("Id del cliente a actualazar inválido");
+				throw new ArgumentException("Id del cliente a actualizar inválido");
 
 			ClienteParaActualizar.Nombre = nuevosValoresEntidad.Nombre;
 			ClienteParaActualizar.Apellido = nuevosValoresEntidad.Apellido;

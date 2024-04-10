@@ -2,7 +2,7 @@
 
 namespace Core.Interfaces.Servicios
 {
-	internal interface IPagoServicio : IBaseServicio<Pago>
+	public interface IPagoServicio : IBaseServicio<Pago>
 	{
 	}
 }
