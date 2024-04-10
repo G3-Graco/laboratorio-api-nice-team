@@ -3,6 +3,12 @@ using Core.Interfaces;
 using Core.Interfaces.Servicios;
 using Core.Respuestas;
 using Services.Validadores;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http.HttpResults;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Services.Servicios
 {
@@ -78,5 +84,36 @@ namespace Services.Servicios
 			await _unidadDeTrabajo.CommitAsync();
 			return new Respuesta<Usuario> { Ok = true, Mensaje = "Usuario eliminado", Datos = null };
 		}
+
+		public async Task<Respuesta<string>> IniciarSesion(string nombreusuario, string contrasena)
+		{
+			Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.IniciarSesion(nombreusuario, contrasena);
+
+			if (usuario == null)
+			{
+				return new Respuesta<string> { Ok = false, Mensaje = "Nombre de usuario y/o contraseña incorrecta.", Datos = string.Empty};
+				
+			}
+
+			var tokenHandler = new JwtSecurityTokenHandler();
+			var key = Encoding.ASCII.GetBytes("c2c3111663e00afe901d9c00ab169d36");
+			var tokenDescriptor = new SecurityTokenDescriptor
+			{
+				Subject = new ClaimsIdentity(new Claim[]
+				{
+					new Claim(ClaimTypes.Name, usuario.NombreUsuario),
+					new Claim("id", usuario.Id.ToString())
+				}),
+				Expires = DateTime.UtcNow.AddMinutes(7),
+				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+			};
+			var token = tokenHandler.CreateToken(tokenDescriptor);
+			string usuarioToken = tokenHandler.WriteToken(token);
+			return new Respuesta<string> { Ok = true, Mensaje = "Inicio de sesión correcto.", Datos = usuarioToken };
+		}
+
+
+
+
 	}
 }
