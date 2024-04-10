@@ -109,5 +109,16 @@ namespace Web.Controladores
 				return BadRequest(ex.Message);
 			}
 		}
+
+
+
+		[HttpPost("iniciosesion")]
+		public async Task<IActionResult> Login([FromBody] Usuario usuario)
+		{
+			var Respuesta = await _servicio.IniciarSesion(usuario.NombreUsuario, usuario.Contrasena);
+
+			return Ok(Respuesta);
+		}
+	
 	}
 }
