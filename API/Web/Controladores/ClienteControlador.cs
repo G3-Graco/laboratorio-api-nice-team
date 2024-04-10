@@ -95,7 +95,7 @@ namespace Web.Controladores
 		/// Método para eliminar a un cliente
 		/// </summary>
 		/// <returns>Respuesta con mensaje de éxito de eliminado y datos null</returns>
-		[HttpPut("{id}")]
+		[HttpDelete]
 		public async Task<ActionResult<Respuesta<Cliente>>> Delete(int id)
 		{
 			try
