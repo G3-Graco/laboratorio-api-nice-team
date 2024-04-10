@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Services.Servicios;
 using System.Reflection;
+using Web.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,22 @@ builder.Services.AddScoped(typeof(IBaseRepositorio<>), typeof(BaseRepositorio<>)
 
 builder.Services.AddScoped(typeof(IClienteRepositorio), typeof(ClienteRepositorio));
 builder.Services.AddScoped(typeof(IClienteServicio), typeof(ClienteServicio));
+
+builder.Services.AddScoped(typeof(ICuentaRepositorio), typeof(CuentaRepositorio));
+builder.Services.AddScoped(typeof(ICuentaServicio), typeof(CuentaServicio));
+
+builder.Services.AddScoped(typeof(IMovimientoRepositorio), typeof(MovimientoRepositorio));
+builder.Services.AddScoped(typeof(IMovimientoServicio), typeof(MovimientoServicio));
+
+builder.Services.AddScoped(typeof(IPagoRepositorio), typeof(PagoRepositorio));
+builder.Services.AddScoped(typeof(IPagoServicio), typeof(PagoServicio));
+
+builder.Services.AddScoped(typeof(IUsuarioRepositorio), typeof(UsuarioRepositorio));
+builder.Services.AddScoped(typeof(IUsuarioServicio), typeof(UsuarioServicio));
+
+builder.Services.AddScoped(typeof(ITipoMovimientoRepositorio), typeof(TipoMovimientoRepositorio));
+
+builder.Services.AddScoped(typeof(IFechaActualRepositorio), typeof(FechaActualRepositorio));
 
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -39,12 +56,41 @@ builder.Services.AddSwaggerGen(options =>
 		}
 	});
 
+	options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+	{
+		Name = "Authorization",
+		Type = SecuritySchemeType.ApiKey,
+		Scheme = "Bearer",
+		BearerFormat = "JWT",
+		In = ParameterLocation.Header,
+		Description = "JWT Authorization",
+	});
+
+	options.AddSecurityRequirement(new OpenApiSecurityRequirement
+				{
+					{
+						  new OpenApiSecurityScheme
+							{
+								Reference = new OpenApiReference
+								{
+									Type = ReferenceType.SecurityScheme,
+									Id = "Bearer"
+								}
+							},
+							new string[] {}
+
+					}
+				});
+
 	var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
 	options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 
 });
 
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
@@ -56,5 +102,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<JwtMiddleware>();
 
 app.Run();
