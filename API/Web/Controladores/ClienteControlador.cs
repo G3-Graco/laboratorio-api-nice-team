@@ -108,6 +108,8 @@ namespace Web.Controladores
 			{
 				return BadRequest(ex.Message);
 			}
+
+
 		}
 	}
 }

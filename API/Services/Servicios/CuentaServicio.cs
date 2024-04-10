@@ -3,6 +3,7 @@ using Core.Interfaces;
 using Core.Interfaces.Servicios;
 using Core.Respuestas;
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using Services.Validadores;
 
 namespace Services.Servicios
@@ -42,6 +43,8 @@ namespace Services.Servicios
 
 		}
 
+		
+
 		public async Task<Respuesta<Cuenta>> Agregar(Cuenta nuevaEntitidad)
 		{
 			CuentaValidador validador = new();
@@ -57,7 +60,7 @@ namespace Services.Servicios
 			await _unidadDeTrabajo.CommitAsync();
 
 			return new Respuesta<Cuenta> { Ok = true, Mensaje = "Cuenta creada con éxito", Datos = nuevaEntitidad };
-		}
+		}		
 
 		public async Task<Respuesta<Cuenta>> ObternerPorIdAsincrono(int id)
 		{
@@ -76,5 +79,46 @@ namespace Services.Servicios
 			await _unidadDeTrabajo.CommitAsync();
 			return new Respuesta<Cuenta> { Ok = true, Mensaje = "Cuenta eliminada", Datos = null };
 		}
+		public async Task<Respuesta<Cuenta>> ConsultarCuentaDeUnCliente(int idCliente, HttpContext context)
+		{
+			var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+
+			if (token == null)
+			{
+				return new Respuesta<Cuenta> { Ok = false, Mensaje = "Token inválido", Datos = null};
+			}
+
+			UsuarioServicio usuarioServicio = new(_unidadDeTrabajo);
+
+			var tokenidiguales = await usuarioServicio.ComprobarTokenConId(token, idCliente);
+
+			if (tokenidiguales.Datos)
+			{
+				var cuenta = await _unidadDeTrabajo.CuentaRepositorio.ConsultarCuentaDeUnCliente(idCliente);
+
+				return new Respuesta<Cuenta> { Ok = true, Mensaje = "Cuenta consultada", Datos = cuenta };
+			}
+			else
+			{
+				return new Respuesta<Cuenta> { Ok = false, Mensaje = "Token inválido", Datos = null };
+			}
+		
+			
+		}
+		public async Task<Respuesta<Cuenta>> ActualizarSaldo(int idCuenta, double nuevoSaldo)
+		{
+			Cuenta CuentaParaActualizar = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(idCuenta);
+
+			if (CuentaParaActualizar == null)
+				throw new ArgumentException("Id de la cuenta a actualizar saldo es inválido");
+
+			CuentaParaActualizar.Saldo = nuevoSaldo;
+
+			await _unidadDeTrabajo.CommitAsync();
+
+			return new Respuesta<Cuenta> { Ok = true, Mensaje = "Saldo actualizado con éxito", Datos = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(idCuenta) };
+
+		}
 	}
 }
+
