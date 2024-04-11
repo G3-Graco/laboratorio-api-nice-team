@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Core.Entidades;
 using Core.Interfaces.Servicios;
 using Core.Respuestas;
+using Web.Helpers;
 
 namespace Web.Controladores
 {
@@ -19,8 +20,9 @@ namespace Web.Controladores
 		/// Método para obtener lista de clientes
 		/// </summary>
 		/// <returns>Respuesta con objeto IEnumerable de clientes</returns>
-		[HttpGet]
-		public async Task<ActionResult<Respuesta<IEnumerable<Cliente>>>> Get()
+		[Authorize]
+		[HttpPost("asd")]
+		public async Task<ActionResult<Respuesta<IEnumerable<Cliente>>>> postt(int idsesion)
 		{
 			try
 			{

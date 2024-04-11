@@ -69,6 +69,7 @@ namespace Services.Servicios
 
 		public async Task<Respuesta<IEnumerable<Cliente>>> ObternerTodosAsincrono()
 		{
+			
 			return new Respuesta<IEnumerable<Cliente>>{Ok = true, Mensaje = "Clientes obtenidos", Datos = await _unidadDeTrabajo.ClienteRepositorio.ObtenerTodosAsincrono()};
 		}
 

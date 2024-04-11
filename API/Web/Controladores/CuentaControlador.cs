@@ -119,7 +119,7 @@ namespace Web.Controladores
 		{
 			try
 			{
-				var Respuesta = await _servicio.ConsultarCuentaDeUnCliente(id); //?
+				var Respuesta = await _servicio.ConsultarCuentaDeUnCliente(idsesion); 
 
 				return Ok(Respuesta);
 			}

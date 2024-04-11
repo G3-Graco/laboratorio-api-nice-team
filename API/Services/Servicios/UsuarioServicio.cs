@@ -7,8 +7,6 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Http.HttpResults;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Services.Servicios
 {
@@ -112,28 +110,6 @@ namespace Services.Servicios
 			return new Respuesta<string> { Ok = true, Mensaje = "Inicio de sesión correcto.", Datos = usuarioToken };
 		}
 
-		public async Task<Respuesta<bool>> ComprobarTokenConId(string token, int idusuario)
-		{
-			var tokenHandler = new JwtSecurityTokenHandler();
-		
-			var key = Encoding.ASCII.GetBytes("siberiaypaulamejoresamigasporsiempre");
-			tokenHandler.ValidateToken(token, new TokenValidationParameters
-			{
-				IssuerSigningKey = new SymmetricSecurityKey(key),			
-				ClockSkew = TimeSpan.Zero //quita margen de tolerancia
-			}, out SecurityToken validatedToken); //out asigna token validado
 
-			var jwtToken = (JwtSecurityToken)validatedToken;
-			var idusuariotoken = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
-
-			if (idusuario == idusuariotoken)
-			{
-				return new Respuesta<bool> { Ok = true, Mensaje = "El id del token es igual al del id a comparar", Datos = true };
-			}
-			else
-			{
-				return new Respuesta<bool> { Ok = false, Mensaje = "El id del token no es igual al del id a comparar", Datos = false };
-			}
-		}
 	}
 }

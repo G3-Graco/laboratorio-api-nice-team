@@ -1,7 +1,9 @@
 ﻿using Core.Entidades;
 using Core.Interfaces.Servicios;
+using Core.Respuestas;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Services.Servicios;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
@@ -24,33 +26,73 @@ namespace Web.Helpers
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-            //validar algun día si alguien no ingresa el idsesion en el query
+            //validar algun día si alguien no ingresa el idsesion en el query q pasaria
             var idsesion = context.Request.Query["idsesion"].ToString();
 
 
-			if (!String.IsNullOrEmpty(idsesion))
+			if (!String.IsNullOrEmpty(idsesion) && token != null)
 			{
-                await attachUserToContextaaa();
+                await attachUserToContextConId(context, usuarioServicio, token, int.Parse(idsesion));
+                return;
 			}
 
 			if (token != null)
                 await attachUserToContext(context, usuarioServicio, token);
 
-
             await _next(context);
         }
 
-		private async Task attachUserToContextaaa()
+		private async Task attachUserToContextConId(HttpContext context, IUsuarioServicio usuarioServicio, string token, int idsesion)
         {
-            //validacion
-        }
+			
+			try
+			{
+				
+				var tokenHandler = new JwtSecurityTokenHandler();
+				var skey = _configuration["Jwt:Key"];
+				var key = Encoding.ASCII.GetBytes(skey);
+				tokenHandler.ValidateToken(token, new TokenValidationParameters
+				{
+					ValidateIssuerSigningKey = true,
+					IssuerSigningKey = new SymmetricSecurityKey(key),
+					ValidateIssuer = false,
+					ValidateAudience = false,
+					ClockSkew = TimeSpan.Zero
+				}, out SecurityToken validatedToken);
+
+				Console.WriteLine("pasapasapasa");
+
+				var jwtToken = (JwtSecurityToken)validatedToken;
+				var usuarioId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
+
+				
+				var usuario = await usuarioServicio.ObternerPorIdAsincrono(usuarioId);
+
+				if (usuario != null && usuarioId == idsesion)
+                {
+					context.Items["ok"] = true;
+					Console.WriteLine("si es true vaamos");
+				}                 
+				else
+                {
+					context.Items["ok"] = null;
+					Console.WriteLine("si es false vaamos");
+				}
+
+			}
+			catch
+			{
+				//
+			}
+		}
 
 
 		private async Task attachUserToContext(HttpContext context, IUsuarioServicio usuarioServicio, string token)
         {
             try
             {
-                var tokenHandler = new JwtSecurityTokenHandler();
+				Console.WriteLine("holaaaa1");
+				var tokenHandler = new JwtSecurityTokenHandler();
                 var skey = _configuration["Jwt:Key"];
                 var key = Encoding.ASCII.GetBytes(skey);
                 tokenHandler.ValidateToken(token, new TokenValidationParameters

@@ -81,28 +81,13 @@ namespace Services.Servicios
 		}
 		public async Task<Respuesta<Cuenta>> ConsultarCuentaDeUnCliente(int idCliente)
 		{
-			var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+			var cuenta = await _unidadDeTrabajo.CuentaRepositorio.ConsultarCuentaDeUnCliente(idCliente);
 
-			if (token == null)
-			{
-				return new Respuesta<Cuenta> { Ok = false, Mensaje = "Token inválido", Datos = null};
-			}
+			if (cuenta == null)
+				throw new ArgumentException("No se ha encontrado una cuenta para este cliente");
 
-			UsuarioServicio usuarioServicio = new(_unidadDeTrabajo);
+			return new Respuesta<Cuenta> { Ok = true, Mensaje = "Cuenta consultada", Datos = cuenta };
 
-			var tokenidiguales = await usuarioServicio.ComprobarTokenConId(token, idCliente);
-
-			if (tokenidiguales.Datos)
-			{
-				var cuenta = await _unidadDeTrabajo.CuentaRepositorio.ConsultarCuentaDeUnCliente(idCliente);
-
-				return new Respuesta<Cuenta> { Ok = true, Mensaje = "Cuenta consultada", Datos = cuenta };
-			}
-			else
-			{
-				return new Respuesta<Cuenta> { Ok = false, Mensaje = "Token inválido", Datos = null };
-			}
-		
 			
 		}
 		public async Task<Respuesta<Cuenta>> ActualizarSaldo(int idCuenta, double nuevoSaldo)

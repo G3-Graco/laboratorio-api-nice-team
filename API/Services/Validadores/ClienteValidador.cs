@@ -7,9 +7,6 @@ namespace Services.Validadores
 	{
 		public ClienteValidador()
 		{
-			RuleFor(x => x.Id)
-				.NotEmpty();
-
 			RuleFor(x => x.Nombre)
                 .NotEmpty()
 				.MaximumLength(255);
