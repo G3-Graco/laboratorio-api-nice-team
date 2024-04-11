@@ -6,7 +6,7 @@ namespace Services.Validadores
     public class PrestamoValidador : AbstractValidator<Prestamo>
     {
         public PrestamoValidador() {
-            RuleFor(x => x.Id);
+            // RuleFor(x => x.Id);
             RuleFor(x => x.CuotaMensual);
             RuleFor(x => x.NumeroCuotas);
             RuleFor(x => x.MontoTotal);
