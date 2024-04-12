@@ -47,6 +47,7 @@ namespace Services.Servicios
                 var tipo = await _unidadDeTrabajo.TipoDocumentoRepositorio.ObtenerPorIdAsincrono(documento.IdTipo);
                 if (tipo == null) throw new ArgumentException("El tipo de este documento no existe");
                 await _unidadDeTrabajo.DocumentoRepositorio.AgregarAsincrono(documento);
+                await _unidadDeTrabajo.CommitAsync();
                 var respuesta = new Respuesta<Documento>() {
                     Datos = documento, 
                     Ok = true, 

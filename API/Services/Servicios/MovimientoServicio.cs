@@ -59,6 +59,7 @@ namespace Services.Servicios
                 await _unidadDeTrabajo.CuentaRepositorio.Actualizar(cuentaOrigen);
                 await _unidadDeTrabajo.CuentaRepositorio.Actualizar(cuentaReceptora);
                 await _unidadDeTrabajo.MovimientoRepositorio.AgregarAsincrono(movimiento);
+                await _unidadDeTrabajo.CommitAsync();
                 respuesta.Ok = true;
                 respuesta.Mensaje = "Transferencia realizada con éxito";
                 respuesta.Datos = movimiento;
@@ -82,6 +83,7 @@ namespace Services.Servicios
                 cuenta.Saldo += movimiento.Monto;
                 await _unidadDeTrabajo.CuentaRepositorio.Actualizar(cuenta);
                 await _unidadDeTrabajo.MovimientoRepositorio.AgregarAsincrono(movimiento);
+                await _unidadDeTrabajo.CommitAsync();
                 respuesta.Ok = true;
                 respuesta.Mensaje = "Déposito realizada con éxito";
                 respuesta.Datos = movimiento;
@@ -110,6 +112,7 @@ namespace Services.Servicios
                 cuenta.Saldo -= movimiento.Monto;
                 await _unidadDeTrabajo.CuentaRepositorio.Actualizar(cuenta);
                 await _unidadDeTrabajo.MovimientoRepositorio.AgregarAsincrono(movimiento);
+                await _unidadDeTrabajo.CommitAsync();
                 respuesta.Ok = true;
                 respuesta.Mensaje = "Transferencia realizada con éxito";
                 respuesta.Datos = movimiento;
