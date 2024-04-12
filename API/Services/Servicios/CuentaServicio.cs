@@ -64,7 +64,17 @@ namespace Services.Servicios
 
 		public async Task<Respuesta<Cuenta>> ObternerPorIdAsincrono(int id)
 		{
-			return new Respuesta<Cuenta> { Ok = true, Mensaje = "Cuenta obtenida", Datos = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(id) };
+			var obtenido = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(id);
+
+			if (obtenido == null)
+			{
+				return new Respuesta<Cuenta> { Ok = false, Mensaje = "Cuenta no encontrada", Datos = obtenido };
+			}
+			else
+			{
+				return new Respuesta<Cuenta> { Ok = true, Mensaje = "Cuenta obtenida", Datos = obtenido };
+			}
+
 		}
 
 		public async Task<Respuesta<IEnumerable<Cuenta>>> ObternerTodosAsincrono()
@@ -79,9 +89,13 @@ namespace Services.Servicios
 			await _unidadDeTrabajo.CommitAsync();
 			return new Respuesta<Cuenta> { Ok = true, Mensaje = "Cuenta eliminada", Datos = null };
 		}
-		public async Task<Respuesta<Cuenta>> ConsultarCuentaDeUnCliente(int idCliente)
+		public async Task<Respuesta<Cuenta>> ConsultarCuentaDeUnCliente(int idUsuarioSesion)
 		{
-			var cuenta = await _unidadDeTrabajo.CuentaRepositorio.ConsultarCuentaDeUnCliente(idCliente);
+			if (idUsuarioSesion == null)
+			{
+				throw new ArgumentException("No se ha encontrado una cuenta para este cliente");
+			}
+			var cuenta = await _unidadDeTrabajo.CuentaRepositorio.ConsultarCuentaDeUnCliente(idUsuarioSesion);
 
 			if (cuenta == null)
 				throw new ArgumentException("No se ha encontrado una cuenta para este cliente");

@@ -62,7 +62,16 @@ namespace Services.Servicios
 
 		public async Task<Respuesta<Pago>> ObternerPorIdAsincrono(int id)
 		{
-			return new Respuesta<Pago> { Ok = true, Mensaje = "Pago obtenido", Datos = await _unidadDeTrabajo.PagoRepositorio.ObtenerPorIdAsincrono(id) };
+			var obtenido = await _unidadDeTrabajo.PagoRepositorio.ObtenerPorIdAsincrono(id);
+
+			if (obtenido == null)
+			{
+				return new Respuesta<Pago> { Ok = false, Mensaje = "Pago no encontrado", Datos = obtenido };
+			}
+			else
+			{
+				return new Respuesta<Pago> { Ok = true, Mensaje = "Pago obtenido", Datos = obtenido };
+			}
 		}
 
 		public async Task<Respuesta<IEnumerable<Pago>>> ObternerTodosAsincrono()

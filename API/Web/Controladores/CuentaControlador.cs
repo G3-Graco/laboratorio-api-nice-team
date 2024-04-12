@@ -115,11 +115,11 @@ namespace Web.Controladores
 		/// </summary>
 		/// <returns>Respuesta con objeto cuenta</returns>
 		[HttpGet("cuentacliente")]
-		public async Task<ActionResult<Respuesta<Cuenta>>> GetCuentaCliente(int idsesion) //query
+		public async Task<ActionResult<Respuesta<Cuenta>>> GetCuentaCliente(int idusuariosesion) //query
 		{
 			try
 			{
-				var Respuesta = await _servicio.ConsultarCuentaDeUnCliente(idsesion); 
+				var Respuesta = await _servicio.ConsultarCuentaDeUnCliente(idusuariosesion); 
 
 				return Ok(Respuesta);
 			}

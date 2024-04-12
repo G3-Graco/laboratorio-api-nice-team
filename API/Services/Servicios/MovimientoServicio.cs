@@ -66,7 +66,16 @@ namespace Services.Servicios
 
 		public async Task<Respuesta<Movimiento>> ObternerPorIdAsincrono(int id)
 		{
-			return new Respuesta<Movimiento> { Ok = true, Mensaje = "Cliente obtenido", Datos = await _unidadDeTrabajo.MovimientoRepositorio.ObtenerPorIdAsincrono(id) };
+			var obtenido = await _unidadDeTrabajo.MovimientoRepositorio.ObtenerPorIdAsincrono(id);
+
+			if (obtenido == null)
+			{
+				return new Respuesta<Movimiento> { Ok = false, Mensaje = "Movimiento no encontrado", Datos = obtenido };
+			}
+			else
+			{
+				return new Respuesta<Movimiento> { Ok = true, Mensaje = "Movimiento obtenido", Datos = obtenido };
+			}
 		}
 
 		public async Task<Respuesta<IEnumerable<Movimiento>>> ObternerTodosAsincrono()

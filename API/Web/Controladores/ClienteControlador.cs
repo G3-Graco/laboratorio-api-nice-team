@@ -21,8 +21,8 @@ namespace Web.Controladores
 		/// </summary>
 		/// <returns>Respuesta con objeto IEnumerable de clientes</returns>
 		[Authorize]
-		[HttpPost("asd")]
-		public async Task<ActionResult<Respuesta<IEnumerable<Cliente>>>> postt(int idsesion)
+		[HttpGet]
+		public async Task<ActionResult<Respuesta<IEnumerable<Cliente>>>> Get()
 		{
 			try
 			{

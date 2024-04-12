@@ -27,17 +27,22 @@ namespace Web.Helpers
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             //validar algun día si alguien no ingresa el idsesion en el query q pasaria
-            var idsesion = context.Request.Query["idsesion"].ToString();
+            var idsesion = context.Request.Query["idusuariosesion"].ToString();
 
-
-			if (!String.IsNullOrEmpty(idsesion) && token != null)
-			{
-                await attachUserToContextConId(context, usuarioServicio, token, int.Parse(idsesion));
-                return;
-			}
+	
 
 			if (token != null)
-                await attachUserToContext(context, usuarioServicio, token);
+            {
+				if (!String.IsNullOrEmpty(idsesion) && token != null)
+				{
+					await attachUserToContextConId(context, usuarioServicio, token, int.Parse(idsesion));
+				}
+				else
+				{
+					await attachUserToContext(context, usuarioServicio, token);
+				}
+			}
+                
 
             await _next(context);
         }
@@ -47,7 +52,6 @@ namespace Web.Helpers
 			
 			try
 			{
-				
 				var tokenHandler = new JwtSecurityTokenHandler();
 				var skey = _configuration["Jwt:Key"];
 				var key = Encoding.ASCII.GetBytes(skey);
@@ -60,7 +64,7 @@ namespace Web.Helpers
 					ClockSkew = TimeSpan.Zero
 				}, out SecurityToken validatedToken);
 
-				Console.WriteLine("pasapasapasa");
+				
 
 				var jwtToken = (JwtSecurityToken)validatedToken;
 				var usuarioId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
@@ -71,12 +75,10 @@ namespace Web.Helpers
 				if (usuario != null && usuarioId == idsesion)
                 {
 					context.Items["ok"] = true;
-					Console.WriteLine("si es true vaamos");
 				}                 
 				else
                 {
 					context.Items["ok"] = null;
-					Console.WriteLine("si es false vaamos");
 				}
 
 			}
@@ -91,7 +93,6 @@ namespace Web.Helpers
         {
             try
             {
-				Console.WriteLine("holaaaa1");
 				var tokenHandler = new JwtSecurityTokenHandler();
                 var skey = _configuration["Jwt:Key"];
                 var key = Encoding.ASCII.GetBytes(skey);
@@ -103,8 +104,8 @@ namespace Web.Helpers
                     ValidateAudience = false,
                     ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);
-
-                var jwtToken = (JwtSecurityToken)validatedToken;
+				
+				var jwtToken = (JwtSecurityToken)validatedToken;
                 var usuarioId = int.Parse(jwtToken.Claims.First(x => x.Type == "id").Value);
                 
 
