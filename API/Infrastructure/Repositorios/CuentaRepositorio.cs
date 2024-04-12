@@ -16,5 +16,10 @@ namespace Infrastructure.Repositorios
 		{
 			return await dbSet.Where(c => c.ClienteId.Equals(idCliente)).FirstOrDefaultAsync();
 		}
+
+		public virtual async ValueTask<Cuenta> ObtenerPorIdAsincrono (Int64 id)
+		{
+			return await dbSet.FindAsync(id);
+		}
 	}
 }

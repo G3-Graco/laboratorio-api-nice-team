@@ -95,21 +95,25 @@ namespace Services.Servicios
 			{
 				throw new ArgumentException("No se ha insertado el id del usuario de la sesión activa.");
 			}
-			var cuenta = await _unidadDeTrabajo.CuentaRepositorio.ConsultarCuentaDeUnCliente(idUsuarioSesion);
+			Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
+			
+			var cuenta = await _unidadDeTrabajo.CuentaRepositorio.ConsultarCuentaDeUnCliente(usuario.ClienteId);
 
-			Console.WriteLine("coño no puede ser");
-			Console.WriteLine(idUsuarioSesion);
 			if (cuenta == null)
 				throw new ArgumentException("No se ha encontrado una cuenta para este cliente");
 
-			return new Respuesta<Cuenta> { Ok = true, Mensaje = "Cuenta consultada", Datos = cuenta };
-
-			
+			return new Respuesta<Cuenta> { Ok = true, Mensaje = "Cuenta consultada", Datos = cuenta };	
 		}
+
 		public async Task<Respuesta<Cuenta>> ActualizarSaldo(int idUsuarioSesion, double nuevoSaldo)
 		{
-			//
-			Cuenta CuentaParaActualizar = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
+			if (idUsuarioSesion == null || idUsuarioSesion == 0) //idUsuarioSesion == 0 si el usuario no inserta este dato en el query
+			{
+				throw new ArgumentException("No se ha insertado el id del usuario de la sesión activa.");
+			}
+			Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
+
+			Cuenta CuentaParaActualizar = await _unidadDeTrabajo.CuentaRepositorio.ConsultarCuentaDeUnCliente(usuario.ClienteId);
 
 			if (CuentaParaActualizar == null)
 				throw new ArgumentException("Id de la cuenta a actualizar saldo es inválido");
@@ -118,7 +122,7 @@ namespace Services.Servicios
 
 			await _unidadDeTrabajo.CommitAsync();
 
-			return new Respuesta<Cuenta> { Ok = true, Mensaje = "Saldo actualizado con éxito", Datos = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(4) };
+			return new Respuesta<Cuenta> { Ok = true, Mensaje = "Saldo actualizado con éxito", Datos = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(CuentaParaActualizar.Identificador) };
 
 		}
 	}
