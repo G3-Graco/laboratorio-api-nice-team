@@ -2,6 +2,7 @@
 using Core.Interfaces.Servicios;
 using Core.Respuestas;
 using Microsoft.AspNetCore.Mvc;
+using Web.Helpers;
 
 namespace Web.Controladores
 {
@@ -30,7 +31,7 @@ namespace Web.Controladores
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return BadRequest(new { message = ex.Message });
 			}
 		}
 
@@ -49,7 +50,7 @@ namespace Web.Controladores
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return BadRequest(new { message = ex.Message });
 			}
 		}
 
@@ -68,7 +69,7 @@ namespace Web.Controladores
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return BadRequest(new { message = ex.Message });
 			}
 		}
 
@@ -87,7 +88,7 @@ namespace Web.Controladores
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return BadRequest(new { message = ex.Message });
 			}
 		}
 
@@ -106,7 +107,7 @@ namespace Web.Controladores
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return BadRequest(new { message = ex.Message });
 			}
 		}
 
@@ -125,9 +126,48 @@ namespace Web.Controladores
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return BadRequest(new { message = ex.Message });
 			}
 		}
 
+		/// <summary>
+		/// Método para obtener una cuenta de un cliente en específico
+		/// </summary>
+		/// <returns>Respuesta con objeto cuenta</returns>
+		[Authorize]
+		[HttpPost("cuentacliente")]
+		public async Task<ActionResult<Respuesta<Cuenta>>> PostCuentaCliente(int idusuariosesion) //query
+		{
+			try
+			{
+				var Respuesta = await _servicio.ConsultarCuentaDeUnCliente(idusuariosesion);
+
+				return Ok(Respuesta);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(new { message = ex.Message });
+			}
+		}
+
+		/// <summary>
+		/// Método para obtener actualizar el saldo de la cuenta de un cliente en específico
+		/// </summary>
+		/// <returns>Respuesta con objeto cuenta</returns>
+		[Authorize]
+		[HttpPost("actualizarsaldo")]
+		public async Task<ActionResult<Respuesta<Cuenta>>> PostActualizarSaldo(int idusuariosesion, double nuevoSaldo) //query
+		{
+			try
+			{
+				var Respuesta = await _servicio.ActualizarSaldo(idusuariosesion, nuevoSaldo);
+
+				return Ok(Respuesta);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(new { message = ex.Message });
+			}
+		}
 	}
 }

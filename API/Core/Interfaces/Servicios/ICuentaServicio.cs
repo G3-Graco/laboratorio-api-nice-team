@@ -6,6 +6,6 @@ namespace Core.Interfaces.Servicios
 	public interface ICuentaServicio : IBaseServicio<Cuenta>
 	{
 		Task<Respuesta<Cuenta>> ConsultarCuentaDeUnCliente(int idUsuarioSesion);
-		Task<Respuesta<Cuenta>> ActualizarSaldo(int idCuenta, double nuevoSaldo);
+		Task<Respuesta<Cuenta>> ActualizarSaldo(int idUsuarioSesion, double nuevoSaldo);
 	}
 }

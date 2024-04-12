@@ -56,10 +56,10 @@ namespace Services.Servicios
 				throw new ArgumentException(resultadoValidacion.Errors[0].ErrorMessage.ToString());
 			}
 
-			await _unidadDeTrabajo.CuentaRepositorio.AgregarAsincrono(nuevaEntitidad);
+			var entidadagregada = await _unidadDeTrabajo.CuentaRepositorio.AgregarAsincrono(nuevaEntitidad);
 			await _unidadDeTrabajo.CommitAsync();
 
-			return new Respuesta<Cuenta> { Ok = true, Mensaje = "Cuenta creada con éxito", Datos = nuevaEntitidad };
+			return new Respuesta<Cuenta> { Ok = true, Mensaje = "Cuenta creada con éxito", Datos = entidadagregada };
 		}		
 
 		public async Task<Respuesta<Cuenta>> ObternerPorIdAsincrono(int id)
@@ -91,12 +91,14 @@ namespace Services.Servicios
 		}
 		public async Task<Respuesta<Cuenta>> ConsultarCuentaDeUnCliente(int idUsuarioSesion)
 		{
-			if (idUsuarioSesion == null)
+			if (idUsuarioSesion == null || idUsuarioSesion == 0) //idUsuarioSesion == 0 si el usuario no inserta este dato en el query
 			{
-				throw new ArgumentException("No se ha encontrado una cuenta para este cliente");
+				throw new ArgumentException("No se ha insertado el id del usuario de la sesión activa.");
 			}
 			var cuenta = await _unidadDeTrabajo.CuentaRepositorio.ConsultarCuentaDeUnCliente(idUsuarioSesion);
 
+			Console.WriteLine("coño no puede ser");
+			Console.WriteLine(idUsuarioSesion);
 			if (cuenta == null)
 				throw new ArgumentException("No se ha encontrado una cuenta para este cliente");
 
@@ -104,9 +106,10 @@ namespace Services.Servicios
 
 			
 		}
-		public async Task<Respuesta<Cuenta>> ActualizarSaldo(int idCuenta, double nuevoSaldo)
+		public async Task<Respuesta<Cuenta>> ActualizarSaldo(int idUsuarioSesion, double nuevoSaldo)
 		{
-			Cuenta CuentaParaActualizar = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(idCuenta);
+			//
+			Cuenta CuentaParaActualizar = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
 
 			if (CuentaParaActualizar == null)
 				throw new ArgumentException("Id de la cuenta a actualizar saldo es inválido");
@@ -115,7 +118,7 @@ namespace Services.Servicios
 
 			await _unidadDeTrabajo.CommitAsync();
 
-			return new Respuesta<Cuenta> { Ok = true, Mensaje = "Saldo actualizado con éxito", Datos = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(idCuenta) };
+			return new Respuesta<Cuenta> { Ok = true, Mensaje = "Saldo actualizado con éxito", Datos = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(4) };
 
 		}
 	}

@@ -13,7 +13,7 @@ namespace Web.Helpers
             var ok = (bool?)context.HttpContext.Items["ok"];
             if (ok == null)
             {
-                context.Result = new JsonResult(new { message = "Token inválido" }) { StatusCode = StatusCodes.Status401Unauthorized };
+                context.Result = new JsonResult(new { message = "token invalido" }) { StatusCode = StatusCodes.Status401Unauthorized };
             }
         }
     }

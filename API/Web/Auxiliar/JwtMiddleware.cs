@@ -26,7 +26,6 @@ namespace Web.Helpers
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-            //validar algun día si alguien no ingresa el idsesion en el query q pasaria
             var idsesion = context.Request.Query["idusuariosesion"].ToString();
 
 	
@@ -52,6 +51,7 @@ namespace Web.Helpers
 			
 			try
 			{
+				
 				var tokenHandler = new JwtSecurityTokenHandler();
 				var skey = _configuration["Jwt:Key"];
 				var key = Encoding.ASCII.GetBytes(skey);
@@ -93,6 +93,7 @@ namespace Web.Helpers
         {
             try
             {
+				
 				var tokenHandler = new JwtSecurityTokenHandler();
                 var skey = _configuration["Jwt:Key"];
                 var key = Encoding.ASCII.GetBytes(skey);

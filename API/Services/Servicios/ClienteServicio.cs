@@ -24,10 +24,10 @@ namespace Services.Servicios
 				throw new ArgumentException(resultadoValidacion.Errors[0].ErrorMessage.ToString());
 			}
 
-			await _unidadDeTrabajo.ClienteRepositorio.AgregarAsincrono(nuevaEntitidad);
+			var entidadagregada = await _unidadDeTrabajo.ClienteRepositorio.AgregarAsincrono(nuevaEntitidad);
 			await _unidadDeTrabajo.CommitAsync();
 		
-			return new Respuesta<Cliente>{Ok = true, Mensaje = "Cliente creado con éxito", Datos = nuevaEntitidad};
+			return new Respuesta<Cliente>{Ok = true, Mensaje = "Cliente creado con éxito", Datos = entidadagregada };
 		}
 
 		public async Task<Respuesta<Cliente>> Actualizar(int entidadParaActualizarId, Cliente nuevosValoresEntidad)

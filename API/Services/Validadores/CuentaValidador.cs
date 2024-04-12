@@ -8,10 +8,11 @@ namespace Services.Validadores
 		public CuentaValidador()
 		{
 			RuleFor(x => x.Identificador)
-				.NotEmpty();
+				.NotEmpty()
+				.GreaterThanOrEqualTo(100000000000);
 
 			RuleFor(x => x.Saldo)
-				.NotEmpty();
+				.GreaterThanOrEqualTo(0);
 
 			RuleFor(x => x.ClienteId)
 				.NotEmpty();

@@ -58,10 +58,10 @@ namespace Services.Servicios
 				throw new ArgumentException(resultadoValidacion.Errors[0].ErrorMessage.ToString());
 			}
 
-			await _unidadDeTrabajo.UsuarioRepositorio.AgregarAsincrono(nuevaEntitidad);
+			var entidadagregada = await _unidadDeTrabajo.UsuarioRepositorio.AgregarAsincrono(nuevaEntitidad);
 			await _unidadDeTrabajo.CommitAsync();
 
-			return new Respuesta<Usuario> { Ok = true, Mensaje = "Usuario creado con éxito", Datos = nuevaEntitidad };
+			return new Respuesta<Usuario> { Ok = true, Mensaje = "Usuario creado con éxito", Datos = entidadagregada };
 
 		}
 
@@ -119,6 +119,58 @@ namespace Services.Servicios
 			return new Respuesta<string> { Ok = true, Mensaje = "Inicio de sesión correcto.", Datos = usuarioToken };
 		}
 
+		public async Task<Respuesta<ModeloRegistrarse>> Registrarse(ModeloRegistrarse modeloRegistrarse)
+		{
+			ModeloRegistrarseValidador validador = new();
 
+			var resultadoValidacion = await validador.ValidateAsync(modeloRegistrarse);
+
+			if (!resultadoValidacion.IsValid)
+			{
+				//new Respuesta<Cliente>{Ok = false, Mensaje = resultadoValidacion.Errors[0].ErrorMessage.ToString(), Datos = null};
+				throw new ArgumentException(resultadoValidacion.Errors[0].ErrorMessage.ToString());
+
+
+			}
+			ClienteServicio clienteServicio = new (_unidadDeTrabajo);
+			CuentaServicio cuentaServicio = new(_unidadDeTrabajo);
+
+			var clienteAgregado = await clienteServicio.Agregar(new Cliente 
+			{
+				Id = 0,
+				Nombre = modeloRegistrarse.Nombre,
+				Apellido = modeloRegistrarse.Apellido,
+				Cedula = modeloRegistrarse.Cedula,
+				Correo = modeloRegistrarse.Correo,
+				FechaNacimiento = modeloRegistrarse.FechaNacimiento,
+				Telefono = modeloRegistrarse.Telefono,
+				Direccion = modeloRegistrarse.Direccion
+			});
+
+			string numeroDeCuenta = modeloRegistrarse.Cedula.Substring(0, 7);
+			var random = new Random();
+			for( int i = 0; i < 5; i++ )
+			{
+				numeroDeCuenta += random.Next(9).ToString();
+			}
+			
+			await cuentaServicio.Agregar(new Cuenta
+			{
+				Identificador = Int64.Parse(numeroDeCuenta),
+				Saldo = 0,
+				ClienteId = clienteAgregado.Datos.Id
+			});
+
+			await _unidadDeTrabajo.UsuarioRepositorio.AgregarAsincrono(new Usuario
+			{
+				Id = 0,
+				NombreUsuario = modeloRegistrarse.NombreUsuario,
+				Contrasena = modeloRegistrarse.Contrasena,
+				ClienteId = clienteAgregado.Datos.Id
+			});
+			await _unidadDeTrabajo.CommitAsync();
+
+			return new Respuesta<ModeloRegistrarse> { Ok = true, Mensaje = "Usuario registrado correctamente.", Datos = modeloRegistrarse };
+		}
 	}
 }

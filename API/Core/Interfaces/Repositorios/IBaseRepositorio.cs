@@ -8,7 +8,7 @@ namespace Core.Interfaces.Repositorios
         void Remover(Entidad entidad);
         void RemoverRango(IEnumerable<Entidad> entidades);
         Task Actualizar(Entidad entidad);
-        Task AgregarAsincrono(Entidad entidad);
+        Task<Entidad> AgregarAsincrono(Entidad entidad);
 
 
     }

@@ -57,10 +57,10 @@ namespace Services.Servicios
 				throw new ArgumentException(resultadoValidacion.Errors[0].ErrorMessage.ToString());
 			}
 
-			await _unidadDeTrabajo.MovimientoRepositorio.AgregarAsincrono(nuevaEntitidad);
+			var entidadagregada = await _unidadDeTrabajo.MovimientoRepositorio.AgregarAsincrono(nuevaEntitidad);
 			await _unidadDeTrabajo.CommitAsync();
 
-			return new Respuesta<Movimiento> { Ok = true, Mensaje = "Movimiento creado con éxito", Datos = nuevaEntitidad };
+			return new Respuesta<Movimiento> { Ok = true, Mensaje = "Movimiento creado con éxito", Datos = entidadagregada };
 
 		}
 

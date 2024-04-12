@@ -30,7 +30,7 @@ namespace Web.Controladores
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return BadRequest(new { message = ex.Message });
 			}
 		}
 
@@ -49,7 +49,7 @@ namespace Web.Controladores
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return BadRequest(new { message = ex.Message });
 			}
 		}
 
@@ -68,7 +68,7 @@ namespace Web.Controladores
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return BadRequest(new { message = ex.Message });
 			}
 		}
 
@@ -87,7 +87,7 @@ namespace Web.Controladores
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return BadRequest(new { message = ex.Message });
 			}
 		}
 
@@ -106,7 +106,7 @@ namespace Web.Controladores
 			}
 			catch (Exception ex)
 			{
-				return BadRequest(ex.Message);
+				return BadRequest(new { message = ex.Message });
 			}
 		}
 
@@ -115,10 +115,32 @@ namespace Web.Controladores
 		[HttpPost("iniciosesion")]
 		public async Task<IActionResult> Login([FromBody] Usuario usuario)
 		{
-			var Respuesta = await _servicio.IniciarSesion(usuario.NombreUsuario, usuario.Contrasena);
+			try
+			{
+				var Respuesta = await _servicio.IniciarSesion(usuario.NombreUsuario, usuario.Contrasena);
 
-			return Ok(Respuesta);
+				return Ok(Respuesta);
+			}
+			catch(Exception ex)
+			{
+				return BadRequest(new { message = ex.Message });
+			}			
 		}
-	
+
+		[HttpPost("registrarse")]
+		public async Task<IActionResult> Registrarse([FromBody] ModeloRegistrarse modeloRegistrarse)
+		{
+			try
+			{
+				var Respuesta = await _servicio.Registrarse(modeloRegistrarse);
+
+				return Ok(Respuesta);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(new { message = ex.Message });
+			}
+		}
+
 	}
 }

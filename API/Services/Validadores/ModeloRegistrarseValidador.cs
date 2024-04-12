@@ -1,14 +1,22 @@
-﻿using Core.Entidades;
+﻿using Core.Respuestas;
 using FluentValidation;
 
 namespace Services.Validadores
 {
-	public class ClienteValidador : AbstractValidator<Cliente>
+	public class ModeloRegistrarseValidador : AbstractValidator<ModeloRegistrarse>
 	{
-		public ClienteValidador()
+		public ModeloRegistrarseValidador()
 		{
+			RuleFor(x => x.NombreUsuario)
+				.NotEmpty()
+				.MaximumLength(255);
+
+			RuleFor(x => x.Contrasena)
+				.NotEmpty()
+				.MaximumLength(255);
+
 			RuleFor(x => x.Nombre)
-                .NotEmpty()
+				.NotEmpty()
 				.MaximumLength(255);
 
 			RuleFor(x => x.Apellido)

@@ -53,10 +53,10 @@ namespace Services.Servicios
 				throw new ArgumentException(resultadoValidacion.Errors[0].ErrorMessage.ToString());
 			}
 
-			await _unidadDeTrabajo.PagoRepositorio.AgregarAsincrono(nuevaEntitidad);
+			var entidadagregada = await _unidadDeTrabajo.PagoRepositorio.AgregarAsincrono(nuevaEntitidad);
 			await _unidadDeTrabajo.CommitAsync();
 
-			return new Respuesta<Pago> { Ok = true, Mensaje = "Pago creado con éxito", Datos = nuevaEntitidad };
+			return new Respuesta<Pago> { Ok = true, Mensaje = "Pago creado con éxito", Datos = entidadagregada };
 
 		}
 
