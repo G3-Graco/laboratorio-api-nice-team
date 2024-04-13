@@ -7,10 +7,10 @@ namespace Web.Controladores
 {
 	[ApiController]
 	[Route("api/[controller]")]
-	public class UsuarioControlador : ControllerBase
+	public class UsuarioController : ControllerBase
 	{
 		private IUsuarioServicio _servicio;
-		public UsuarioControlador(IUsuarioServicio servicio)
+		public UsuarioController(IUsuarioServicio servicio)
 		{
 			_servicio = servicio;
 		}

@@ -163,6 +163,7 @@ namespace Services.Servicios
 
 			var PlazoIdeal = await _unidadDeTrabajo.PlazoRepositorio.ConsultarPlazoIdeal(modeloSolicitudPrestamo.NumeroCuotasDeseadas);
 
+			//hacer metodo repositorio para buscar minimo cuotas y maximo cuotas para indicar el error abajo.
 			if (PlazoIdeal == null)
 			{
 				return new Respuesta<Prestamo> { Ok = false, Mensaje = "El número de cuotas solicitadas es inválido, probar con otro número", Datos = null };
@@ -184,6 +185,8 @@ namespace Services.Servicios
 			});
 			//suponiendo que idestado 1 sea un estado inicial como, en proceso de pago
 			await _unidadDeTrabajo.CommitAsync();
+
+			//deberia agregar documentos relacionados al id de lo de arriba
 
 			return new Respuesta<Prestamo> { Ok = true, Mensaje = "Prestamo creado con éxito", Datos = prestamoAgregado };
 

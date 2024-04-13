@@ -8,10 +8,10 @@ namespace Web.Controladores
 {
 	[ApiController]
 	[Route("api/[controller]")]
-	public class ClienteControlador : ControllerBase
+	public class ClienteController : ControllerBase
 	{
 		private IClienteServicio _servicio;
-		public ClienteControlador(IClienteServicio clienteServicio)
+		public ClienteController(IClienteServicio clienteServicio)
 		{
 			_servicio = clienteServicio;
 		}
@@ -112,6 +112,26 @@ namespace Web.Controladores
 			}
 
 
+		}
+
+		/// <summary>
+		/// Método para obtener un cliente de manera validada.
+		/// </summary>
+		/// <returns>Respuesta con objeto cliente</returns>
+		[Authorize]
+		[HttpPost("consultarcliente")]
+		public async Task<ActionResult<Respuesta<Cliente>>> Post(int idusuariosesion, int id)
+		{
+			try
+			{
+				var ClienteRespuesta = await _servicio.ConsultarClienteValidado(idusuariosesion, id);
+
+				return Ok(ClienteRespuesta);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(new { message = ex.Message });
+			}
 		}
 	}
 }

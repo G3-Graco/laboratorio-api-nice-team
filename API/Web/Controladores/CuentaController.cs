@@ -8,10 +8,10 @@ namespace Web.Controladores
 {
 	[ApiController]
 	[Route("api/[controller]")]
-	public class CuentaControlador : ControllerBase
+	public class CuentaController : ControllerBase
 	{
 		private ICuentaServicio _servicio;
-		public CuentaControlador(ICuentaServicio servicio)
+		public CuentaController(ICuentaServicio servicio)
 		{
 			_servicio = servicio;
 		}

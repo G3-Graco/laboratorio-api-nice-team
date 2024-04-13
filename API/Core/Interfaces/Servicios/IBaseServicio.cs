@@ -10,5 +10,6 @@ namespace Core.Interfaces.Servicios
         Task<Respuesta<Entidad>> Agregar(Entidad nuevaEntitidad);
         Task<Respuesta<Entidad>> Actualizar(int entidadParaActualizarId, Entidad nuevosValoresEntidad);
         Task<Respuesta<Entidad>>Remover(int entidadId);
+
     }
 }

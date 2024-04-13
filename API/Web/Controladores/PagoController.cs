@@ -9,10 +9,10 @@ namespace Web.Controladores
 {
 	[ApiController]
 	[Route("api/[controller]")]
-	public class PagoControlador : ControllerBase
+	public class PagoController : ControllerBase
 	{
 		private IPagoServicio _servicio;
-		public PagoControlador(IPagoServicio servicio)
+		public PagoController(IPagoServicio servicio)
 		{
 			_servicio = servicio;
 		}

@@ -16,4 +16,4 @@ namespace Core.Respuestas
 		public byte[] DocumentoComprobanteIngresos { get; set; }
 	}
 }
-}
+
