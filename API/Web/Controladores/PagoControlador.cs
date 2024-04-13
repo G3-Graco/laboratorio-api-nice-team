@@ -3,6 +3,7 @@ using Core.Interfaces.Servicios;
 using Core.Respuestas;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Web.Helpers;
 
 namespace Web.Controladores
 {
@@ -102,6 +103,26 @@ namespace Web.Controladores
 			try
 			{
 				var Respuesta = await _servicio.Remover(id);
+
+				return Ok(Respuesta);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(new { message = ex.Message });
+			}
+		}
+
+		/// <summary>
+		/// Método para obtener consultar los pagos de una cuenta.
+		/// </summary>
+		/// <returns>Respuesta con ienumerable de pagos</returns>
+		[Authorize]
+		[HttpPost("pagoscuenta")]
+		public async Task<ActionResult<Respuesta<IEnumerable<Pago>>>> PostPagosCuenta(int idusuariosesion) //query
+		{
+			try
+			{
+				var Respuesta = await _servicio.ConsultarPagosDeUnaCuenta(idusuariosesion);
 
 				return Ok(Respuesta);
 			}

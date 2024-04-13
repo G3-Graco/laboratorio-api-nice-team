@@ -64,6 +64,8 @@ namespace Services.Servicios
 
 		}
 
+	
+
 		public async Task<Respuesta<Movimiento>> ObternerPorIdAsincrono(int id)
 		{
 			var obtenido = await _unidadDeTrabajo.MovimientoRepositorio.ObtenerPorIdAsincrono(id);
@@ -89,6 +91,27 @@ namespace Services.Servicios
 			_unidadDeTrabajo.MovimientoRepositorio.Remover(movimiento);
 			await _unidadDeTrabajo.CommitAsync();
 			return new Respuesta<Movimiento> { Ok = true, Mensaje = "Movimiento eliminado", Datos = null };
+		}
+
+		public async Task<Respuesta<IEnumerable<Movimiento>>> ConsultarMovimientosDeUnaCuenta(int idUsuarioSesion)
+		{
+			if (idUsuarioSesion == null || idUsuarioSesion == 0)
+			{
+				throw new ArgumentException("No se ha insertado el id del usuario de la sesión activa.");
+			}
+
+			Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
+
+			Cuenta cuenta = await _unidadDeTrabajo.CuentaRepositorio.ConsultarCuentaDeUnCliente(usuario.ClienteId);
+			if (cuenta == null)
+				throw new ArgumentException("No se ha encontrado una cuenta para este cliente");
+
+			var movimientos = await _unidadDeTrabajo.MovimientoRepositorio.ConsultarMovimientosDeUnaCuenta(cuenta.Identificador);
+			if (movimientos == null)
+				throw new ArgumentException("No se ha encontrado movimientos para este cliente");
+
+			return new Respuesta<IEnumerable<Movimiento>> { Ok = true, Mensaje = "Movimientos consultados", Datos = movimientos };
+
 		}
 	}
 }

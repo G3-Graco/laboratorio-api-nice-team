@@ -11,6 +11,12 @@ namespace Infrastructure.Repositorios
 		{
 
 		}
+
+		public async ValueTask<IEnumerable<Pago>> ConsultarPagosDeUnaCuenta(Int64 idCuenta)
+		{
+			return await dbSet.Where(p => p.CuentaIdentificador == idCuenta).ToListAsync();
+		}
+
 		public override async Task<IEnumerable<Pago>> ObtenerTodosAsincrono()
 		{
 			return await base.dbSet.Include(x => x.CuentaOrigen).Include(x => x.CuotaPagada).ToListAsync();			

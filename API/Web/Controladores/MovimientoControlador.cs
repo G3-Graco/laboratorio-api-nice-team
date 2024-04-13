@@ -2,6 +2,7 @@
 using Core.Interfaces.Servicios;
 using Core.Respuestas;
 using Microsoft.AspNetCore.Mvc;
+using Web.Helpers;
 
 namespace Web.Controladores
 {
@@ -101,6 +102,25 @@ namespace Web.Controladores
 			try
 			{
 				var Respuesta = await _servicio.Remover(id);
+
+				return Ok(Respuesta);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(new { message = ex.Message });
+			}
+		}
+		/// <summary>
+		/// Método para obtener consultar los movimientos de una cuenta.
+		/// </summary>
+		/// <returns>Respuesta con ienumerable de movimientos</returns>
+		[Authorize]
+		[HttpPost("movimientoscuenta")]
+		public async Task<ActionResult<Respuesta<IEnumerable<Movimiento>>>> PostMovimientosCuenta(int idusuariosesion) //query
+		{
+			try
+			{
+				var Respuesta = await _servicio.ConsultarMovimientosDeUnaCuenta(idusuariosesion);
 
 				return Ok(Respuesta);
 			}

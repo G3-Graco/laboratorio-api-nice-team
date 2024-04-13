@@ -87,5 +87,25 @@ namespace Services.Servicios
 			return new Respuesta<Pago> { Ok = true, Mensaje = "Pago eliminado", Datos = null };
 
 		}
+		public async Task<Respuesta<IEnumerable<Pago>>> ConsultarPagosDeUnaCuenta(int idUsuarioSesion)
+		{
+			if (idUsuarioSesion == null || idUsuarioSesion == 0)
+			{
+				throw new ArgumentException("No se ha insertado el id del usuario de la sesión activa.");
+			}
+
+			Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
+
+			Cuenta cuenta = await _unidadDeTrabajo.CuentaRepositorio.ConsultarCuentaDeUnCliente(usuario.ClienteId);
+
+			if (cuenta == null)
+				throw new ArgumentException("No se ha encontrado una cuenta para este cliente");
+
+			var pagos = await _unidadDeTrabajo.PagoRepositorio.ConsultarPagosDeUnaCuenta(cuenta.Identificador);
+			if (pagos == null)
+				throw new ArgumentException("No se ha encontrado movimientos para este cliente");
+
+			return new Respuesta<IEnumerable<Pago>> { Ok = true, Mensaje = "Pagos consultados", Datos = pagos };
+		}
 	}
 }

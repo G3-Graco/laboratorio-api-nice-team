@@ -11,6 +11,12 @@ namespace Infrastructure.Repositorios
 		{
 
 		}
+
+		public async ValueTask<IEnumerable<Movimiento>> ConsultarMovimientosDeUnaCuenta(Int64 idCuenta)
+		{
+			return await dbSet.Where(m => m.CuentaOrigenIdentificador == idCuenta || m.CuentaReceptoraIdentificador == idCuenta).ToListAsync();
+		}
+
 		public override async Task<IEnumerable<Movimiento>> ObtenerTodosAsincrono()
 		{
 			return await base.dbSet.Include(x => x.TipoMovimiento).ToListAsync();
