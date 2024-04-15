@@ -142,7 +142,7 @@ namespace Services.Servicios
 				Apellido = modeloRegistrarse.Apellido,
 				Cedula = modeloRegistrarse.Cedula,
 				Correo = modeloRegistrarse.Correo,
-				FechaNacimiento = modeloRegistrarse.FechaNacimiento.ToString(),
+				FechaNacimiento = modeloRegistrarse.FechaNacimiento,
 				Telefono = modeloRegistrarse.Telefono,
 				Direccion = modeloRegistrarse.Direccion
 			});
