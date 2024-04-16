@@ -34,8 +34,7 @@ namespace Services.Validadores
 				.MaximumLength(255);
 
 			RuleFor(x => x.FechaNacimiento)
-				.NotEmpty()
-				.MaximumLength(255);
+				.NotEmpty(); 
 
 			RuleFor(x => x.Telefono)
 				.NotEmpty()
