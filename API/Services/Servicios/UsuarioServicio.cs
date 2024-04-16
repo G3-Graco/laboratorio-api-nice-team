@@ -92,13 +92,13 @@ namespace Services.Servicios
 			return new Respuesta<Usuario> { Ok = true, Mensaje = "Usuario eliminado", Datos = null };
 		}
 
-		public async Task<Respuesta<string>> IniciarSesion(string nombreusuario, string contrasena)
+		public async Task<Respuesta<RespuestaIniciarSesion>> IniciarSesion(string nombreusuario, string contrasena)
 		{
 			Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.IniciarSesion(nombreusuario, contrasena);
 
 			if (usuario == null)
 			{
-				return new Respuesta<string> { Ok = false, Mensaje = "Nombre de usuario y/o contraseña incorrecta.", Datos = string.Empty};
+				return new Respuesta<RespuestaIniciarSesion> { Ok = false, Mensaje = "Nombre de usuario y/o contraseña incorrecta.", Datos = null};
 				
 			}
 
@@ -116,7 +116,10 @@ namespace Services.Servicios
 			};
 			var token = tokenHandler.CreateToken(tokenDescriptor);
 			string usuarioToken = tokenHandler.WriteToken(token);
-			return new Respuesta<string> { Ok = true, Mensaje = "Inicio de sesión correcto.", Datos = usuarioToken };
+
+
+
+			return new Respuesta<RespuestaIniciarSesion> { Ok = true, Mensaje = "Inicio de sesión correcto.", Datos = new RespuestaIniciarSesion {jwt = usuarioToken, idusuariosesion = usuario.Id } };
 		}
 
 		public async Task<Respuesta<ModeloRegistrarse>> Registrarse(ModeloRegistrarse modeloRegistrarse)
