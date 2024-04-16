@@ -32,9 +32,19 @@ namespace Services.Servicios
             throw new NotImplementedException();
         }
 
-        public Task<Respuesta<Prestamo>> Remover(int entidadId)
+        public async Task<Respuesta<Prestamo>> Remover(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var prestamo = await _unidadDeTrabajo.PrestamoRepostorio.ObtenerPorIdAsincrono(id);
+                var documentos = await _unidadDeTrabajo.DocumentoRepositorio.ObtenerTodosAsincrono();
+                documentos = documentos.ToList().FindAll(x => x.IdPrestamo == prestamo.Id);
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public async Task<Respuesta<Documento>> GuardarDocumento(Documento documento) 

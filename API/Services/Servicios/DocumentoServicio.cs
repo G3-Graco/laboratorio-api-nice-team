@@ -3,6 +3,8 @@ using Core.Interfaces;
 using Core.Interfaces.Servicios;
 using Core.Respuestas;
 using System.Net;
+using System.Drawing;
+using System.Diagnostics;
 
 namespace Services.Servicios
 {
@@ -45,9 +47,34 @@ namespace Services.Servicios
             
         }
 
-        public Task<Respuesta<Documento>> Descargar(Documento documento)
+        public async Task<Respuesta<Documento>> Descargar(Documento documento)
         {
-            throw new NotImplementedException();
+            if (documento.documento == null) throw new ArgumentException("El documento no puede ser nulo");
+            var respuesta = new Respuesta<Documento>();
+            try
+            {
+                var actual = await _unidadDeTrabajo.DocumentoRepositorio.ObtenerPorIdAsincrono(documento.Id);
+                if (actual == null) throw new ArgumentException("El documento no se encuentra en la base de datos");
+                var tipo = await _unidadDeTrabajo.TipoMovimientoRepositorio.ObtenerPorIdAsincrono(documento.IdTipo);
+                var prestamo = await _unidadDeTrabajo.PrestamoRepostorio.ObtenerPorIdAsincrono(documento.IdPrestamo);
+                using (MemoryStream memoria = new MemoryStream(documento.documento))
+                {
+                    using (var imagen = Image.FromStream(memoria))
+                    {
+                        var archivo = $"C:\\Users\\user\\Downloads\\{tipo.Nombre + "_" + prestamo.IdCliente}";
+                        imagen.Save(archivo + "png");
+                        imagen.Save(archivo + "jpg");
+                    }
+                }
+                respuesta.Datos = documento;
+                respuesta.Ok = true;
+                respuesta.Mensaje = $"Se logró descargar exitósamente en la dirección C:\\Users\\user\\Downloads\\";
+                return respuesta;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
 
