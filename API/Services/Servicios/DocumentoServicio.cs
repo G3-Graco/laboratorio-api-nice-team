@@ -2,6 +2,7 @@ using Core.Entidades;
 using Core.Interfaces;
 using Core.Interfaces.Servicios;
 using Core.Respuestas;
+using System.Net;
 
 namespace Services.Servicios
 {
@@ -22,9 +23,26 @@ namespace Services.Servicios
             throw new NotImplementedException();
         }
 
-        public Task<Respuesta<Documento>> ConvertirAByte(string url)
+        public async Task<Respuesta<byte[]>> ConvertirAByte(string url)
         {
-            throw new NotImplementedException();
+            var respuesta = new Respuesta<byte[]>();
+            try
+            {
+                using (WebClient cliente = new WebClient())
+                {
+                    Uri uri = new Uri(url);
+                    byte[] bytes = await cliente.DownloadDataTaskAsync(uri);
+                    respuesta.Datos = bytes;
+                    respuesta.Ok = true;
+                    respuesta.Mensaje = "Obtención de bytes de la imagen exitosa";
+                    return respuesta;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            
         }
 
         public Task<Respuesta<Documento>> Descargar(Documento documento)
