@@ -90,20 +90,20 @@ namespace Services.Servicios
 			return new Respuesta<Cliente>{Ok = true, Mensaje = "Cliente eliminado", Datos = null};
 		}
 
-		public async Task<Respuesta<Cliente>> ConsultarClienteValidado(int idUsuarioSesion, int idCliente)
+		public async Task<Respuesta<Cliente>> ConsultarClienteValidado(int idUsuarioSesion)
 		{
 			if (idUsuarioSesion == null || idUsuarioSesion == 0)
 			{
 				throw new ArgumentException("No se ha insertado el id del usuario de la sesión activa.");
 			}
-
-			Cliente cliente = await _unidadDeTrabajo.ClienteRepositorio.ObtenerPorIdAsincrono(idCliente);
-
+			
 			Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
 
-			if (cliente.Id != usuario.ClienteId)
+			Cliente cliente = await _unidadDeTrabajo.ClienteRepositorio.ObtenerPorIdAsincrono(usuario.ClienteId);
+
+			if (cliente == null)
 			{
-				return new Respuesta<Cliente> { Ok = false, Mensaje = "Consulta inválida. No se puede consultar un préstamo que no pertenezca al usuario actual", Datos = null };
+				return new Respuesta<Cliente> { Ok = false, Mensaje = "Consulta inválida. No se encontró el cliente", Datos = null };
 			}
 			else
 			{

@@ -5,6 +5,6 @@ namespace Core.Interfaces.Servicios
 {
 	public interface IClienteServicio : IBaseServicio<Cliente>
 	{
-		Task<Respuesta<Cliente>> ConsultarClienteValidado(int idUsuarioSesion, int idCliente);
+		Task<Respuesta<Cliente>> ConsultarClienteValidado(int idUsuarioSesion);
 	}
 }

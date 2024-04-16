@@ -120,11 +120,11 @@ namespace Web.Controladores
 		/// <returns>Respuesta con objeto cliente</returns>
 		[Authorize]
 		[HttpPost("consultarcliente")]
-		public async Task<ActionResult<Respuesta<Cliente>>> Post(int idusuariosesion, int id)
+		public async Task<ActionResult<Respuesta<Cliente>>> Post(int idusuariosesion)
 		{
 			try
 			{
-				var ClienteRespuesta = await _servicio.ConsultarClienteValidado(idusuariosesion, id);
+				var ClienteRespuesta = await _servicio.ConsultarClienteValidado(idusuariosesion);
 
 				return Ok(ClienteRespuesta);
 			}
