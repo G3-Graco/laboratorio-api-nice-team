@@ -119,8 +119,8 @@ namespace Web.Controladores
 		/// </summary>
 		/// <returns>Respuesta con objeto cliente</returns>
 		[Authorize]
-		[HttpPost("consultarcliente")]
-		public async Task<ActionResult<Respuesta<Cliente>>> Post(int idusuariosesion)
+		[HttpGet("consultarcliente")]
+		public async Task<ActionResult<Respuesta<Cliente>>> GetConsultarCliente(int idusuariosesion)
 		{
 			try
 			{

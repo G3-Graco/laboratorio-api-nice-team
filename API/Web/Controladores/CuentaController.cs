@@ -116,7 +116,7 @@ namespace Web.Controladores
 		/// </summary>
 		/// <returns>Respuesta con objeto cuenta</returns>
 		[HttpGet("cuentacliente")]
-		public async Task<ActionResult<Respuesta<Cuenta>>> GetCuentaCliente(int idusuariosesion) //query
+		public async Task<ActionResult<Respuesta<Cuenta>>> GetConsultarCuentaCliente(int idusuariosesion) //query
 		{
 			try
 			{
@@ -130,25 +130,6 @@ namespace Web.Controladores
 			}
 		}
 
-		/// <summary>
-		/// Método para obtener una cuenta de un cliente en específico
-		/// </summary>
-		/// <returns>Respuesta con objeto cuenta</returns>
-		[Authorize]
-		[HttpPost("cuentacliente")]
-		public async Task<ActionResult<Respuesta<Cuenta>>> PostCuentaCliente(int idusuariosesion) //query
-		{
-			try
-			{
-				var Respuesta = await _servicio.ConsultarCuentaDeUnCliente(idusuariosesion);
-
-				return Ok(Respuesta);
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(new { message = ex.Message });
-			}
-		}
 
 		/// <summary>
 		/// Método para obtener actualizar el saldo de la cuenta de un cliente en específico
