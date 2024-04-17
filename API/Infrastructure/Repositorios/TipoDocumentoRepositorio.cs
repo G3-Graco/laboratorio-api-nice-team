@@ -12,6 +12,7 @@ namespace Infrastructure.Repositorios
     {
         public TipoDocumentoRepositorio(AppDbContext context) : base(context)
         {
+            
         }
     }
 }
