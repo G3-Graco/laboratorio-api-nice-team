@@ -13,6 +13,7 @@ namespace Infrastructure.Repositorios
     {
         public PlazoRepositorio(AppDbContext context) : base(context)
         {
+            
         }
 
 		public async ValueTask<Plazo> ConsultarPlazoIdeal(int nroCuotasDeseada)

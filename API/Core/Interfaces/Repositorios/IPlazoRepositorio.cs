@@ -8,6 +8,6 @@ namespace Core.Interfaces.Repositorios
 {
     public interface IPlazoRepositorio : IBaseRepositorio<Plazo>
     {
-		ValueTask<Plazo> ConsultarPlazoIdeal(int nroCuotasDeseada);
-	}
+		    ValueTask<Plazo> ConsultarPlazoIdeal(int nroCuotasDeseada);
+	  }
 }
