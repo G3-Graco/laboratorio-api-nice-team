@@ -7,9 +7,6 @@ namespace Services.Validadores
 	{
 		public ClienteValidador()
 		{
-			RuleFor(x => x.Id)
-				.NotEmpty();
-
 			RuleFor(x => x.Nombre)
                 .NotEmpty()
 				.MaximumLength(255);
@@ -20,7 +17,9 @@ namespace Services.Validadores
 
 			RuleFor(x => x.Cedula)
 				.NotEmpty()
-				.MaximumLength(255);
+				.MaximumLength(9)
+				.MinimumLength(7)
+				.Matches("^\\d{1,45}$");
 
 			RuleFor(x => x.Correo)
 				.NotEmpty()

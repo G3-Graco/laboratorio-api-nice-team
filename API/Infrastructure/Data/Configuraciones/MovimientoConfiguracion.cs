@@ -12,7 +12,8 @@ public class MovimientoConfiguracion : IEntityTypeConfiguration<Movimiento>
 			.HasKey(x => x.Id);
 
 		builder
-			.Property(x => x.Id);
+			.Property(x => x.Id)
+			.UseIdentityColumn(); 
 
 		builder.Property(x => x.Monto)
 			.IsRequired();
@@ -29,11 +30,11 @@ public class MovimientoConfiguracion : IEntityTypeConfiguration<Movimiento>
 		builder.Property(x => x.TipoMovimientoId)
 			.IsRequired();
 
-		builder.Property(x => x.CuentaOrigenIdentificador)
-			.IsRequired();
+		builder.Property(x => x.CuentaOrigenIdentificador);
 
-		builder.Property(x => x.CuentaReceptoraIdentificador)
-			.IsRequired();
+		builder.Property(x => x.CuentaReceptoraIdentificador);
+
+		builder.HasOne(x => x.TipoMovimiento).WithMany().HasForeignKey(x => x.TipoMovimientoId);
 
 		builder.ToTable("Movimientos");
 	}

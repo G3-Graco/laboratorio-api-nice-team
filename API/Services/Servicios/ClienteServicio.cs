@@ -24,10 +24,10 @@ namespace Services.Servicios
 				throw new ArgumentException(resultadoValidacion.Errors[0].ErrorMessage.ToString());
 			}
 
-			await _unidadDeTrabajo.ClienteRepositorio.AgregarAsincrono(nuevaEntitidad);
+			var entidadagregada = await _unidadDeTrabajo.ClienteRepositorio.AgregarAsincrono(nuevaEntitidad);
 			await _unidadDeTrabajo.CommitAsync();
 		
-			return new Respuesta<Cliente>{Ok = true, Mensaje = "Cliente creado con éxito", Datos = nuevaEntitidad};
+			return new Respuesta<Cliente>{Ok = true, Mensaje = "Cliente creado con éxito", Datos = entidadagregada };
 		}
 
 		public async Task<Respuesta<Cliente>> Actualizar(int entidadParaActualizarId, Cliente nuevosValoresEntidad)
@@ -46,7 +46,7 @@ namespace Services.Servicios
 			Cliente ClienteParaActualizar = await _unidadDeTrabajo.ClienteRepositorio.ObtenerPorIdAsincrono(entidadParaActualizarId);
 
 			if (ClienteParaActualizar == null)
-				throw new ArgumentException("Id del cliente a actualazar inválido");
+				throw new ArgumentException("Id del cliente a actualizar inválido");
 
 			ClienteParaActualizar.Nombre = nuevosValoresEntidad.Nombre;
 			ClienteParaActualizar.Apellido = nuevosValoresEntidad.Apellido;
@@ -64,11 +64,21 @@ namespace Services.Servicios
 
 		public async Task<Respuesta<Cliente>> ObternerPorIdAsincrono(int id)
 		{
-			return new Respuesta<Cliente>{Ok = true, Mensaje = "Cliente obtenido", Datos = await _unidadDeTrabajo.ClienteRepositorio.ObtenerPorIdAsincrono(id)};
+			var obtenido = await _unidadDeTrabajo.ClienteRepositorio.ObtenerPorIdAsincrono(id);
+
+			if (obtenido == null)
+			{
+				return new Respuesta<Cliente> { Ok = false, Mensaje = "Cliente no encontrado", Datos = obtenido };
+			}
+			else
+			{
+				return new Respuesta<Cliente> { Ok = true, Mensaje = "Cliente obtenido", Datos = obtenido };
+			}
 		}
 
 		public async Task<Respuesta<IEnumerable<Cliente>>> ObternerTodosAsincrono()
 		{
+			
 			return new Respuesta<IEnumerable<Cliente>>{Ok = true, Mensaje = "Clientes obtenidos", Datos = await _unidadDeTrabajo.ClienteRepositorio.ObtenerTodosAsincrono()};
 		}
 
@@ -78,6 +88,28 @@ namespace Services.Servicios
 			_unidadDeTrabajo.ClienteRepositorio.Remover(cliente);
 			await _unidadDeTrabajo.CommitAsync();
 			return new Respuesta<Cliente>{Ok = true, Mensaje = "Cliente eliminado", Datos = null};
+		}
+
+		public async Task<Respuesta<Cliente>> ConsultarClienteValidado(int idUsuarioSesion)
+		{
+			if (idUsuarioSesion == null || idUsuarioSesion == 0)
+			{
+				throw new ArgumentException("No se ha insertado el id del usuario de la sesión activa.");
+			}
+			
+			Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
+
+			Cliente cliente = await _unidadDeTrabajo.ClienteRepositorio.ObtenerPorIdAsincrono(usuario.ClienteId);
+
+			if (cliente == null)
+			{
+				return new Respuesta<Cliente> { Ok = false, Mensaje = "Consulta inválida. No se encontró el cliente", Datos = null };
+			}
+			else
+			{
+				return new Respuesta<Cliente> { Ok = true, Mensaje = "Cliente obtenido con éxito", Datos = cliente };
+
+			}
 		}
 	}
 }

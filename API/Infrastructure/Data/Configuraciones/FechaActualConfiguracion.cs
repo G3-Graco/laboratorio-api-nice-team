@@ -14,6 +14,8 @@ public class FechaActualConfiguracion : IEntityTypeConfiguration<FechaActual>
 		//builder
 		//	.Property(x => x.Id);
 
+		builder.HasNoKey(); //vaayalo
+
 		builder
 			.Property(x => x.Fecha)
 			.IsRequired();

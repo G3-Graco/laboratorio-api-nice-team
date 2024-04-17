@@ -12,9 +12,10 @@ public class UsuarioConfiguracion : IEntityTypeConfiguration<Usuario>
             .HasKey(x => x.Id);
 
         builder
-            .Property(x => x.Id);
+            .Property(x => x.Id)
+			.UseIdentityColumn(); 
 
-        builder
+		builder
             .Property(x => x.NombreUsuario)
             .IsRequired()
             .HasMaxLength(255);

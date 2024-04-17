@@ -1,6 +1,7 @@
 ﻿using Core.Entidades;
 using Core.Interfaces.Repositorios;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositorios
 {
@@ -9,6 +10,16 @@ namespace Infrastructure.Repositorios
 		public PagoRepositorio(AppDbContext context) : base(context)
 		{
 
+		}
+
+		public async ValueTask<IEnumerable<Pago>> ConsultarPagosDeUnaCuenta(Int64 idCuenta)
+		{
+			return await dbSet.Where(p => p.CuentaIdentificador == idCuenta).ToListAsync();
+		}
+
+		public override async Task<IEnumerable<Pago>> ObtenerTodosAsincrono()
+		{
+			return await base.dbSet.Include(x => x.CuentaOrigen).Include(x => x.CuotaPagada).ToListAsync();			
 		}
 	}
 }

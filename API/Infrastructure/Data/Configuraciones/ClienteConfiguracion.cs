@@ -12,7 +12,8 @@ public class ClienteConfiguracion : IEntityTypeConfiguration<Cliente>
 			.HasKey(x => x.Id);
 
 		builder
-			.Property(x => x.Id);
+			.Property(x => x.Id)
+			.UseIdentityColumn();
 
 		builder
 			.Property(x => x.Nombre)

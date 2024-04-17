@@ -196,6 +196,10 @@
               "target": "Package",
               "version": "[11.9.0, )"
             },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
             "System.Drawing.Common": {
               "target": "Package",
               "version": "[8.0.4, )"

@@ -12,7 +12,8 @@ public class CuentaConfiguracion : IEntityTypeConfiguration<Cuenta>
 			.HasKey(x => x.Identificador);
 
 		builder
-			.Property(x => x.Identificador);
+			.Property(x => x.Identificador)
+			.IsRequired();
 
 		builder.Property(x => x.Saldo)
 			.IsRequired();
