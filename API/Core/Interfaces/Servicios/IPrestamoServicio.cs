@@ -7,5 +7,8 @@ namespace Core.Interfaces.Servicios
     {
 		Task<Respuesta<Prestamo>> ConsultarPrestamoValidado (int idUsuarioSesion, int idPrestamo);
 		Task<Respuesta<Prestamo>> SolicitarPrestamo(int idUsuarioSesion, ModeloSolicitudPrestamo modeloSolicitudPrestamo);
-	}
+        Task<Respuesta<Documento>> GuardarDocumento(Documento documento);
+        Task<Respuesta<IEnumerable<Documento>>> ConsultarDocumentos(int IdPrestamo);
+        Task<Respuesta<IEnumerable<Prestamo>>> ConsultarPrestamosDeCliente(int IdCliente);
+    }
 }

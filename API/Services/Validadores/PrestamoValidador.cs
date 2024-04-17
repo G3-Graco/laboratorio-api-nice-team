@@ -1,4 +1,4 @@
-﻿using Core.Entidades;
+using Core.Entidades;
 using FluentValidation;
 
 namespace Services.Validadores

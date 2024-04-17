@@ -9,7 +9,6 @@ namespace Core.Interfaces.Servicios
         Task<Respuesta<IEnumerable<Entidad>>> ObternerTodosAsincrono();
         Task<Respuesta<Entidad>> Agregar(Entidad nuevaEntitidad);
         Task<Respuesta<Entidad>> Actualizar(int entidadParaActualizarId, Entidad nuevosValoresEntidad);
-        Task<Respuesta<Entidad>>Remover(int entidadId);
-
+        Task<Respuesta<Entidad>> Remover(int entidadId);
     }
 }
