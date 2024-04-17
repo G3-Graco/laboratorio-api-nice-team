@@ -34,17 +34,7 @@ namespace Services.Servicios
 
         public async Task<Respuesta<Prestamo>> Remover(int id)
         {
-            try
-            {
-                var prestamo = await _unidadDeTrabajo.PrestamoRepostorio.ObtenerPorIdAsincrono(id);
-                var documentos = await _unidadDeTrabajo.DocumentoRepositorio.ObtenerTodosAsincrono();
-                documentos = documentos.ToList().FindAll(x => x.IdPrestamo == prestamo.Id);
-
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            throw new NotImplementedException();
         }
 
         public async Task<Respuesta<Documento>> GuardarDocumento(Documento documento) 

@@ -88,9 +88,24 @@ namespace Services.Servicios
             throw new NotImplementedException();
         }
 
-        public Task<Respuesta<Documento>> Remover(int entidadId)
+        public async Task<Respuesta<Documento>> Remover(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var respuesta = new Respuesta<Documento>();
+                var documento = await _unidadDeTrabajo.DocumentoRepositorio.ObtenerPorIdAsincrono(id);
+                if (documento == null) throw new ArgumentException("El documento no se encuentra en la base de datos");
+                _unidadDeTrabajo.DocumentoRepositorio.Remover(documento);
+                await _unidadDeTrabajo.CommitAsync();
+                respuesta.Datos = documento;
+                respuesta.Ok = true;
+                respuesta.Mensaje = "Eliminación de documento exitosa";
+                return respuesta;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         

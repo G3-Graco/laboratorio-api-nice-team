@@ -16,9 +16,26 @@ namespace Services.Servicios
 		{
 			_unidadDeTrabajo = unidadDeTrabajo;
 		}
-        public Task<Respuesta<TipoMovimiento>> Actualizar(int entidadParaActualizarId, TipoMovimiento nuevosValoresEntidad)
+        public async Task<Respuesta<TipoMovimiento>> Actualizar(int id, TipoMovimiento tipoNuevo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var respuesta = new Respuesta<TipoMovimiento>();
+                if (id != tipoNuevo.Id) throw new ArgumentException("Los ids no son iguales");
+                var tipo = await _unidadDeTrabajo.TipoMovimientoRepositorio.ObtenerPorIdAsincrono(id);
+                tipo.Nombre = tipoNuevo.Nombre;
+                tipo.Descripcion = tipoNuevo.Descripcion;
+                await _unidadDeTrabajo.TipoMovimientoRepositorio.Actualizar(tipo);
+                await _unidadDeTrabajo.CommitAsync();
+                respuesta.Datos = tipo;
+                respuesta.Ok = true;
+                respuesta.Mensaje = "Modificación exitosa del tipo de movimiento";
+                return respuesta;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public async Task<Respuesta<TipoMovimiento>> Agregar(TipoMovimiento tipo)
@@ -32,6 +49,8 @@ namespace Services.Servicios
                 respuesta.Ok = false;
                 return respuesta;
             }
+            await _unidadDeTrabajo.TipoMovimientoRepositorio.AgregarAsincrono(tipo);
+            await _unidadDeTrabajo.CommitAsync();
             respuesta.Datos = tipo; 
             respuesta.Mensaje = "Creación realizada con éxito";
             respuesta.Ok = true;
@@ -66,9 +85,26 @@ namespace Services.Servicios
             return respuesta;
         }
 
-        public Task<Respuesta<TipoMovimiento>> Remover(int entidadId)
+        public async Task<Respuesta<TipoMovimiento>> Remover(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var respuesta = new Respuesta<TipoMovimiento>();
+                var tipo = await _unidadDeTrabajo.TipoMovimientoRepositorio.ObtenerPorIdAsincrono(id);
+                if (tipo == null) throw new ArgumentException("No existe un tipo de movimiento con tal id");
+                var todos = await _unidadDeTrabajo.DocumentoRepositorio.ObtenerTodosAsincrono();
+                if (todos.Any(x => x.IdTipo == id)) throw new ArgumentException("Ya existen movimientos con este tipo");
+                _unidadDeTrabajo.TipoMovimientoRepositorio.Remover(tipo);
+                await _unidadDeTrabajo.CommitAsync();
+                respuesta.Datos = tipo;
+                respuesta.Ok = true;
+                respuesta.Mensaje = "Tipo de movimiento eliminado con éxito";
+                return respuesta;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

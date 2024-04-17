@@ -906,24 +906,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\user\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\d\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\user\\Documents\\Mis documentos\\Programas asp net\\Laboratorio-nice-team\\API\\Services\\Services.csproj",
+      "projectUniqueName": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Services\\Services.csproj",
       "projectName": "Services",
-      "projectPath": "C:\\Users\\user\\Documents\\Mis documentos\\Programas asp net\\Laboratorio-nice-team\\API\\Services\\Services.csproj",
-      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\user\\Documents\\Mis documentos\\Programas asp net\\Laboratorio-nice-team\\API\\Services\\obj\\",
+      "projectPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Services\\Services.csproj",
+      "packagesPath": "C:\\Users\\d\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Services\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\d\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -937,11 +932,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\user\\Documents\\Mis documentos\\Programas asp net\\Laboratorio-nice-team\\API\\Core\\Core.csproj": {
-              "projectPath": "C:\\Users\\user\\Documents\\Mis documentos\\Programas asp net\\Laboratorio-nice-team\\API\\Core\\Core.csproj"
+            "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\Core.csproj": {
+              "projectPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Core\\Core.csproj"
             },
-            "C:\\Users\\user\\Documents\\Mis documentos\\Programas asp net\\Laboratorio-nice-team\\API\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\user\\Documents\\Mis documentos\\Programas asp net\\Laboratorio-nice-team\\API\\Infrastructure\\Infrastructure.csproj"
+            "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\d\\Desktop\\Ana Paula\\Programas ASP net\\laboratorio-api-nice-team\\API\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
