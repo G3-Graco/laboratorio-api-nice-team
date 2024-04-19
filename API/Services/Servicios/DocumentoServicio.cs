@@ -63,7 +63,6 @@ namespace Services.Servicios
                     {
                         var archivo = $"C:\\Users\\user\\Downloads\\{tipo.Nombre + "_" + prestamo.IdCliente}";
                         imagen.Save(archivo + "png");
-                        imagen.Save(archivo + "jpg");
                     }
                 }
                 respuesta.Datos = documento;
