@@ -33,8 +33,11 @@ builder.Services.AddScoped(typeof(IUsuarioRepositorio), typeof(UsuarioRepositori
 builder.Services.AddScoped(typeof(IUsuarioServicio), typeof(UsuarioServicio));
 
 builder.Services.AddScoped(typeof(ITipoMovimientoRepositorio), typeof(TipoMovimientoRepositorio));
-
 builder.Services.AddScoped(typeof(IFechaActualRepositorio), typeof(FechaActualRepositorio));
+
+builder.Services.AddScoped(typeof(IPrestamoRepostorio), typeof(PrestamoRepositorio));
+builder.Services.AddScoped(typeof(IPrestamoServicio), typeof(PrestamoServicio));
+
 
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
