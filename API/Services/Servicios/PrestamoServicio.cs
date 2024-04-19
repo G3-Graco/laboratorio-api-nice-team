@@ -77,19 +77,26 @@ namespace Services.Servicios
             
         }
 
-        public async Task<Respuesta<IEnumerable<Prestamo>>> ConsultarPrestamosDeCliente(int IdCliente) 
+        public async Task<Respuesta<IEnumerable<Prestamo>>> ConsultarPrestamosDeCliente(int idUsuarioSesion) 
         {    
             try
             {
-                var cliente = await _unidadDeTrabajo.ClienteRepositorio.ObtenerPorIdAsincrono(IdCliente);
-                if (cliente == null) throw new ArgumentException("No existe cliente con tal id");
+				if (idUsuarioSesion == null || idUsuarioSesion == 0) //idUsuarioSesion == 0 si el usuario no inserta este dato en el query
+				{
+					throw new ArgumentException("Token inválido, vuelva a iniciar sesión");
+				}
+
+				Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
+
                 var todos = await _unidadDeTrabajo.PrestamoRepostorio.ObtenerTodosAsincrono();
-                var lista = todos.ToList().FindAll(x => x.IdCliente == IdCliente);
+                var lista = todos.ToList().FindAll(x => x.IdCliente == usuario.ClienteId);
+
                 var respuesta = new Respuesta<IEnumerable<Prestamo>>() {
                     Datos = lista, 
                     Mensaje = "Prestamos encontrados exitósamente", 
                     Ok = true
                 };
+
                 return respuesta;
             }
             catch (Exception e)
