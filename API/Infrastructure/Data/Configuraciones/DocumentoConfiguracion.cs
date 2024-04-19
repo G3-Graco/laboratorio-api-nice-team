@@ -14,7 +14,8 @@ namespace Infrastructure.Data.Configuraciones
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
-            builder.Property(x => x.documento).IsRequired();
+            builder.Property(x => x.documento);
+            builder.Property(x => x.Ubicacion).IsRequired();
             builder.Property(x => x.IdTipo).IsRequired();
             builder.Property(x => x.IdPrestamo);
 
