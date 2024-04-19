@@ -38,13 +38,12 @@ namespace Web.Controladores
         /// <summary>
         /// Obtención de préstamos por cliente
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Respuesta<IEnumerable<Prestamo>>>> Get(int id) {
+        [HttpGet]
+        public async Task<ActionResult<Respuesta<IEnumerable<Prestamo>>>> Get(int idusuariosesion) {
             try
             {
-                var respuesta = await _servicio.ConsultarPrestamosDeCliente(id);
+                var respuesta = await _servicio.ConsultarPrestamosDeCliente(idusuariosesion);
                 return Ok(respuesta);
             }
             catch (Exception e)

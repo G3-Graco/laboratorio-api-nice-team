@@ -142,7 +142,7 @@ namespace Services.Servicios
 		{
 			if (idUsuarioSesion == null || idUsuarioSesion == 0)
 			{
-				throw new ArgumentException("No se ha insertado el id del usuario de la sesión activa.");
+				throw new ArgumentException("Token inválido, vuelva a iniciar sesión");
 			}
 
 			Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
