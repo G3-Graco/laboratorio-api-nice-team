@@ -123,7 +123,7 @@ namespace Services.Servicios
 		{
 			if (idUsuarioSesion == null || idUsuarioSesion == 0)
 			{
-				throw new ArgumentException("No se ha insertado el id del usuario de la sesión activa.");
+				throw new ArgumentException("Token inválido, vuelva a iniciar sesión");
 			}
 
 			Prestamo prestamo = await _unidadDeTrabajo.PrestamoRepostorio.ObtenerPorIdAsincrono(idPrestamo);
@@ -145,7 +145,7 @@ namespace Services.Servicios
 		{
 			if (idUsuarioSesion == null || idUsuarioSesion == 0)
 			{
-				throw new ArgumentException("No se ha insertado el id del usuario de la sesión activa.");
+				throw new ArgumentException("Token inválido, vuelva a iniciar sesión");
 			}
 
 			Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
@@ -181,23 +181,37 @@ namespace Services.Servicios
 				IdCliente = usuario.ClienteId,
 				IdPlazo = PlazoIdeal.Id
 			});
-			//suponiendo que idestado 1 sea un estado inicial como, en proceso de pago
-
-
-			//crear cuotas
-			//for modeloSolicitudPrestamo.NumeroCuotasDeseadas
-			//await unidad de trabajo cuotarepositori.agregar(id = 0, prestamoid = pretamoagregado.id, fecha = DateTime.Now.AddMonths(i+1);)
+            //suponiendo que idestado 1 sea un estado inicial como, en proceso de pago
 
 
 
 
 
 
-			await _unidadDeTrabajo.CommitAsync();
+            //crear cuotas
 
-			//aqui va agregar documentos relacionados al id de lo de arriba
+            //for modeloSolicitudPrestamo.NumeroCuotasDeseadas
 
-			return new Respuesta<Prestamo> { Ok = true, Mensaje = "Prestamo creado con éxito", Datos = prestamoAgregado };
+            //await unidad de trabajo cuotarepositori.agregar(id = 0, prestamoid = pretamoagregado.id, fecha = DateTime.Now.AddMonths(i+1);)
+
+            //añadir en una sola transacion (
+
+            //https://www.tektutorialshub.com/entity-framework-core/add-record-add-multiple-records-in-entity-framework/ 
+
+
+
+
+
+
+            //despues de validarlos
+            //aqui va agregar documentos relacionados al id de lo de arriba
+
+
+
+
+
+            await _unidadDeTrabajo.CommitAsync();
+            return new Respuesta<Prestamo> { Ok = true, Mensaje = "Prestamo creado con éxito", Datos = prestamoAgregado };
 
 		}
     }
