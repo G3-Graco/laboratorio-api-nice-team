@@ -137,6 +137,9 @@ namespace Services.Servicios
 
 			Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
 
+
+            //actualizar prestamo estado (como no está en el alcance lo hago si me da tiempo) p
+
 			if(prestamo.IdCliente != usuario.ClienteId)
 			{
 				return new Respuesta<Prestamo> { Ok = false, Mensaje = "Consulta inválida. No se puede consultar un préstamo que no pertenezca al usuario actual", Datos = null };
@@ -188,32 +191,21 @@ namespace Services.Servicios
 				IdCliente = usuario.ClienteId,
 				IdPlazo = PlazoIdeal.Id
 			});
-            //suponiendo que idestado 1 sea un estado inicial como, en proceso de pago
 
 
+            var cuotas = new List<Cuota>();
+            for (int i = 0; i < modeloSolicitudPrestamo.NumeroCuotasDeseadas; i++)
+            {
+                cuotas.Add(new Cuota { Id = 0, IdPrestamo = prestamoAgregado.Id, Fecha = DateTime.Now.AddMonths(i + 1), Pago = cuotaMensual});
+            }
 
-
-
-
-            //crear cuotas
-
-            //for modeloSolicitudPrestamo.NumeroCuotasDeseadas
-
-            //await unidad de trabajo cuotarepositori.agregar(id = 0, prestamoid = pretamoagregado.id, fecha = DateTime.Now.AddMonths(i+1);)
-
-            //añadir en una sola transacion (
-
-            //https://www.tektutorialshub.com/entity-framework-core/add-record-add-multiple-records-in-entity-framework/ 
-
-
+            await _unidadDeTrabajo.CuotaRepositorio.AgregarVariosAsincrono(cuotas);
 
 
 
 
             //despues de validarlos
             //aqui va agregar documentos relacionados al id de lo de arriba
-
-
 
 
 

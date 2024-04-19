@@ -13,5 +13,11 @@ namespace Infrastructure.Repositorios
         public CuotaRepositorio(AppDbContext context) : base(context)
         {
         }
+
+        public async Task<List<Cuota>> AgregarVariosAsincrono(List<Cuota> cuotas)
+        {
+            await dbSet.AddRangeAsync(cuotas);
+            return cuotas;
+        }
     }
 }
