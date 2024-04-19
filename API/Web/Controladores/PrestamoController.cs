@@ -12,10 +12,10 @@ namespace Web.Controladores
     public class PrestamoController : ControllerBase
     {
         private IPrestamoServicio _servicio;
-		public PrestamoController(IPrestamoServicio servicio)
-		{
-			_servicio = servicio;
-		}
+        public PrestamoController(IPrestamoServicio servicio)
+        {
+            _servicio = servicio;
+        }
 
         /// <summary>
         /// Creación de un préstamo
@@ -52,7 +52,25 @@ namespace Web.Controladores
             }
         }
 
-        
+        /// <summary>
+        /// Consulta de monto pendiente por pagar de un préstamo
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("montopendiente")]
+        public async Task<ActionResult<Respuesta<IEnumerable<Prestamo>>>> GetMontoPendiente(int idusuariosesion, int idprestamo)
+        {
+            try
+            {
+                var respuesta = await _servicio.ConsultarMontoPendientePrestamo(idusuariosesion, idprestamo);
+                return Ok(respuesta);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { message = e.Message });
+            }
+        }
+
+
 
     }
 }

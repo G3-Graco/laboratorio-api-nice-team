@@ -213,5 +213,44 @@ namespace Services.Servicios
             return new Respuesta<Prestamo> { Ok = true, Mensaje = "Prestamo creado con éxito", Datos = prestamoAgregado };
 
 		}
+
+        public async Task<Respuesta<double>> ConsultarMontoPendientePrestamo(int idusuariosesion, int IdPrestamo)
+        {
+            try
+            {
+
+            
+            if (idusuariosesion == null || idusuariosesion == 0)
+            {
+                throw new ArgumentException("Token inválido, vuelva a iniciar sesión");
+            }
+            Prestamo prestamo = await _unidadDeTrabajo.PrestamoRepostorio.ObtenerPorIdAsincrono(IdPrestamo);
+
+            Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idusuariosesion);
+
+            if (prestamo.IdCliente != usuario.ClienteId)
+            {
+                return new Respuesta<double> { Ok = false, Mensaje = "Consulta inválida. No se puede consultar un préstamo que no pertenezca al usuario actual", Datos = 0 };
+            }
+
+
+            var pagos = await _unidadDeTrabajo.PagoRepositorio.ConsultarPagosDeUnPrestamo(IdPrestamo);
+
+            double MontoPagado = 0;
+            foreach (Pago pago in pagos)
+            {
+                MontoPagado += pago.CuotaPagada.Pago;
+            }
+
+            double montopendiente = prestamo.MontoTotal - MontoPagado;
+
+            return new Respuesta<double> { Ok = true, Mensaje = "Consulta realizada correctamente.", Datos = montopendiente };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
     }
 }

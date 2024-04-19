@@ -131,5 +131,25 @@ namespace Web.Controladores
 				return BadRequest(new { message = ex.Message });
 			}
 		}
-	}
+
+        /// <summary>
+        /// Método para obtener consultar los pagos realizados de un préstamo.
+        /// </summary>
+        /// <returns>Respuesta con ienumerable de pagos</returns>
+        [Authorize]
+        [HttpGet("pagosprestamo")]
+        public async Task<ActionResult<Respuesta<IEnumerable<Pago>>>> GetPagosPretamo(int idusuariosesion, int idPrestamo) //query
+        {
+            try
+            {
+                var Respuesta = await _servicio.ConsultarPagosPorPrestamoValidado(idusuariosesion, idPrestamo);
+
+                return Ok(Respuesta);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+    }
 }

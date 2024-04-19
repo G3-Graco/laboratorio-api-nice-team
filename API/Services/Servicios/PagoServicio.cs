@@ -158,5 +158,28 @@ namespace Services.Servicios
 
 			return new Respuesta<IEnumerable<Pago>> { Ok = true, Mensaje = "Pagos consultados", Datos = pagos };
 		}
-	}
+
+        public async Task<Respuesta<IEnumerable<Pago>>> ConsultarPagosPorPrestamoValidado(int idusuariosesion, int idPrestamo)
+        {
+            if (idusuariosesion == null || idusuariosesion == 0)
+            {
+                throw new ArgumentException("Token inválido, vuelva a iniciar sesión");
+            }
+
+            Prestamo prestamo = await _unidadDeTrabajo.PrestamoRepostorio.ObtenerPorIdAsincrono(idPrestamo);
+
+            Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idusuariosesion);
+
+            if (prestamo.IdCliente != usuario.ClienteId)
+            {
+                return new Respuesta<IEnumerable<Pago>> { Ok = false, Mensaje = "Consulta inválida. No se puede consultar un préstamo que no pertenezca al usuario actual", Datos = null};
+            }
+
+            var pagos = await _unidadDeTrabajo.PagoRepositorio.ConsultarPagosDeUnPrestamo(idPrestamo);
+            if (pagos == null)
+                throw new ArgumentException("No se ha encontrado movimientos para este préstamo");
+
+            return new Respuesta<IEnumerable<Pago>> { Ok = true, Mensaje = "Pagos consultados", Datos = pagos };
+        }
+    }
 }

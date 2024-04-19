@@ -6,5 +6,7 @@ namespace Core.Interfaces.Repositorios
 	{
 		
 		ValueTask<IEnumerable<Pago>> ConsultarPagosDeUnaCuenta(Int64 idCuenta);
-	}
+
+        ValueTask<IEnumerable<Pago>> ConsultarPagosDeUnPrestamo(int idPrestamo);
+    }
 }

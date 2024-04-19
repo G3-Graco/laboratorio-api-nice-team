@@ -10,5 +10,7 @@ namespace Core.Interfaces.Servicios
         Task<Respuesta<Documento>> GuardarDocumento(Documento documento);
         Task<Respuesta<IEnumerable<Documento>>> ConsultarDocumentos(int IdPrestamo);
         Task<Respuesta<IEnumerable<Prestamo>>> ConsultarPrestamosDeCliente(int IdCliente);
+
+        Task<Respuesta<Double>> ConsultarMontoPendientePrestamo(int idusuariosesion, int IdPrestamo);
     }
 }
