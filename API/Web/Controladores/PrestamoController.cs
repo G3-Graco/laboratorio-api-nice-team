@@ -35,7 +35,11 @@ namespace Web.Controladores
             }
         }
 
-
+        /// <summary>
+        /// Obtención de préstamos por cliente
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Respuesta<IEnumerable<Prestamo>>>> Get(int id) {
             try
