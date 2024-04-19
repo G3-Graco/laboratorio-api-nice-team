@@ -117,8 +117,8 @@ namespace Web.Controladores
 		/// </summary>
 		/// <returns>Respuesta con ienumerable de pagos</returns>
 		[Authorize]
-		[HttpPost("pagoscuenta")]
-		public async Task<ActionResult<Respuesta<IEnumerable<Pago>>>> PostPagosCuenta(int idusuariosesion) //query
+		[HttpGet("pagoscuenta")]
+		public async Task<ActionResult<Respuesta<IEnumerable<Pago>>>> GetPagosCuenta(int idusuariosesion) //query
 		{
 			try
 			{
