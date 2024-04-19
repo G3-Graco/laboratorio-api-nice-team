@@ -17,7 +17,7 @@ namespace Web.Controladores
 		}
 
 		/// <summary>
-		/// Método para obtener lista de clientes
+		/// MÃ©todo para obtener lista de clientes
 		/// </summary>
 		/// <returns>Respuesta con objeto IEnumerable de clientes</returns>
 		[Authorize]
@@ -37,7 +37,7 @@ namespace Web.Controladores
 		}
 
 		/// <summary>
-		/// Método para obtener un cliente
+		/// MÃ©todo para obtener un cliente
 		/// </summary>
 		/// <returns>Respuesta con objeto cliente</returns>
 		[HttpGet("{id}")]
@@ -56,7 +56,7 @@ namespace Web.Controladores
 		}
 
 		/// <summary>
-		/// Método para crear un cliente
+		/// Mï¿½todo para crear un cliente
 		/// </summary>
 		/// <returns>Respuesta con objeto cliente</returns>
 		[HttpPost]
@@ -75,7 +75,7 @@ namespace Web.Controladores
 		}
 
 		/// <summary>
-		/// Método para actualizar datos de un cliente
+		/// Mï¿½todo para actualizar datos de un cliente
 		/// </summary>
 		/// <returns>Respuesta con objeto cliente</returns>
 		[HttpPut("{id}")]
@@ -94,9 +94,9 @@ namespace Web.Controladores
 		}
 
 		/// <summary>
-		/// Método para eliminar a un cliente
+		/// Mï¿½todo para eliminar a un cliente
 		/// </summary>
-		/// <returns>Respuesta con mensaje de éxito de eliminado y datos null</returns>
+		/// <returns>Respuesta con mensaje de ï¿½xito de eliminado y datos null</returns>
 		[HttpDelete]
 		public async Task<ActionResult<Respuesta<Cliente>>> Delete(int id)
 		{
@@ -115,7 +115,7 @@ namespace Web.Controladores
 		}
 
 		/// <summary>
-		/// Método para obtener un cliente de manera validada.
+		/// Mï¿½todo para obtener un cliente de manera validada.
 		/// </summary>
 		/// <returns>Respuesta con objeto cliente</returns>
 		[Authorize]

@@ -18,8 +18,8 @@ namespace Web.Controladores
         /// Método para ingresar documentos de un préstamo
         /// </summary>
         /// <returns></returns>
-        [HttpPost, Route("ObtenerArchivo")]
-        public Task<bool> ObtenerArchivo()
+        [HttpPost]
+        public Task<bool> Post()
         {
             bool resultado = false;
             var file = Request.Form.Files[0];
