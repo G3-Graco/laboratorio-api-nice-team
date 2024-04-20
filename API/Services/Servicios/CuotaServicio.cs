@@ -35,6 +35,29 @@ namespace Services.Servicios
             return respuesta;
         }
 
+        public async Task<Respuesta<IEnumerable<Cuota>>> ConsultarCuotasPorPrestamo(int idusuariosesion, int IdPrestamo)
+        {
+            if (idusuariosesion == null || idusuariosesion == 0)
+            {
+                throw new ArgumentException("Token inválido, vuelva a iniciar sesión");
+            }
+
+            Prestamo prestamo = await _unidadDeTrabajo.PrestamoRepostorio.ObtenerPorIdAsincrono(IdPrestamo);
+
+            Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idusuariosesion);
+
+            if (prestamo.IdCliente != usuario.ClienteId)
+            {
+                return new Respuesta<IEnumerable<Cuota>> { Ok = false, Mensaje = "Consulta inválida. No se puede consultar un préstamo que no pertenezca al usuario actual", Datos = null };
+            }
+
+            var cuotas = await _unidadDeTrabajo.CuotaRepositorio.ConsultarCuotasDeUnPrestamo(IdPrestamo);
+            if (cuotas == null)
+                throw new ArgumentException("No se ha encontrado movimientos para este préstamo");
+
+            return new Respuesta<IEnumerable<Cuota>> { Ok = true, Mensaje = "Cuotas consultadas", Datos = cuotas };
+        }
+
         public async Task<Respuesta<Cuota>> ObternerPorIdAsincrono(int id)
         {
             var respuesta = new Respuesta<Cuota>();

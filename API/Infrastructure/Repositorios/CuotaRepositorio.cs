@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Core.Entidades;
 using Core.Interfaces.Repositorios;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositorios
 {
@@ -18,6 +19,11 @@ namespace Infrastructure.Repositorios
         {
             await dbSet.AddRangeAsync(cuotas);
             return cuotas;
+        }
+
+        public async ValueTask<IEnumerable<Cuota>> ConsultarCuotasDeUnPrestamo(int idPrestamo)
+        {
+            return await dbSet.Where(c => c.IdPrestamo == idPrestamo).ToListAsync();
         }
     }
 }
