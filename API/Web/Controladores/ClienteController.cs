@@ -56,7 +56,7 @@ namespace Web.Controladores
 		}
 
 		/// <summary>
-		/// M�todo para crear un cliente
+		/// Método para crear un cliente
 		/// </summary>
 		/// <returns>Respuesta con objeto cliente</returns>
 		[HttpPost]
@@ -75,7 +75,7 @@ namespace Web.Controladores
 		}
 
 		/// <summary>
-		/// M�todo para actualizar datos de un cliente
+		/// Método para actualizar datos de un cliente
 		/// </summary>
 		/// <returns>Respuesta con objeto cliente</returns>
 		[HttpPut("{id}")]
@@ -94,7 +94,7 @@ namespace Web.Controladores
 		}
 
 		/// <summary>
-		/// M�todo para eliminar a un cliente
+		/// Método para eliminar a un cliente
 		/// </summary>
 		/// <returns>Respuesta con mensaje de �xito de eliminado y datos null</returns>
 		[HttpDelete]
@@ -115,7 +115,7 @@ namespace Web.Controladores
 		}
 
 		/// <summary>
-		/// M�todo para obtener un cliente de manera validada.
+		/// Método para obtener un cliente de manera validada.
 		/// </summary>
 		/// <returns>Respuesta con objeto cliente</returns>
 		[Authorize]
