@@ -70,9 +70,12 @@ namespace Services.Servicios
             try
             {
                 var respuesta = new Respuesta<Movimiento>();
-                if (movimiento?.Id == null) throw new ArgumentException("No existe un préstamo con tal id");
+                if (movimiento == null) throw new ArgumentException("El movimiento no pude ser nulo");
                 var cuenta = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(movimiento.CuentaOrigenIdentificador);
                 if (cuenta == null) throw new ArgumentException("No existe una cuenta con tal id");
+                if (movimiento?.TipoMovimientoId == null || movimiento.TipoMovimientoId <= 0) throw new ArgumentException("El movimiento carece de tipo");
+                var tipo = await _unidadDeTrabajo.TipoDocumentoRepositorio.ObtenerPorIdAsincrono(movimiento.TipoMovimientoId);
+                if (tipo == null) throw new ArgumentException("No existe un tipo con tal id");
                 if (movimiento.Monto > cuenta.Saldo) {
                     respuesta.Ok = false;
                     respuesta.Mensaje = "Retiro denegado. El saldo de la cuenta es insuficiente";
@@ -100,9 +103,12 @@ namespace Services.Servicios
             try
             {
                 var respuesta = new Respuesta<Movimiento>();
-                if (movimiento?.Id == null) throw new ArgumentException("No existe un préstamo con tal id");
+                if (movimiento == null) throw new ArgumentException("El movimiento no puede ser nulo");
                 var cuenta = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(movimiento.CuentaReceptoraIdentificador);
                 if (cuenta == null) throw new ArgumentException("No existe una cuenta receptora con tal id");
+                if (movimiento?.TipoMovimientoId == null || movimiento.TipoMovimientoId <= 0) throw new ArgumentException("El movimiento carece de tipo");
+                var tipo = await _unidadDeTrabajo.TipoDocumentoRepositorio.ObtenerPorIdAsincrono(movimiento.TipoMovimientoId);
+                if (tipo == null) throw new ArgumentException("No existe un tipo con tal id");
                 cuenta.Saldo += movimiento.Monto;
                 await _unidadDeTrabajo.CuentaRepositorio.Actualizar(cuenta);
                 await _unidadDeTrabajo.MovimientoRepositorio.AgregarAsincrono(movimiento);
@@ -123,11 +129,14 @@ namespace Services.Servicios
             try
             {
                 var respuesta = new Respuesta<Movimiento>();
-                if (movimiento?.Id == null) throw new ArgumentException("No existe un préstamo con tal id");
+                if (movimiento == null) throw new ArgumentException("El movimiento no puede estar nulo");
                 var cuentaReceptora = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(movimiento.CuentaReceptoraIdentificador);
                 if (cuentaReceptora == null) throw new ArgumentException("No existe una cuenta receptora con tal id");
                 var cuentaOrigen = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(movimiento.CuentaOrigenIdentificador);
                 if (cuentaOrigen == null) throw new ArgumentException("No existe una cuenta origen con tal id");
+                if (movimiento?.TipoMovimientoId == null || movimiento.TipoMovimientoId <= 0) throw new ArgumentException("El movimiento carece de tipo");
+                var tipo = await _unidadDeTrabajo.TipoDocumentoRepositorio.ObtenerPorIdAsincrono(movimiento.TipoMovimientoId);
+                if (tipo == null) throw new ArgumentException("No existe un tipo con tal id");
                 if (movimiento.Monto > cuentaOrigen.Saldo) {
                     respuesta.Ok = false;
                     respuesta.Mensaje = "Transferencia denegada. El saldo de la cuenta es insuficiente";

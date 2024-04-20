@@ -61,7 +61,7 @@ namespace Web.Controladores
         /// </summary>
         /// <param name="id">La id del documento</param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Respuesta<TipoDocumento>>> Get(int id) {
             try
             {
@@ -80,7 +80,7 @@ namespace Web.Controladores
         /// <param name="id">La id del tipo de documento</param>
         /// <param name="tipo">El nuevo objeto del tipo de documento</param>
         /// <returns></returns>
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<ActionResult<Respuesta<TipoDocumento>>> Update(int id, [FromBody] TipoDocumento tipo) {
             try
             {
@@ -98,6 +98,7 @@ namespace Web.Controladores
         /// </summary>
         /// <param name="id">La id del tipo de documento</param>
         /// <returns></returns>
+        [HttpDelete("{id}")]
         public async Task<ActionResult<Respuesta<TipoDocumento>>> Delete(int id) {
             try
             {

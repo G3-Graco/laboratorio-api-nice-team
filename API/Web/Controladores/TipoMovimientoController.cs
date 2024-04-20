@@ -59,7 +59,7 @@ namespace Web.Controladores
         /// </summary>
         /// <param name="id">La id del movimiento</param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Respuesta<TipoMovimiento>>> Get(int id) {
             try
             {
@@ -78,7 +78,7 @@ namespace Web.Controladores
         /// <param name="id">La id del tipo de movimiento</param>
         /// <param name="tipo">El nuevo objeto del tipo de movimiento</param>
         /// <returns></returns>
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<ActionResult<Respuesta<TipoMovimiento>>> Update(int id, [FromBody] TipoMovimiento tipo) {
             try
             {
@@ -96,6 +96,7 @@ namespace Web.Controladores
         /// </summary>
         /// <param name="id">La id del tipo de movimiento</param>
         /// <returns></returns>
+        [HttpDelete("{id}")]
         public async Task<ActionResult<Respuesta<TipoMovimiento>>> Delete(int id) {
             try
             {

@@ -8,12 +8,14 @@ namespace Web.Controladores
 {
 	[ApiController]
 	[Route("api/[controller]")]
-	public class MovimientoControlador : ControllerBase
+	public class MovimientoController : ControllerBase
 	{
 		private IMovimientoServicio _servicio;
-		public MovimientoControlador(IMovimientoServicio servicio)
+		private ITipoMovimientoServicio _servicioTipo;
+		public MovimientoController(IMovimientoServicio servicio, ITipoMovimientoServicio servicioTipo)
 		{
 			_servicio = servicio;
+			_servicioTipo = servicioTipo;
 		}
 
 		/// <summary>
@@ -63,9 +65,24 @@ namespace Web.Controladores
 		{
 			try
 			{
-				var Respuesta = await _servicio.Agregar(movimiento);
-
-				return Ok(Respuesta);
+				var tipo = await _servicioTipo.ObternerPorIdAsincrono(movimiento.TipoMovimientoId);
+				var respuesta = new Respuesta<Movimiento>();
+				switch (tipo.Datos?.Nombre)
+				{
+					case "transferencia": 
+						respuesta = await _servicio.RealizarTransferencia(movimiento);
+						break;
+					case "depósito": 
+						respuesta = await _servicio.RealizarDeposito(movimiento);
+						break;
+					case "retiro":
+						respuesta = await _servicio.RealizarRetiro(movimiento);
+						break;
+					default: 
+						respuesta = await _servicio.Agregar(movimiento);
+						break;
+				}
+				return Ok(respuesta);
 			}
 			catch (Exception ex)
 			{
@@ -115,7 +132,7 @@ namespace Web.Controladores
 		/// </summary>
 		/// <returns>Respuesta con ienumerable de movimientos</returns>
 		[Authorize]
-		[HttpPost("movimientoscuenta")]
+		[HttpGet("movimientoscuenta")]
 		public async Task<ActionResult<Respuesta<IEnumerable<Movimiento>>>> PostMovimientosCuenta(int idusuariosesion) //query
 		{
 			try

@@ -33,12 +33,14 @@ builder.Services.AddScoped(typeof(IUsuarioRepositorio), typeof(UsuarioRepositori
 builder.Services.AddScoped(typeof(IUsuarioServicio), typeof(UsuarioServicio));
 
 builder.Services.AddScoped(typeof(ITipoMovimientoRepositorio), typeof(TipoMovimientoRepositorio));
+builder.Services.AddScoped(typeof(ITipoDocumentoServicio), typeof(TipoDocumentoServicio));
 builder.Services.AddScoped(typeof(IFechaActualRepositorio), typeof(FechaActualRepositorio));
 
 builder.Services.AddScoped(typeof(IPrestamoRepostorio), typeof(PrestamoRepositorio));
 builder.Services.AddScoped(typeof(IPrestamoServicio), typeof(PrestamoServicio));
 
-
+builder.Services.AddScoped(typeof(ITipoMovimientoRepositorio), typeof(TipoMovimientoRepositorio));
+builder.Services.AddScoped(typeof(ITipoMovimientoServicio), typeof(TipoMovimientoServicio));
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -50,7 +52,7 @@ builder.Services.AddSwaggerGen(options =>
 	{
 		Version = "v1",
 		Title = "ASP.NET Core API para el banco \"B Banco\"",
-		Description = ".NET Core API desarrollada para la gestión y uso exclusivo del banco \"B Banco\"",
+		Description = ".NET Core API desarrollada para la gestiï¿½n y uso exclusivo del banco \"B Banco\"",
 		TermsOfService = new Uri("https://github.com/G3-Graco/laboratorio-api-nice-team/blob/main/LICENSE"),
 		Contact = new OpenApiContact
 		{
