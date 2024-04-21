@@ -69,13 +69,13 @@ namespace Web.Controladores
 				var respuesta = new Respuesta<Movimiento>();
 				switch (tipo.Datos?.Nombre)
 				{
-					case "transferencia": 
+					case "Transferencia": 
 						respuesta = await _servicio.RealizarTransferencia(movimiento);
 						break;
-					case "depósito": 
+					case "Depósito": 
 						respuesta = await _servicio.RealizarDeposito(movimiento);
 						break;
-					case "retiro":
+					case "Retiro":
 						respuesta = await _servicio.RealizarRetiro(movimiento);
 						break;
 					default: 

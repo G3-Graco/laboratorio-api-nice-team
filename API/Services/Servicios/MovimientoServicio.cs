@@ -74,7 +74,7 @@ namespace Services.Servicios
                 var cuenta = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(movimiento.CuentaOrigenIdentificador);
                 if (cuenta == null) throw new ArgumentException("No existe una cuenta con tal id");
                 if (movimiento?.TipoMovimientoId == null || movimiento.TipoMovimientoId <= 0) throw new ArgumentException("El movimiento carece de tipo");
-                var tipo = await _unidadDeTrabajo.TipoDocumentoRepositorio.ObtenerPorIdAsincrono(movimiento.TipoMovimientoId);
+                var tipo = await _unidadDeTrabajo.TipoMovimientoRepositorio.ObtenerPorIdAsincrono(movimiento.TipoMovimientoId);
                 if (tipo == null) throw new ArgumentException("No existe un tipo con tal id");
                 if (movimiento.Monto > cuenta.Saldo) {
                     respuesta.Ok = false;
@@ -107,7 +107,7 @@ namespace Services.Servicios
                 var cuenta = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(movimiento.CuentaReceptoraIdentificador);
                 if (cuenta == null) throw new ArgumentException("No existe una cuenta receptora con tal id");
                 if (movimiento?.TipoMovimientoId == null || movimiento.TipoMovimientoId <= 0) throw new ArgumentException("El movimiento carece de tipo");
-                var tipo = await _unidadDeTrabajo.TipoDocumentoRepositorio.ObtenerPorIdAsincrono(movimiento.TipoMovimientoId);
+                var tipo = await _unidadDeTrabajo.TipoMovimientoRepositorio.ObtenerPorIdAsincrono(movimiento.TipoMovimientoId);
                 if (tipo == null) throw new ArgumentException("No existe un tipo con tal id");
                 cuenta.Saldo += movimiento.Monto;
                 await _unidadDeTrabajo.CuentaRepositorio.Actualizar(cuenta);
@@ -135,7 +135,7 @@ namespace Services.Servicios
                 var cuentaOrigen = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(movimiento.CuentaOrigenIdentificador);
                 if (cuentaOrigen == null) throw new ArgumentException("No existe una cuenta origen con tal id");
                 if (movimiento?.TipoMovimientoId == null || movimiento.TipoMovimientoId <= 0) throw new ArgumentException("El movimiento carece de tipo");
-                var tipo = await _unidadDeTrabajo.TipoDocumentoRepositorio.ObtenerPorIdAsincrono(movimiento.TipoMovimientoId);
+                var tipo = await _unidadDeTrabajo.TipoMovimientoRepositorio.ObtenerPorIdAsincrono(movimiento.TipoMovimientoId);
                 if (tipo == null) throw new ArgumentException("No existe un tipo con tal id");
                 if (movimiento.Monto > cuentaOrigen.Saldo) {
                     respuesta.Ok = false;
