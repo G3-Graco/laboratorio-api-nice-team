@@ -52,7 +52,7 @@ builder.Services.AddSwaggerGen(options =>
 	{
 		Version = "v1",
 		Title = "ASP.NET Core API para el banco \"B Banco\"",
-		Description = ".NET Core API desarrollada para la gesti�n y uso exclusivo del banco \"B Banco\"",
+		Description = ".NET Core API desarrollada para la gestión y uso exclusivo del banco \"B Banco\"",
 		TermsOfService = new Uri("https://github.com/G3-Graco/laboratorio-api-nice-team/blob/main/LICENSE"),
 		Contact = new OpenApiContact
 		{
