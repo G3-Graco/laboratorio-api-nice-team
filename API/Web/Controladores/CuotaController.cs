@@ -16,6 +16,26 @@ namespace Web.Controladores
             _servicio = servicio;
         }
 
+		/// <summary>
+		/// Método para obtener una cuota
+		/// </summary>
+		/// <returns>Respuesta con objeto cuota</returns>
+		[HttpGet("{id}")]
+		public async Task<ActionResult<Respuesta<Cuota>>> Get(int id)
+		{
+			try
+			{
+				var Respuesta = await _servicio.ObternerPorIdAsincrono(id);
+
+				return Ok(Respuesta);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(new { message = ex.Message });
+			}
+		}
+
+
 
 		/// <summary>
 		/// Método para obtener consultar las cuotas de un préstamo.
