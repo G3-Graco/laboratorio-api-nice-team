@@ -6,5 +6,6 @@ namespace Core.Interfaces.Repositorios
     {
         Task<List<Cuota>> AgregarVariosAsincrono(List<Cuota> cuotas);
         ValueTask<IEnumerable<Cuota>> ConsultarCuotasDeUnPrestamo(int idPrestamo);
-    }
+        //ValueTask<IEnumerable<Cuota>> ConsultarCuotasDeUnCliente (int idCliente);
+	}
 }

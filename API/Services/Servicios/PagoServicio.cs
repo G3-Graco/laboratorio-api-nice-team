@@ -88,31 +88,58 @@ namespace Services.Servicios
 
 		}
 
-        public async Task<Respuesta<Pago>> RealizarPago(Pago pago)
+        public async Task<Respuesta<Pago>> RealizarPago(int idusuariosesion, Pago pago)
         {
             try
             {
-                var respuesta = new Respuesta<Pago>();
-                var cuota = await _unidadDeTrabajo.CuotaRepositorio.ObtenerPorIdAsincrono(pago.CuotaId);
-                if (cuota == null) throw new ArgumentException("No existe una cuota con tal id");
-                var cuenta = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(pago.CuentaIdentificador);
-                if (cuenta == null) throw new ArgumentException("No existe una cuenta con tal id");
-                if (cuenta.Saldo < cuota.Pago) {
-                    respuesta.Datos = null;
-                    respuesta.Ok = false;
-                    respuesta.Mensaje = "Pago denegado. El saldo de su cuenta es insuficiente";
-                    return respuesta;
+				if (idusuariosesion == null || idusuariosesion == 0)
+				{
+					throw new ArgumentException("Token inválido, vuelva a iniciar sesión");
+				}
+
+				Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idusuariosesion);
+
+				Cuenta cuentausuario = await _unidadDeTrabajo.CuentaRepositorio.ConsultarCuentaDeUnCliente(usuario.ClienteId);
+
+				Cuota cuota = await _unidadDeTrabajo.CuotaRepositorio.ObtenerPorIdAsincrono(pago.CuotaId);
+
+				if (cuota == null)
+				{
+					throw new ArgumentException("No existe una cuota con tal id");
+				}
+
+				if (cuota.prestamo.IdCliente != usuario.ClienteId)
+				{
+					throw new ArgumentException("Esta cuota no corresponde a uno de tus préstamos");
+				}
+     
+                Cuenta cuenta = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(pago.CuentaIdentificador);
+
+				if (cuenta == null)
+				{
+					throw new ArgumentException("No existe una cuenta con tal id");
+				}
+
+				if (cuenta.Identificador != cuentausuario.Identificador)
+				{
+					throw new ArgumentException("No puedes pagar con esta cuenta");
+				}
+
+				if (cuenta.Saldo < cuota.Pago) {
+					return new Respuesta<Pago> { Ok = false, Mensaje = "Pago denegado. El saldo de su cuenta es insuficiente", Datos = null };
                 }
+
                 cuota.FechaPago = DateTime.Now;
+
                 cuenta.Saldo -= cuota.Pago;
+
                 await _unidadDeTrabajo.CuotaRepositorio.Actualizar(cuota);
                 await _unidadDeTrabajo.CuentaRepositorio.Actualizar(cuenta);
+
                 await _unidadDeTrabajo.CommitAsync();
-                respuesta.Datos = pago;
-                respuesta.Ok = true;
-                respuesta.Mensaje = "Pago realizado con éxito";
-                return respuesta;
-            }
+
+				return new Respuesta<Pago> { Ok = true, Mensaje = "Pago realizado con éxito", Datos = pago };
+			}
             catch (Exception e)
             {
                 throw e;

@@ -151,5 +151,25 @@ namespace Web.Controladores
                 return BadRequest(new { message = ex.Message });
             }
         }
-    }
+
+		/// <summary>
+		/// Método para realizar pago.
+		/// </summary>
+		/// <returns>Respuesta con objeto pago</returns>
+		[Authorize]
+		[HttpPost("realizarpago")]
+		public async Task<ActionResult<Respuesta<IEnumerable<Pago>>>> GetPagosPretamo(int idusuariosesion, Pago pago) 
+		{
+			try
+			{
+				var Respuesta = await _servicio.RealizarPago(idusuariosesion, pago);
+
+				return Ok(Respuesta);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(new { message = ex.Message });
+			}
+		}
+	}
 }
