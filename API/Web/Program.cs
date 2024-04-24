@@ -42,6 +42,9 @@ builder.Services.AddScoped(typeof(IPrestamoServicio), typeof(PrestamoServicio));
 builder.Services.AddScoped(typeof(ITipoMovimientoRepositorio), typeof(TipoMovimientoRepositorio));
 builder.Services.AddScoped(typeof(ITipoMovimientoServicio), typeof(TipoMovimientoServicio));
 
+builder.Services.AddScoped(typeof(IPagoRepositorio), typeof(PagoRepositorio));
+builder.Services.AddScoped(typeof(IPagoServicio), typeof(PagoServicio));
+
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();
