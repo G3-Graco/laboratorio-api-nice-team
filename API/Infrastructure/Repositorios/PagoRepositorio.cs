@@ -14,12 +14,12 @@ namespace Infrastructure.Repositorios
 
 		public async ValueTask<IEnumerable<Pago>> ConsultarPagosDeUnaCuenta(Int64 idCuenta)
 		{
-			return await dbSet.Where(p => p.CuentaIdentificador == idCuenta).ToListAsync();
+			return await dbSet.Where(p => p.CuentaIdentificador == idCuenta).Include(x => x.CuentaOrigen).Include(x => x.CuotaPagada).ToListAsync();
 		}
 
         public async ValueTask<IEnumerable<Pago>> ConsultarPagosDeUnPrestamo(int idPrestamo)
         {
-            return await dbSet.Where(p => p.CuotaId == idPrestamo).ToListAsync();
+            return await dbSet.Where(p => p.CuotaId == idPrestamo).Include(x => x.CuentaOrigen).Include(x => x.CuotaPagada).ToListAsync();
         }
 
         public override async Task<IEnumerable<Pago>> ObtenerTodosAsincrono()

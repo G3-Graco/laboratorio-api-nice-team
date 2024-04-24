@@ -64,7 +64,7 @@ namespace Web.Controladores
 		public async Task<ActionResult<Respuesta<Movimiento>>> Post([FromBody] Movimiento movimiento)
 		{
 			try
-			{
+			{   //hay que reestructurar ************** RealizarMovimiento
 				var tipo = await _servicioTipo.ObternerPorIdAsincrono(movimiento.TipoMovimientoId);
 				var respuesta = new Respuesta<Movimiento>();
 				switch (tipo.Datos?.Nombre)

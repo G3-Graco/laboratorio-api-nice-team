@@ -9,5 +9,7 @@ namespace Core.Interfaces.Servicios
 		Task<Respuesta<Movimiento>> RealizarDeposito(Movimiento movimiento);
 		Task<Respuesta<Movimiento>> RealizarRetiro(Movimiento movimiento);
 		Task<Respuesta<IEnumerable<Movimiento>>> ConsultarMovimientosDeUnaCuenta(int idUsuarioSesion);
+
+		Task<Respuesta<Movimiento>> RealizarMovimiento(int idUsuarioSesion, Movimiento movimiento);
 	}
 }

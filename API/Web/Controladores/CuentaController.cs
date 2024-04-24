@@ -115,6 +115,7 @@ namespace Web.Controladores
 		/// Método para obtener una cuenta de un cliente en específico
 		/// </summary>
 		/// <returns>Respuesta con objeto cuenta</returns>
+		[Authorize]
 		[HttpGet("cuentacliente")]
 		public async Task<ActionResult<Respuesta<Cuenta>>> GetConsultarCuentaCliente(int idusuariosesion) //query
 		{

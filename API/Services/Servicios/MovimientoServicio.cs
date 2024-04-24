@@ -208,5 +208,10 @@ namespace Services.Servicios
 			return new Respuesta<IEnumerable<Movimiento>> { Ok = true, Mensaje = "Movimientos consultados", Datos = movimientos };
 
 		}
+
+		public Task<Respuesta<Movimiento>> RealizarMovimiento(int idUsuarioSesion, Movimiento movimiento)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

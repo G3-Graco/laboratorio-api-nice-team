@@ -14,7 +14,7 @@ namespace Infrastructure.Repositorios
 
 		public async ValueTask<IEnumerable<Movimiento>> ConsultarMovimientosDeUnaCuenta(Int64 idCuenta)
 		{
-			return await dbSet.Where(m => m.CuentaOrigenIdentificador == idCuenta || m.CuentaReceptoraIdentificador == idCuenta).ToListAsync();
+			return await dbSet.Where(m => m.CuentaOrigenIdentificador == idCuenta || m.CuentaReceptoraIdentificador == idCuenta).Include(x => x.TipoMovimiento).ToListAsync();
 		}
 
 		public override async Task<IEnumerable<Movimiento>> ObtenerTodosAsincrono()
