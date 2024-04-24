@@ -23,7 +23,7 @@ namespace Web.Controladores
         /// Método para ingresar documentos de un préstamo
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost("/CargarArchivo")]
         public async Task<ActionResult<Respuesta<Documento>>> Post()
         {
             try
@@ -50,6 +50,24 @@ namespace Web.Controladores
                     }
                 }
                 return Ok(documento);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { message = e.Message });
+            }
+        }
+
+        /// <summary>
+        /// Método para crear un documento
+        /// </summary>
+        /// <param name="documento"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ActionResult<Respuesta<Documento>>> Post([FromBody] Documento documento) {
+            try
+            {
+                var respuesta = await _servicio.Agregar(documento);
+                return Ok(respuesta);
             }
             catch (Exception e)
             {
