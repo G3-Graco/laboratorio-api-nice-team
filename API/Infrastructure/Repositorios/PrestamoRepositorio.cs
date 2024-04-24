@@ -15,6 +15,12 @@ namespace Infrastructure.Repositorios
         {
             
         }
+
+		public async ValueTask<IEnumerable<Prestamo>> ConsultarPrestamosDeUnCliente(int idCliente)
+		{
+			return await dbSet.Where(p => p.IdCliente == idCliente).ToListAsync();
+		}
+
 		public override async Task<IEnumerable<Prestamo>> ObtenerTodosAsincrono()
 		{
 			return await base.dbSet.Include(x => x.Estado).Include(x => x.cliente).Include(x => x.plazo).ToListAsync();

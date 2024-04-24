@@ -16,12 +16,32 @@ namespace Web.Controladores
             _servicio = servicio;
         }
 
+		/// <summary>
+		/// Método para obtener una cuota
+		/// </summary>
+		/// <returns>Respuesta con objeto cuota</returns>
+		[HttpGet("{id}")]
+		public async Task<ActionResult<Respuesta<Cuota>>> Get(int id)
+		{
+			try
+			{
+				var Respuesta = await _servicio.ObternerPorIdAsincrono(id);
 
-        /// <summary>
-        /// Método para obtener consultar las cuotas de un préstamo.
-        /// </summary>
-        /// <returns>Respuesta con ienumerable de pagos</returns>
-        [Authorize]
+				return Ok(Respuesta);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(new { message = ex.Message });
+			}
+		}
+
+
+
+		/// <summary>
+		/// Método para obtener consultar las cuotas de un préstamo.
+		/// </summary>
+		/// <returns>Respuesta con ienumerable de cuotas</returns>
+		[Authorize]
         [HttpGet("cuotasprestamo")]
         public async Task<ActionResult<Respuesta<IEnumerable<Cuota>>>> GetCuotasPretamo(int idusuariosesion, int idPrestamo) //query
         {
@@ -36,7 +56,27 @@ namespace Web.Controladores
                 return BadRequest(new { message = ex.Message });
             }
         }
-    }
+
+		/// <summary>
+		/// Método para obtener consultar las cuotas de pagables de un cliente (la cuota mas pronta a pagar de un prestamo).
+		/// </summary>
+		/// <returns>Respuesta con ienumerable de cuotas</returns>
+		[Authorize]
+		[HttpGet("cuotaspagables")]
+		public async Task<ActionResult<Respuesta<IEnumerable<Cuota>>>> GetCuotasPagables(int idusuariosesion) 
+		{
+			try
+			{
+				var Respuesta = await _servicio.ConsultarCuotasPagablesCliente(idusuariosesion);
+
+				return Ok(Respuesta);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(new { message = ex.Message });
+			}
+		}
+	}
 
 
 }

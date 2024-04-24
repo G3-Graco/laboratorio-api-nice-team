@@ -6,6 +6,7 @@ using Core.Entidades;
 using Core.Interfaces;
 using Core.Interfaces.Servicios;
 using Core.Respuestas;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Services.Servicios
 {
@@ -35,7 +36,45 @@ namespace Services.Servicios
             return respuesta;
         }
 
-        public async Task<Respuesta<IEnumerable<Cuota>>> ConsultarCuotasPorPrestamo(int idusuariosesion, int IdPrestamo)
+		public async Task<Respuesta<IEnumerable<Cuota>>> ConsultarCuotasPagablesCliente(int idusuariosesion)
+		{
+			if (idusuariosesion == null || idusuariosesion == 0)
+			{
+				throw new ArgumentException("Token inválido, vuelva a iniciar sesión");
+			}
+			Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idusuariosesion);
+
+			IEnumerable<Prestamo> prestamos = await _unidadDeTrabajo.PrestamoRepostorio.ConsultarPrestamosDeUnCliente(usuario.ClienteId);
+
+			List<Cuota> cuotasPagables = new List<Cuota>();
+
+            foreach(Prestamo prestamo in prestamos)
+            {
+				IEnumerable<Cuota> cuotas = await _unidadDeTrabajo.CuotaRepositorio.ConsultarCuotasDeUnPrestamo(prestamo.Id);
+
+                DateTime fechaMasTemprana = new DateTime();
+                Cuota cuotaMasTemprana = null;
+
+				foreach(Cuota cuota in cuotas)
+				{
+					if (cuota.FechaPago == null && DateTime.Compare(cuota.Fecha, fechaMasTemprana) < 0)
+                    {
+                        fechaMasTemprana = cuota.Fecha;
+						cuotaMasTemprana = cuota;
+                    }
+				}
+
+                if (cuotaMasTemprana != null)
+                {
+					cuotasPagables.Add(cuotaMasTemprana);
+				}
+
+			}
+
+			return new Respuesta<IEnumerable<Cuota>> { Ok = true, Mensaje = "Cuotas pagables consultadas", Datos = cuotasPagables };
+		}
+
+		public async Task<Respuesta<IEnumerable<Cuota>>> ConsultarCuotasPorPrestamo(int idusuariosesion, int IdPrestamo)
         {
             if (idusuariosesion == null || idusuariosesion == 0)
             {
