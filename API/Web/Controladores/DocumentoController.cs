@@ -14,9 +14,11 @@ namespace Web.Controladores
     {
         private readonly IWebHostEnvironment _env;
         private readonly IDocumentoServicio _servicio;
-        public DocumentoController(IWebHostEnvironment env, IDocumentoServicio servicio) {
+        private readonly IPrestamoServicio _servicioPrestamo;
+        public DocumentoController(IWebHostEnvironment env, IDocumentoServicio servicio, IPrestamoServicio prestamos) {
             _env = env;
             _servicio = servicio;
+            _servicioPrestamo = prestamos;
         }
 
         /// <summary>
@@ -66,7 +68,45 @@ namespace Web.Controladores
         public async Task<ActionResult<Respuesta<Documento>>> Post([FromBody] Documento documento) {
             try
             {
-                var respuesta = await _servicio.Agregar(documento);
+                var respuesta = await _servicioPrestamo.GuardarDocumento(documento);
+                return Ok(respuesta);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { message = e.Message });
+            }
+        }
+
+        /// <summary>
+        /// Método para convertir un archivo a un arreglo de bytes
+        /// </summary>
+        /// <param name="url">La url del documento</param>
+        /// <returns></returns>
+        [HttpPost("Convertir/{url}")]
+        public async Task<ActionResult<Respuesta<Byte[]>>> Post(string url)
+        {
+            try
+            {
+                var respuesta = await _servicio.ConvertirAByte(url);
+                return Ok(respuesta);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { message = e.Message });
+            }
+        }
+
+        /// <summary>
+        /// Método para descargar un archivo de préstamos
+        /// </summary>
+        /// <param name="documento">El documento a descargar</param>
+        /// <returns></returns>
+        [HttpPost("Descargar")]
+        public async Task<ActionResult<Respuesta<Documento>>> PostFile([FromBody] Documento documento)
+        {
+            try
+            {
+                var respuesta = await _servicio.Descargar(documento);
                 return Ok(respuesta);
             }
             catch (Exception e)
