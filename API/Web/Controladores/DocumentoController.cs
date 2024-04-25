@@ -114,5 +114,19 @@ namespace Web.Controladores
                 return BadRequest(new { message = e.Message });
             }
         }
+
+        [HttpGet("Prestamos/{prestamoId}")]
+        public async Task<ActionResult<Respuesta<IEnumerable<Documento>>>> Get(int prestamoId)
+        {
+            try
+            {
+                var respuesta = await _servicioPrestamo.ConsultarDocumentos(prestamoId);
+                return Ok(respuesta);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { message = e.Message });
+            }
+        }
     }
 }
