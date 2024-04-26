@@ -1,6 +1,7 @@
 using Core.Entidades;
 using Core.Interfaces.Servicios;
 using Core.Respuestas;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
@@ -26,7 +27,7 @@ namespace Web.Controladores
         /// </summary>
         /// <returns></returns>
         [HttpPost("CargarArchivo")]
-        public async Task<ActionResult<Respuesta<Documento>>> Post([FromBody] FormFile archivo)
+        public async Task<ActionResult<Respuesta<Documento>>> Post([FromBody] IFormFile archivo)
         {
             try
             {
