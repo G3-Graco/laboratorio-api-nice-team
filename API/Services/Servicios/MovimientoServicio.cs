@@ -65,25 +65,36 @@ namespace Services.Servicios
 
 		}
 
-        public async Task<Respuesta<Movimiento>> RealizarRetiro(Movimiento movimiento)
+        public async Task<Respuesta<Movimiento>> RealizarRetiro(int idUsuarioSesion, Movimiento movimiento)
         {
             try
             {
                 var respuesta = new Respuesta<Movimiento>();
                 if (movimiento == null) throw new ArgumentException("El movimiento no pude ser nulo");
-                var cuenta = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(movimiento.CuentaOrigenIdentificador);
-                if (cuenta == null) throw new ArgumentException("No existe una cuenta con tal id");
+                var cuentaOrigen = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(movimiento.CuentaOrigenIdentificador);
+                if (cuentaOrigen == null) throw new ArgumentException("No existe una cuenta con tal id");
+
+                Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
+
+                Cuenta cuentaDelUsuario = await _unidadDeTrabajo.CuentaRepositorio.ConsultarCuentaDeUnCliente(usuario.ClienteId);
+
+                if (cuentaOrigen.Identificador != cuentaDelUsuario.Identificador)
+                {
+                    throw new ArgumentException("No puedes realizar una transferencia siendo la cuenta origen la cuenta de otro usuario. (peo)");
+                }
+
+
                 if (movimiento?.TipoMovimientoId == null || movimiento.TipoMovimientoId <= 0) throw new ArgumentException("El movimiento carece de tipo");
                 var tipo = await _unidadDeTrabajo.TipoMovimientoRepositorio.ObtenerPorIdAsincrono(movimiento.TipoMovimientoId);
                 if (tipo == null) throw new ArgumentException("No existe un tipo con tal id");
-                if (movimiento.Monto > cuenta.Saldo) {
+                if (movimiento.Monto > cuentaOrigen.Saldo) {
                     respuesta.Ok = false;
                     respuesta.Mensaje = "Retiro denegado. El saldo de la cuenta es insuficiente";
                     respuesta.Datos = null;
                     return respuesta;
                 }
-                cuenta.Saldo -= movimiento.Monto;
-                await _unidadDeTrabajo.CuentaRepositorio.Actualizar(cuenta);
+                cuentaOrigen.Saldo -= movimiento.Monto;
+                await _unidadDeTrabajo.CuentaRepositorio.Actualizar(cuentaOrigen);
                 await _unidadDeTrabajo.MovimientoRepositorio.AgregarAsincrono(movimiento);
                 await _unidadDeTrabajo.CommitAsync();
                 respuesta.Ok = true;
@@ -124,7 +135,7 @@ namespace Services.Servicios
             }
         }
 
-        public async Task<Respuesta<Movimiento>> RealizarTransferencia(Movimiento movimiento)
+        public async Task<Respuesta<Movimiento>> RealizarTransferencia(int idUsuarioSesion, Movimiento movimiento)
         {
             try
             {
@@ -134,6 +145,18 @@ namespace Services.Servicios
                 if (cuentaReceptora == null) throw new ArgumentException("No existe una cuenta receptora con tal id");
                 var cuentaOrigen = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(movimiento.CuentaOrigenIdentificador);
                 if (cuentaOrigen == null) throw new ArgumentException("No existe una cuenta origen con tal id");
+
+
+                Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
+
+                Cuenta cuentaDelUsuario = await _unidadDeTrabajo.CuentaRepositorio.ConsultarCuentaDeUnCliente(usuario.ClienteId);
+
+                if (cuentaOrigen.Identificador != cuentaDelUsuario.Identificador)
+                {
+                    throw new ArgumentException("No puedes realizar una transferencia siendo la cuenta origen la cuenta de otro usuario. (peo)");
+                }
+
+
                 if (movimiento?.TipoMovimientoId == null || movimiento.TipoMovimientoId <= 0) throw new ArgumentException("El movimiento carece de tipo");
                 var tipo = await _unidadDeTrabajo.TipoMovimientoRepositorio.ObtenerPorIdAsincrono(movimiento.TipoMovimientoId);
                 if (tipo == null) throw new ArgumentException("No existe un tipo con tal id");
@@ -209,9 +232,34 @@ namespace Services.Servicios
 
 		}
 
-		public Task<Respuesta<Movimiento>> RealizarMovimiento(int idUsuarioSesion, Movimiento movimiento)
+		public async Task<Respuesta<Movimiento>> RealizarMovimiento(int idUsuarioSesion, Movimiento movimiento)
 		{
-			throw new NotImplementedException();
+            if (idUsuarioSesion == null || idUsuarioSesion == 0)
+            {
+                throw new ArgumentException("Token inválido, vuelva a iniciar sesión");
+            }
+
+            TipoMovimiento tipo = await _unidadDeTrabajo.TipoMovimientoRepositorio.ObtenerPorIdAsincrono(movimiento.TipoMovimientoId);
+
+            Respuesta<Movimiento> respuesta = new Respuesta<Movimiento>();
+
+            switch (tipo.Nombre)
+            {
+                case "Transferencia":
+                    respuesta = await RealizarTransferencia(idUsuarioSesion, movimiento);
+                    break;
+                case "Depósito":
+                    respuesta = await RealizarDeposito(movimiento);
+                    break;
+                case "Retiro":
+                    respuesta = await RealizarRetiro(idUsuarioSesion, movimiento);
+                    break;
+                default:
+                    throw new ArgumentException("Tipo de movimiento que intenta realizar es inválido");
+                    
+            }
+             
+            return respuesta;
 		}
 	}
 }

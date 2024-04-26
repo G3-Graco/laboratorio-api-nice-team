@@ -60,29 +60,15 @@ namespace Web.Controladores
 		/// Método para crear un movimiento
 		/// </summary>
 		/// <returns>Respuesta con objeto movimiento</returns>
+		[Authorize]
 		[HttpPost]
-		public async Task<ActionResult<Respuesta<Movimiento>>> Post([FromBody] Movimiento movimiento)
+		public async Task<ActionResult<Respuesta<Movimiento>>> Post(int idusuariosesion, [FromBody] Movimiento movimiento)
 		{
 			try
-			{   //hay que reestructurar ************** RealizarMovimiento
-				var tipo = await _servicioTipo.ObternerPorIdAsincrono(movimiento.TipoMovimientoId);
-				var respuesta = new Respuesta<Movimiento>();
-				switch (tipo.Datos?.Nombre)
-				{
-					case "Transferencia": 
-						respuesta = await _servicio.RealizarTransferencia(movimiento);
-						break;
-					case "Depósito": 
-						respuesta = await _servicio.RealizarDeposito(movimiento);
-						break;
-					case "Retiro":
-						respuesta = await _servicio.RealizarRetiro(movimiento);
-						break;
-					default: 
-						respuesta = await _servicio.Agregar(movimiento);
-						break;
-				}
-				return Ok(respuesta);
+			{
+                var Respuesta = await _servicio.RealizarMovimiento(idusuariosesion, movimiento);
+
+                return Ok(Respuesta);
 			}
 			catch (Exception ex)
 			{
