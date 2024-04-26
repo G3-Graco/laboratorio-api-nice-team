@@ -248,7 +248,7 @@ namespace Services.Servicios
                 case "Transferencia":
                     respuesta = await RealizarTransferencia(idUsuarioSesion, movimiento);
                     break;
-                case "Depósito":
+                case "Deposito":
                     respuesta = await RealizarDeposito(movimiento);
                     break;
                 case "Retiro":
