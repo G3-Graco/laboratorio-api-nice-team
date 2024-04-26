@@ -98,8 +98,7 @@ namespace Services.Servicios
 
 			if (usuario == null)
 			{
-				return new Respuesta<RespuestaIniciarSesion> { Ok = false, Mensaje = "Nombre de usuario y/o contraseña incorrecta.", Datos = null};
-				
+				return new Respuesta<RespuestaIniciarSesion> { Ok = false, Mensaje = "Nombre de usuario y/o contraseña incorrecta.", Datos = null};			
 			}
 
 			var tokenHandler = new JwtSecurityTokenHandler();
@@ -132,9 +131,15 @@ namespace Services.Servicios
 			{
 				//new Respuesta<Cliente>{Ok = false, Mensaje = resultadoValidacion.Errors[0].ErrorMessage.ToString(), Datos = null};
 				throw new ArgumentException(resultadoValidacion.Errors[0].ErrorMessage.ToString());
-
-
 			}
+
+			Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ConsultarNombreUsuario(modeloRegistrarse.NombreUsuario);
+
+			if (usuario != null)
+			{
+				return new Respuesta<ModeloRegistrarse> { Ok = false, Mensaje = "Utiliza otro nombre de usuario, por favor.", Datos = null };
+			}
+
 			ClienteServicio clienteServicio = new (_unidadDeTrabajo);
 			CuentaServicio cuentaServicio = new(_unidadDeTrabajo);
 

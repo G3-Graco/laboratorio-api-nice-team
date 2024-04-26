@@ -12,6 +12,11 @@ namespace Infrastructure.Repositorios
 
 		}
 
+		public async ValueTask<Usuario> ConsultarNombreUsuario(string nombreusuario)
+		{
+			return await dbSet.Where(u => u.NombreUsuario.Equals(nombreusuario)).FirstOrDefaultAsync();
+		}
+
 		public virtual async ValueTask<Usuario> IniciarSesion(string nombreusuario, string contrasena)
 		{
 			return await dbSet.Where(u => u.NombreUsuario.Equals(nombreusuario) && u.Contrasena.Equals(contrasena)).FirstOrDefaultAsync();
