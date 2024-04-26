@@ -26,12 +26,12 @@ namespace Web.Controladores
         /// </summary>
         /// <returns></returns>
         [HttpPost("CargarArchivo")]
-        public async Task<ActionResult<Respuesta<Documento>>> Post([FromForm] FormFile archivo)
+        public async Task<ActionResult<Respuesta<Documento>>> Post([FromBody] FormFile archivo)
         {
             try
             {
-                var file = Request.Form.Files[0];
-                file = archivo;
+                // var file = Request.Form.Files[0];
+                var file = archivo;
                 var documento = new Documento();
                 string NombreCarpeta = "/Documentos/";
                 string RutaRaiz = _env.ContentRootPath;
