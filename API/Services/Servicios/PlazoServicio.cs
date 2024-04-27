@@ -25,13 +25,12 @@ namespace Services.Servicios
         {
             try
             {
+                var respuesta = new Respuesta<Plazo>();
                 var nuevo = await _unidadDeTrabajo.PlazoRepositorio.AgregarAsincrono(plazo);
                 await _unidadDeTrabajo.CommitAsync();
-                var respuesta = new Respuesta<Plazo>() {
-                    Mensaje = "Plazo creado exitósamente", 
-                    Ok = true, 
-                    Datos = nuevo
-                };
+                respuesta.Mensaje = "Plazo creado exitósamente";
+                respuesta.Ok = true;
+                respuesta.Datos = nuevo;
                 return respuesta;
             }
             catch (Exception e)
@@ -68,12 +67,11 @@ namespace Services.Servicios
         {
             try
             {
+                var respuesta = new Respuesta<IEnumerable<Plazo>>();
                 var todos = await _unidadDeTrabajo.PlazoRepositorio.ObtenerTodosAsincrono();
-                var respuesta = new Respuesta<IEnumerable<Plazo>>() {
-                    Datos = todos, 
-                    Ok = true, 
-                    Mensaje = "Plazos encontrados exitósamente"
-                };
+                respuesta.Datos = todos; 
+                respuesta.Ok = true; 
+                respuesta.Mensaje = "Plazos encontrados exitósamente";
             return respuesta;
             }
             catch (Exception e)

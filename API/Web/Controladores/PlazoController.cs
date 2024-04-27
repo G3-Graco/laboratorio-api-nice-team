@@ -66,7 +66,6 @@ namespace Web.Controladores
 			try
 			{
 				var Respuesta = await _servicio.Agregar(plazo);
-
 				return Ok(Respuesta);
 			}
 			catch (Exception ex)
