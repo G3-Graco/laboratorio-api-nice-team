@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controladores
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class EstadoPrestamoController : ControllerBase
     {
         private IEstadoPrestamoServicio _servicio;
@@ -39,10 +41,10 @@ namespace Web.Controladores
         /// <summary>
         /// Método para crear un estado de préstamo
         /// </summary>
-        /// <param name="estado"></param>
+        /// <param name="estado">El objeto de estado de préstamo</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<Respuesta<Movimiento>>> Post([FromBody] EstadoPrestamo estado)
+        public async Task<ActionResult<Respuesta<EstadoPrestamo>>> Post([FromBody] EstadoPrestamo estado)
 		{
 			try
 			{
