@@ -51,6 +51,9 @@ builder.Services.AddScoped(typeof(IPlazoServicio), typeof(PlazoServicio));
 builder.Services.AddScoped(typeof(IEstadoPrestamoRepositorio), typeof(EstadoPrestamoRepositorio));
 builder.Services.AddScoped(typeof(IEstadoPrestamoServicio), typeof(EstadoPrestamoServicio));
 
+builder.Services.AddScoped(typeof(IDocumentoRepositorio), typeof(DocumentoRepositorio));
+builder.Services.AddScoped(typeof(IDocumentoServicio), typeof(DocumentoServicio));
+
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();
