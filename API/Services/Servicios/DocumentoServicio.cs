@@ -82,9 +82,22 @@ namespace Services.Servicios
             throw new NotImplementedException();
         }
 
-        public Task<Respuesta<IEnumerable<Documento>>> ObternerTodosAsincrono()
+        public async Task<Respuesta<IEnumerable<Documento>>> ObternerTodosAsincrono()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var todos = await _unidadDeTrabajo.DocumentoRepositorio.ObtenerTodosAsincrono();
+                var respuesta = new Respuesta<IEnumerable<Documento>>() {
+                    Datos = todos, 
+                    Mensaje = "Se obtuvieron los documentos exitósamente", 
+                    Ok = true
+                };
+                return respuesta;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public async Task<Respuesta<Documento>> Remover(int id)

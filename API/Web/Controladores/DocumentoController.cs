@@ -130,5 +130,19 @@ namespace Web.Controladores
                 return BadRequest(new { message = e.Message });
             }
         }
+
+        [HttpGet]
+        public async Task<ActionResult<Respuesta<IEnumerable<Documento>>>> Get()
+        {
+            try
+            {
+                    var respuesta = await _servicio.ObternerTodosAsincrono();
+                return Ok(respuesta);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { message = e.Message });
+            }
+        }
     }
 }
