@@ -186,10 +186,10 @@ namespace Services.Servicios
 
 				foreach (Cuota cuota in cuotasdeprestamo)
 				{
-                    if (cuota.FechaPago != null)
+                    if (cuota.FechaPago != DateTime.MinValue)
 					{
 
-						if (DateTime.Compare(cuota.Fecha, DateTime.Now) < 0)
+						if (DateTime.Compare(cuota.Fecha, DateTime.UtcNow) < 0)
 						{
 							cuotasAtrasadas += 1;
 						}
@@ -242,8 +242,11 @@ namespace Services.Servicios
                 return new Respuesta<Prestamo> { Ok = false, Mensaje = $"El número de cuotas solicitadas es inválido. Elegir un numero de cuotas entre {PlazoMinimo} y {PlazoMaximo}", Datos = null };
             }
 
-            double cuotaMensual = (modeloSolicitudPrestamo.MontoTotalDeseado * PlazoIdeal.Porcentaje) / Math.Pow((1 - (1 + PlazoIdeal.Porcentaje)), (-1 * modeloSolicitudPrestamo.NumeroCuotasDeseadas));
-
+            // double cuotaMensual = (modeloSolicitudPrestamo.MontoTotalDeseado * PlazoIdeal.Porcentaje) / Math.Pow((1 - (1 + PlazoIdeal.Porcentaje)), (-1 * modeloSolicitudPrestamo.NumeroCuotasDeseadas));
+            var P = modeloSolicitudPrestamo.MontoTotalDeseado;
+            var I = PlazoIdeal.Porcentaje;
+            var n = modeloSolicitudPrestamo.NumeroCuotasDeseadas;
+            double cuotaMensual = (P * I) / (1 - Math.Pow((1 + I), (-n)));
 
             var prestamoAgregado = await _unidadDeTrabajo.PrestamoRepostorio.AgregarAsincrono(new Prestamo
             {
@@ -251,17 +254,18 @@ namespace Services.Servicios
                 NumeroCuotas = modeloSolicitudPrestamo.NumeroCuotasDeseadas,
                 MontoTotal = modeloSolicitudPrestamo.MontoTotalDeseado,
                 CuotaMensual = cuotaMensual,
-                Fecha = DateTime.Now,
+                Fecha = DateTime.UtcNow,
                 IdEstado = 1,
                 IdCliente = usuario.ClienteId,
                 IdPlazo = PlazoIdeal.Id
             });
 
+            await _unidadDeTrabajo.CommitAsync();
 
             var cuotas = new List<Cuota>();
             for (int i = 0; i < modeloSolicitudPrestamo.NumeroCuotasDeseadas; i++)
             {
-                cuotas.Add(new Cuota { Id = 0, IdPrestamo = prestamoAgregado.Id, Fecha = DateTime.Now.AddMonths(i + 1), Pago = cuotaMensual });
+                cuotas.Add(new Cuota { Id = 0, IdPrestamo = prestamoAgregado.Id, Fecha = DateTime.UtcNow.AddMonths(i + 1), FechaPago = DateTime.MinValue, Pago = cuotaMensual });
             }
 
             await _unidadDeTrabajo.CuotaRepositorio.AgregarVariosAsincrono(cuotas);
@@ -335,9 +339,9 @@ namespace Services.Servicios
 
 			foreach (Cuota cuota in cuotas)
 			{
-				if (cuota.FechaPago == null)
+				if (cuota.FechaPago == DateTime.MinValue)
                 {
-                    if (DateTime.Compare(cuota.Fecha, DateTime.Now) < 0)
+                    if (DateTime.Compare(cuota.Fecha, DateTime.UtcNow) < 0)
                     {
                         cuotaAtrasada = cuota;
 					}

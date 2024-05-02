@@ -57,7 +57,7 @@ namespace Services.Servicios
 
 				foreach(Cuota cuota in cuotas)
 				{
-					if (cuota.FechaPago == null && DateTime.Compare(cuota.Fecha, fechaMasTemprana) < 0)
+					if (cuota.FechaPago == DateTime.MinValue && DateTime.Compare(cuota.Fecha, fechaMasTemprana) < 0)
                     {
                         fechaMasTemprana = cuota.Fecha;
 						cuotaMasTemprana = cuota;
