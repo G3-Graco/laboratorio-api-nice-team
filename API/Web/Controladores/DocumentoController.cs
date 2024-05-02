@@ -23,11 +23,50 @@ namespace Web.Controladores
         }
 
         /// <summary>
-        /// Método para ingresar documentos de un préstamo
+        /// Método para ingresar documentos de identidad de un préstamo
         /// </summary>
         /// <returns></returns>
-        [HttpPost("CargarArchivo")]
-        public async Task<ActionResult<Respuesta<Documento>>> Post()
+        [HttpPost("CargarIdentidad")]
+        public async Task<ActionResult<Respuesta<Documento>>> PostIdentidad()
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+                // var file = archivo;
+                var documento = new Documento();
+                string NombreCarpeta = "/Documentos/";
+                string RutaRaiz = _env.ContentRootPath;
+                string RutaCompleta = RutaRaiz + NombreCarpeta;
+                if (!Directory.Exists(RutaCompleta))
+                {
+                    Directory.CreateDirectory(RutaCompleta);
+                }
+                if (file.Length > 0)
+                {
+                    string NombreArchivo = file.FileName;
+                    string RutaFullCompleta = Path.Combine(RutaCompleta, NombreArchivo);
+                    using (var stream = new FileStream(RutaFullCompleta, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                        var bytes = await _servicio.ConvertirAByte(RutaFullCompleta);
+                        documento.Ubicacion = RutaFullCompleta;
+                        documento.documento = bytes.Datos;
+                    }
+                }
+                return Ok(documento);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { message = e.Message });
+            }
+        }
+
+        /// <summary>
+        /// Método para ingresar recibo de trabajo de un préstamo
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("CargarTrabajo")]
+        public async Task<ActionResult<Respuesta<Documento>>> PostTrabajo()
         {
             try
             {
@@ -117,6 +156,11 @@ namespace Web.Controladores
             }
         }
 
+        /// <summary>
+        /// Método para obtener todos los documentos de un préstamo
+        /// </summary>
+        /// <param name="prestamoId">Id del préstamo</param>
+        /// <returns></returns>
         [HttpGet("Prestamos/{prestamoId}")]
         public async Task<ActionResult<Respuesta<IEnumerable<Documento>>>> Get(int prestamoId)
         {
@@ -131,6 +175,10 @@ namespace Web.Controladores
             }
         }
 
+        /// <summary>
+        /// Método para obtener todos los documentos
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<Respuesta<IEnumerable<Documento>>>> Get()
         {
