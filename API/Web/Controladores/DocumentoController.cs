@@ -16,10 +16,14 @@ namespace Web.Controladores
         private readonly IWebHostEnvironment _env;
         private readonly IDocumentoServicio _servicio;
         private readonly IPrestamoServicio _servicioPrestamo;
-        public DocumentoController(IWebHostEnvironment env, IDocumentoServicio servicio, IPrestamoServicio prestamos) {
+        private readonly ITipoDocumentoServicio _servicioTipo;
+        public DocumentoController(IWebHostEnvironment env, 
+        IDocumentoServicio servicio, IPrestamoServicio prestamos, 
+        ITipoDocumentoServicio tipos) {
             _env = env;
             _servicio = servicio;
             _servicioPrestamo = prestamos;
+            _servicioTipo = tipos;
         }
 
         /// <summary>
@@ -51,6 +55,12 @@ namespace Web.Controladores
                         var bytes = await _servicio.ConvertirAByte(RutaFullCompleta);
                         documento.Ubicacion = RutaFullCompleta;
                         documento.documento = bytes.Datos;
+                        var lista = await _servicioTipo.ObternerTodosAsincrono();
+                        documento.IdTipo = lista.Datos.First(x => x.Nombre == "Identificación").Id;
+                        var partes = RutaFullCompleta.Split('.');
+                        var indices = partes[^2];
+                        documento.IdPrestamo = int.Parse(indices.Split('-')[^1]);
+                        await _servicioPrestamo.GuardarDocumento(documento);
                     }
                 }
                 return Ok(documento);
@@ -90,6 +100,12 @@ namespace Web.Controladores
                         var bytes = await _servicio.ConvertirAByte(RutaFullCompleta);
                         documento.Ubicacion = RutaFullCompleta;
                         documento.documento = bytes.Datos;
+                        var lista = await _servicioTipo.ObternerTodosAsincrono();
+                        documento.IdTipo = lista.Datos.First(x => x.Nombre == "Recibo").Id;
+                        var partes = RutaFullCompleta.Split('.');
+                        var indices = partes[^2];
+                        documento.IdPrestamo = int.Parse(indices.Split('-')[^1]);
+                        await _servicioPrestamo.GuardarDocumento(documento);
                     }
                 }
                 return Ok(documento);
