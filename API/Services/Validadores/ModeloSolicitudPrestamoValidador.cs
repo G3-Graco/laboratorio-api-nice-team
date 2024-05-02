@@ -19,11 +19,7 @@ namespace Services.Validadores
 			RuleFor(x => x.IdClienteSolicitante)
 				.NotEmpty();
 
-			RuleFor(x => x.DocumentoIdentificacionPersonal)
-				.NotEmpty();
 
-			RuleFor(x => x.DocumentoComprobanteIngresos)
-				.NotEmpty();
 
 		}
 	}

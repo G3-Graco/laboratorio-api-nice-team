@@ -12,8 +12,10 @@ namespace Core.Respuestas
 		//public int IdEstadoPrestamo { get; set; }
 		public int IdClienteSolicitante { get; set; }
 		//public int IdPlazo { get; set; }
-		public byte[] DocumentoIdentificacionPersonal { get; set; }
-		public byte[] DocumentoComprobanteIngresos { get; set; }
+
+
+		//public byte[] DocumentoIdentificacionPersonal { get; set; }
+		//public byte[] DocumentoComprobanteIngresos { get; set; }      ya no usamos esto
 	}
 }
 

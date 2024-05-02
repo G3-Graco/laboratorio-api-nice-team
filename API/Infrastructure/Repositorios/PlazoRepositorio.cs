@@ -20,5 +20,15 @@ namespace Infrastructure.Repositorios
 		{
 			return await dbSet.Where(p => nroCuotasDeseada >= p.MinimoCuotas && nroCuotasDeseada <= p.MaximaCuotas ).FirstOrDefaultAsync();
 		}
+
+		public async ValueTask<int> ConsultarPlazoMaximo()
+		{
+			return await dbSet.MaxAsync(p => p.MaximaCuotas);
+		}
+
+		public async ValueTask<int> ConsultarPlazoMinimo()
+		{
+			return await dbSet.MinAsync(p => p.MinimoCuotas);
+		}
 	}
 }

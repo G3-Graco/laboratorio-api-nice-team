@@ -35,11 +35,30 @@ namespace Web.Controladores
             }
         }
 
-        /// <summary>
-        /// Obtención de préstamos por cliente
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
+		/// <summary>
+		/// Solicitud de un préstamo
+		/// </summary>
+		/// <param name="prestamo"></param>
+		/// <returns></returns>
+		[HttpPost("solicitudprestamo")]
+		public async Task<ActionResult<Respuesta<Prestamo>>> Post(int idusuariosesion, [FromBody] ModeloSolicitudPrestamo modeloSolicitudPrestamo)
+		{
+			try
+			{
+				var respuesta = await _servicio.SolicitarPrestamo(idusuariosesion, modeloSolicitudPrestamo);
+				return Ok(respuesta);
+			}
+			catch (Exception e)
+			{
+				return BadRequest(new { message = e.Message });
+			}
+		}
+
+		/// <summary>
+		/// Obtención de préstamos por cliente
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet]
         public async Task<ActionResult<Respuesta<IEnumerable<Prestamo>>>> Get(int idusuariosesion) {
             try
             {

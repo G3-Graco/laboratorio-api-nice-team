@@ -3,6 +3,7 @@ using Core.Interfaces;
 using Core.Interfaces.Servicios;
 using Core.Respuestas;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.IdentityModel.Tokens;
 using Services.Validadores;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -91,6 +92,11 @@ namespace Services.Servicios
                 var todos = await _unidadDeTrabajo.PrestamoRepostorio.ObtenerTodosAsincrono();
                 var lista = todos.ToList().FindAll(x => x.IdCliente == usuario.ClienteId);
 
+                foreach (var prestamo in lista)
+                {
+					await ActualizarEstadoPrestamo(prestamo);
+				}
+
                 var respuesta = new Respuesta<IEnumerable<Prestamo>>() {
                     Datos = lista, 
                     Mensaje = "Prestamos encontrados exitósamente", 
@@ -135,6 +141,8 @@ namespace Services.Servicios
 
 			Prestamo prestamo = await _unidadDeTrabajo.PrestamoRepostorio.ObtenerPorIdAsincrono(idPrestamo);
 
+            await ActualizarEstadoPrestamo(prestamo);
+
 			Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
 
 
@@ -153,50 +161,107 @@ namespace Services.Servicios
 
 		public async Task<Respuesta<Prestamo>> SolicitarPrestamo(int idUsuarioSesion, ModeloSolicitudPrestamo modeloSolicitudPrestamo)
 		{
-			if (idUsuarioSesion == null || idUsuarioSesion == 0)
+            if (idUsuarioSesion == null || idUsuarioSesion == 0)
+            {
+                throw new ArgumentException("Token inválido, vuelva a iniciar sesión");
+            }
+
+            Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
+
+			//Aquí validación de que modeloSolicitudPrestamo.DocumentoIdentificacionPersonal y modeloSolicitudPrestamo.DocumentoComprobanteIngresos sean documentos válidos.
+			// ************** se realizó a nivel de blazor la validación de arriba *********
+
+			//Ver los préstamos sin pagar y validar que no tenga prestamos atrasados
+			IEnumerable<Prestamo> prestamos = await _unidadDeTrabajo.PrestamoRepostorio.ConsultarPrestamosDeUnCliente(usuario.ClienteId);
+
+			List<Prestamo> prestamosNoPagados = new List<Prestamo>();
+
+			foreach (Prestamo prestamo in prestamos)
 			{
-				throw new ArgumentException("Token inválido, vuelva a iniciar sesión");
+                int cuotasAtrasadas = 0;
+
+				IEnumerable<Cuota> cuotasdeprestamo = await _unidadDeTrabajo.CuotaRepositorio.ConsultarCuotasDeUnPrestamo(prestamo.Id);
+
+				Cuota cuotasinpagar = null;
+
+				foreach (Cuota cuota in cuotasdeprestamo)
+				{
+                    if (cuota.FechaPago != null)
+					{
+
+						if (DateTime.Compare(cuota.Fecha, DateTime.Now) < 0)
+						{
+							cuotasAtrasadas += 1;
+						}
+		
+						cuotasinpagar = cuota;
+					}
+				}
+
+				if (cuotasAtrasadas > 3)
+				{
+					return new Respuesta<Prestamo> { Ok = false, Mensaje = "Posee un préstamo con más de 3 cuotas atrasadas. No puede solicitar otro préstamo", Datos = null };
+				}
+
+				if (cuotasinpagar != null)
+				{
+					prestamosNoPagados.Add(prestamo);
+				}
 			}
 
-			Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
+            //Validar monto
+            if (prestamosNoPagados.Count == 0)
+            {
+				if (modeloSolicitudPrestamo.MontoTotalDeseado > (modeloSolicitudPrestamo.SueldoBasicoDelSolicitante * 3))
+				{
+					return new Respuesta<Prestamo> { Ok = false, Mensaje = "El monto solicitado supera el equivalente a tres sueldos básicos del solicitante.", Datos = null };
+				}
+			}
+            else
+            {
+                double montoTotalPrestamos = 0;
+                foreach(Prestamo prestamo in prestamosNoPagados)
+                {
+                    montoTotalPrestamos += prestamo.MontoTotal;
+                }
 
-			//Aquí validación de que modeloSolicitudPrestamo.DocumentoIdentificacionPersonal y modeloSolicitudPrestamo.DocumentoComprobanteIngresos
-			//sean documentos válidos.
-
-			if (modeloSolicitudPrestamo.MontoTotalDeseado > (modeloSolicitudPrestamo.SueldoBasicoDelSolicitante * 3))
-			{
-				return new Respuesta<Prestamo> { Ok = false, Mensaje = "El monto solicitado supera el equivalente a tres sueldos básicos del solicitante.", Datos = null };
+				if (modeloSolicitudPrestamo.MontoTotalDeseado + montoTotalPrestamos > (modeloSolicitudPrestamo.SueldoBasicoDelSolicitante * 3))
+				{
+					return new Respuesta<Prestamo> { Ok = false, Mensaje = "El monto solicitado sumado a el monto total de los préstamos actuales supera el equivalente a tres sueldos básicos del solicitante.", Datos = null };
+				}
 			}
 
-			var PlazoIdeal = await _unidadDeTrabajo.PlazoRepositorio.ConsultarPlazoIdeal(modeloSolicitudPrestamo.NumeroCuotasDeseadas);
+			
 
-			//hacer metodo repositorio para buscar minimo cuotas y maximo cuotas para indicar el error abajo.
+            var PlazoIdeal = await _unidadDeTrabajo.PlazoRepositorio.ConsultarPlazoIdeal(modeloSolicitudPrestamo.NumeroCuotasDeseadas);
 
-			if (PlazoIdeal == null)
-			{
-				return new Respuesta<Prestamo> { Ok = false, Mensaje = "El número de cuotas solicitadas es inválido, probar con otro número", Datos = null };
-			}
+            if (PlazoIdeal == null)
+            {
+                int PlazoMinimo = await _unidadDeTrabajo.PlazoRepositorio.ConsultarPlazoMinimo();
+                int PlazoMaximo = await _unidadDeTrabajo.PlazoRepositorio.ConsultarPlazoMaximo();
+                return new Respuesta<Prestamo> { Ok = false, Mensaje = $"El número de cuotas solicitadas es inválido. Elegir un numero de cuotas entre {PlazoMinimo} y {PlazoMaximo}", Datos = null };
+            }
 
-			double cuotaMensual = (modeloSolicitudPrestamo.MontoTotalDeseado * PlazoIdeal.Porcentaje) / Math.Pow((1 - (1 + PlazoIdeal.Porcentaje)), (-1*modeloSolicitudPrestamo.NumeroCuotasDeseadas));
+            double cuotaMensual = (modeloSolicitudPrestamo.MontoTotalDeseado * PlazoIdeal.Porcentaje) / Math.Pow((1 - (1 + PlazoIdeal.Porcentaje)), (-1 * modeloSolicitudPrestamo.NumeroCuotasDeseadas));
 
 
-			var prestamoAgregado = await _unidadDeTrabajo.PrestamoRepostorio.AgregarAsincrono(new Prestamo
-			{
-				Id = 0,
-				NumeroCuotas = modeloSolicitudPrestamo.NumeroCuotasDeseadas,
-				MontoTotal = modeloSolicitudPrestamo.MontoTotalDeseado,
-				CuotaMensual = cuotaMensual,
-				Fecha = DateTime.Now,
-				IdEstado = 1,
-				IdCliente = usuario.ClienteId,
-				IdPlazo = PlazoIdeal.Id
-			});
+            var prestamoAgregado = await _unidadDeTrabajo.PrestamoRepostorio.AgregarAsincrono(new Prestamo
+            {
+                Id = 0,
+                NumeroCuotas = modeloSolicitudPrestamo.NumeroCuotasDeseadas,
+                MontoTotal = modeloSolicitudPrestamo.MontoTotalDeseado,
+                CuotaMensual = cuotaMensual,
+                Fecha = DateTime.Now,
+                IdEstado = 1,
+                IdCliente = usuario.ClienteId,
+                IdPlazo = PlazoIdeal.Id
+            });
 
 
             var cuotas = new List<Cuota>();
             for (int i = 0; i < modeloSolicitudPrestamo.NumeroCuotasDeseadas; i++)
             {
-                cuotas.Add(new Cuota { Id = 0, IdPrestamo = prestamoAgregado.Id, Fecha = DateTime.Now.AddMonths(i + 1), Pago = cuotaMensual});
+                cuotas.Add(new Cuota { Id = 0, IdPrestamo = prestamoAgregado.Id, Fecha = DateTime.Now.AddMonths(i + 1), Pago = cuotaMensual });
             }
 
             await _unidadDeTrabajo.CuotaRepositorio.AgregarVariosAsincrono(cuotas);
@@ -212,9 +277,10 @@ namespace Services.Servicios
             await _unidadDeTrabajo.CommitAsync();
             return new Respuesta<Prestamo> { Ok = true, Mensaje = "Prestamo creado con éxito", Datos = prestamoAgregado };
 
-		}
 
-        public async Task<Respuesta<double>> ConsultarMontoPendientePrestamo(int idusuariosesion, int IdPrestamo)
+        }
+
+		public async Task<Respuesta<double>> ConsultarMontoPendientePrestamo(int idusuariosesion, int IdPrestamo)
         {
             try
             {
@@ -226,7 +292,9 @@ namespace Services.Servicios
             }
             Prestamo prestamo = await _unidadDeTrabajo.PrestamoRepostorio.ObtenerPorIdAsincrono(IdPrestamo);
 
-            Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idusuariosesion);
+			await ActualizarEstadoPrestamo(prestamo);
+
+			Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idusuariosesion);
 
             if (prestamo.IdCliente != usuario.ClienteId)
             {
@@ -252,5 +320,50 @@ namespace Services.Servicios
             }
 
         }
-    }
+
+
+
+        public async Task ActualizarEstadoPrestamo(Prestamo prestamo)
+        {
+			Prestamo prestamoActualizar = await _unidadDeTrabajo.PrestamoRepostorio.ObtenerPorIdAsincrono(prestamo.Id);
+
+			
+			IEnumerable<Cuota> cuotas = await _unidadDeTrabajo.CuotaRepositorio.ConsultarCuotasDeUnPrestamo(prestamo.Id);
+
+			Cuota cuotaPendiente = null;
+			Cuota cuotaAtrasada = null;
+
+			foreach (Cuota cuota in cuotas)
+			{
+				if (cuota.FechaPago == null)
+                {
+                    if (DateTime.Compare(cuota.Fecha, DateTime.Now) < 0)
+                    {
+                        cuotaAtrasada = cuota;
+					}
+                    else
+                    {
+						cuotaPendiente = cuota;
+					}
+                }
+			}
+
+			if (cuotaPendiente == null && cuotaAtrasada == null)
+			{
+                prestamo.IdEstado = 3;
+			}
+			if (cuotaPendiente != null)
+            {
+				prestamo.IdEstado = 1;
+			}
+			if (cuotaAtrasada != null)
+			{
+				prestamo.IdEstado = 2;
+			}
+
+			await _unidadDeTrabajo.CommitAsync();
+
+		}
+
+	}
 }
