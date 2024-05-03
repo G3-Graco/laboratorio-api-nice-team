@@ -47,6 +47,27 @@ namespace Services.Servicios
             
         }
 
+        public async Task<Respuesta<byte[]>> ConvertirAByte(Stream archivo)
+        {
+            var respuesta = new Respuesta<Byte[]>();
+            try
+            {
+                using (MemoryStream memoria = new MemoryStream())
+                {
+                    archivo.CopyTo(memoria);
+                    respuesta.Ok = true;
+                    respuesta.Datos = memoria.ToArray();
+                    respuesta.Mensaje = "Obtención de bytes del stream exitosa";
+                    return respuesta;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+
         public async Task<Respuesta<Documento>> Descargar(Documento documento)
         {
             if (documento.documento == null) throw new ArgumentException("El documento no puede ser nulo");
