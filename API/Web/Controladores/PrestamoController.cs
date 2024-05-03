@@ -54,10 +54,11 @@ namespace Web.Controladores
 			}
 		}
 
-		/// <summary>
-		/// Obtención de préstamos por cliente
-		/// </summary>
-		/// <returns></returns>
+        /// <summary>
+        /// Obtención de préstamos por cliente
+        /// </summary>
+        /// <returns></returns>
+        [Authorize]
 		[HttpGet]
         public async Task<ActionResult<Respuesta<IEnumerable<Prestamo>>>> Get(int idusuariosesion) {
             try
