@@ -129,14 +129,16 @@ namespace Services.Servicios
 					return new Respuesta<Pago> { Ok = false, Mensaje = "Pago denegado. El saldo de su cuenta es insuficiente", Datos = null };
                 }
 
-                cuota.FechaPago = DateTime.Now;
+                cuota.FechaPago = DateTime.UtcNow;
 
                 cuenta.Saldo -= cuota.Pago;
 
                 await _unidadDeTrabajo.CuotaRepositorio.Actualizar(cuota);
                 await _unidadDeTrabajo.CuentaRepositorio.Actualizar(cuenta);
 
-                await _unidadDeTrabajo.CommitAsync();
+				await _unidadDeTrabajo.PagoRepositorio.AgregarAsincrono(pago);
+
+				await _unidadDeTrabajo.CommitAsync();
 
 				return new Respuesta<Pago> { Ok = true, Mensaje = "Pago realizado con éxito", Datos = pago };
 			}
@@ -180,6 +182,7 @@ namespace Services.Servicios
 				throw new ArgumentException("No se ha encontrado una cuenta para este cliente");
 
 			var pagos = await _unidadDeTrabajo.PagoRepositorio.ConsultarPagosDeUnaCuenta(cuenta.Identificador);
+
 			if (pagos == null)
 				throw new ArgumentException("No se ha encontrado movimientos para este cliente");
 
@@ -196,6 +199,8 @@ namespace Services.Servicios
             Prestamo prestamo = await _unidadDeTrabajo.PrestamoRepostorio.ObtenerPorIdAsincrono(idPrestamo);
 
             Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idusuariosesion);
+
+			if (prestamo == null) throw new ArgumentException("No existe préstamo");
 
             if (prestamo.IdCliente != usuario.ClienteId)
             {

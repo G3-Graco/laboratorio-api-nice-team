@@ -89,16 +89,16 @@ namespace Services.Servicios
 
 				Usuario usuario = await _unidadDeTrabajo.UsuarioRepositorio.ObtenerPorIdAsincrono(idUsuarioSesion);
 
-                var todos = await _unidadDeTrabajo.PrestamoRepostorio.ObtenerTodosAsincrono();
-                var lista = todos.ToList().FindAll(x => x.IdCliente == usuario.ClienteId);
+                var prestamosCliente = await _unidadDeTrabajo.PrestamoRepostorio.ConsultarPrestamosDeUnCliente(usuario.ClienteId);
 
-                foreach (var prestamo in lista)
+
+                foreach (var prestamo in prestamosCliente)
                 {
-					await ActualizarEstadoPrestamo(prestamo);
-				}
+                    await ActualizarEstadoPrestamo(prestamo);
+                }
 
                 var respuesta = new Respuesta<IEnumerable<Prestamo>>() {
-                    Datos = lista, 
+                    Datos = prestamosCliente, 
                     Mensaje = "Prestamos encontrados exitósamente", 
                     Ok = true
                 };

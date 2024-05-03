@@ -52,7 +52,7 @@ namespace Services.Servicios
             {
 				IEnumerable<Cuota> cuotas = await _unidadDeTrabajo.CuotaRepositorio.ConsultarCuotasDeUnPrestamo(prestamo.Id);
 
-                DateTime fechaMasTemprana = new DateTime();
+                DateTime fechaMasTemprana = DateTime.MaxValue;
                 Cuota cuotaMasTemprana = null;
 
 				foreach(Cuota cuota in cuotas)

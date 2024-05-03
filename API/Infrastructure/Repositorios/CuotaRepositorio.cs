@@ -21,6 +21,11 @@ namespace Infrastructure.Repositorios
             return cuotas;
         }
 
+		public override async ValueTask<Cuota> ObtenerPorIdAsincrono(int id)
+		{
+			return await dbSet.Include(x => x.prestamo).FirstOrDefaultAsync(c => c.Id == id);
+		}
+
 		//public async ValueTask<IEnumerable<Cuota>> ConsultarCuotasDeUnCliente(int idCliente)
 		//{
 		//	return await dbSet.Where(c => c.prestamo.cliente.Id == idCliente).ToListAsync();
