@@ -43,7 +43,7 @@ public class BaseRepositorio<Entidad> : IBaseRepositorio<Entidad> where Entidad 
 		Context.Entry(entidad).State = EntityState.Modified;
 	}
 
-	public virtual async Task<Entidad> AgregarAsincrono(Entidad entidad) //Para que en teoría retorne la entidad que agregó. Esto para poder consultar qué id autoincrementado asignó.
+	public virtual async Task<Entidad> AgregarAsincrono(Entidad entidad) //Para que en teorÃ­a retorne la entidad que agregÃ³. Esto para poder consultar que id autoincrementado asignÃ³.
 	{
 		var entityEntry = await dbSet.AddAsync(entidad);
 		return entityEntry.Entity;

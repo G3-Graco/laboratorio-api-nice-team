@@ -42,6 +42,4 @@ public class AppDbContext : DbContext
 		builder.ApplyConfiguration(new EstadoPrestamoConfiguracion());
 	}
 
-    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //     => optionsBuilder.UseNpgsql("Host=my_host;Database=my_db;Username=my_user;Password=my_pw");
 }

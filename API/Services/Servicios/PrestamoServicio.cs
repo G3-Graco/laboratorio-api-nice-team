@@ -243,7 +243,6 @@ namespace Services.Servicios
                 return new Respuesta<Prestamo> { Ok = false, Mensaje = $"El número de cuotas solicitadas es inválido. Elegir un numero de cuotas entre {PlazoMinimo} y {PlazoMaximo}", Datos = null };
             }
 
-            // double cuotaMensual = (modeloSolicitudPrestamo.MontoTotalDeseado * PlazoIdeal.Porcentaje) / Math.Pow((1 - (1 + PlazoIdeal.Porcentaje)), (-1 * modeloSolicitudPrestamo.NumeroCuotasDeseadas));
             var P = modeloSolicitudPrestamo.MontoTotalDeseado;
             var I = PlazoIdeal.Porcentaje;
             var n = modeloSolicitudPrestamo.NumeroCuotasDeseadas;

@@ -36,7 +36,6 @@ namespace Web.Controladores
             try
             {
                 var file = Request.Form.Files[0];
-                // var file = archivo;
                 var documento = new Documento();
                 string NombreCarpeta = "/Documentos/";
                 string RutaRaiz = _env.ContentRootPath;
@@ -81,7 +80,6 @@ namespace Web.Controladores
             try
             {
                 var file = Request.Form.Files[0];
-                // var file = archivo;
                 var documento = new Documento();
                 string NombreCarpeta = "/Documentos/";
                 string RutaRaiz = _env.ContentRootPath;

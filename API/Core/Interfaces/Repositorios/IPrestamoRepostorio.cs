@@ -4,6 +4,6 @@ namespace Core.Interfaces.Repositorios
 {
     public interface IPrestamoRepostorio : IBaseRepositorio<Prestamo>
     {
-		ValueTask<IEnumerable<Prestamo>> ConsultarPrestamosDeUnCliente(int idCliente);
-	}
+		    ValueTask<IEnumerable<Prestamo>> ConsultarPrestamosDeUnCliente(int idCliente);
+	  }
 }

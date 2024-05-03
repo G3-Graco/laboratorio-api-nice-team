@@ -8,12 +8,6 @@ public class FechaActualConfiguracion : IEntityTypeConfiguration<FechaActual>
 {
 	public void Configure(EntityTypeBuilder<FechaActual> builder)
 	{
-		//builder
-		//	.HasKey(x => x.Id);
-
-		//builder
-		//	.Property(x => x.Id);
-
 		builder.HasNoKey(); //vaayalo
 
 		builder

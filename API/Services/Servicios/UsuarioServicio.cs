@@ -26,7 +26,6 @@ namespace Services.Servicios
 
 			if (!resultadoValidacion.IsValid)
 			{
-				//new Respuesta<Cliente>{Ok = false, Mensaje = resultadoValidacion.Errors[0].ErrorMessage.ToString(), Datos = null};
 				throw new ArgumentException(resultadoValidacion.Errors[0].ErrorMessage.ToString());
 
 			}
@@ -129,7 +128,6 @@ namespace Services.Servicios
 
 			if (!resultadoValidacion.IsValid)
 			{
-				//new Respuesta<Cliente>{Ok = false, Mensaje = resultadoValidacion.Errors[0].ErrorMessage.ToString(), Datos = null};
 				throw new ArgumentException(resultadoValidacion.Errors[0].ErrorMessage.ToString());
 			}
 

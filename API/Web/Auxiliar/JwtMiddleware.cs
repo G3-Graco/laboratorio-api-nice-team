@@ -12,12 +12,10 @@ namespace Web.Helpers
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        // private IUserService _service;
         private readonly IConfiguration _configuration;
 
         public JwtMiddleware(RequestDelegate next, IConfiguration configuracion)
         {
-            // _service = userService;
             _next = next;
             _configuration = configuracion;
         }
@@ -84,7 +82,6 @@ namespace Web.Helpers
 			}
 			catch
 			{
-				//
 			}
 		}
 
@@ -116,7 +113,6 @@ namespace Web.Helpers
             }
             catch
             {
-                //
             }
         }
 
