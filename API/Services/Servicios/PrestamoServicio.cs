@@ -115,7 +115,7 @@ namespace Services.Servicios
         {
             try
             {
-                var prestamo = await _unidadDeTrabajo.DocumentoRepositorio.ObtenerPorIdAsincrono(IdPrestamo);
+                var prestamo = await _unidadDeTrabajo.PrestamoRepostorio.ObtenerPorIdAsincrono(IdPrestamo);
                 if (prestamo == null) throw new ArgumentException("No existe un préstamo con tal id");
                 var todos = await _unidadDeTrabajo.DocumentoRepositorio.ObtenerTodosAsincrono();
                 var lista = todos.ToList().FindAll(x => x.IdPrestamo == IdPrestamo);
