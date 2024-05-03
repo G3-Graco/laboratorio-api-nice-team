@@ -52,7 +52,7 @@ namespace Web.Controladores
                     using (var stream = new FileStream(RutaFullCompleta, FileMode.Create))
                     {
                         file.CopyTo(stream);
-                        var bytes = await _servicio.ConvertirAByte(stream);
+                        var bytes = await _servicio.ConvertirAByte(file.OpenReadStream());
                         documento.Ubicacion = RutaFullCompleta;
                         documento.documento = bytes.Datos;
                         var lista = await _servicioTipo.ObternerTodosAsincrono();
@@ -97,7 +97,7 @@ namespace Web.Controladores
                     using (var stream = new FileStream(RutaFullCompleta, FileMode.Create))
                     {
                         file.CopyTo(stream);
-                        var bytes = await _servicio.ConvertirAByte(stream);
+                        var bytes = await _servicio.ConvertirAByte(file.OpenReadStream());
                         documento.Ubicacion = RutaFullCompleta;
                         documento.documento = bytes.Datos;
                         var lista = await _servicioTipo.ObternerTodosAsincrono();
