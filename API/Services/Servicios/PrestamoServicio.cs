@@ -187,7 +187,7 @@ namespace Services.Servicios
 
 				foreach (Cuota cuota in cuotasdeprestamo)
 				{
-                    if (cuota.FechaPago != DateTime.MinValue)
+                    if (cuota.FechaPago == DateTime.MinValue)
 					{
 
 						if (DateTime.Compare(cuota.Fecha, DateTime.UtcNow) < 0)
