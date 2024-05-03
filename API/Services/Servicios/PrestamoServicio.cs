@@ -97,6 +97,7 @@ namespace Services.Servicios
                     await ActualizarEstadoPrestamo(prestamo);
                 }
 
+
                 var respuesta = new Respuesta<IEnumerable<Prestamo>>() {
                     Datos = prestamosCliente, 
                     Mensaje = "Prestamos encontrados exitósamente", 
@@ -314,7 +315,7 @@ namespace Services.Servicios
                 MontoPagado += pago.CuotaPagada.Pago;
             }
 
-            double montopendiente = prestamo.MontoTotal - MontoPagado;
+            double montopendiente = (prestamo.CuotaMensual * prestamo.NumeroCuotas) - MontoPagado;
 
             return new Respuesta<double> { Ok = true, Mensaje = "Consulta realizada correctamente.", Datos = montopendiente };
             }
@@ -365,7 +366,12 @@ namespace Services.Servicios
 				prestamo.IdEstado = 2;
 			}
 
-			await _unidadDeTrabajo.CommitAsync();
+
+            EstadoPrestamo estadoPrestamo = await _unidadDeTrabajo.EstadoPrestamoRepositorio.ObtenerPorIdAsincrono(prestamo.IdEstado);
+
+            prestamo.Estado = estadoPrestamo;
+
+            await _unidadDeTrabajo.CommitAsync();
 
 		}
 
