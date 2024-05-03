@@ -200,7 +200,7 @@ namespace Web.Controladores
         {
             try
             {
-                    var respuesta = await _servicio.ObternerTodosAsincrono();
+                var respuesta = await _servicio.ObternerTodosAsincrono();
                 return Ok(respuesta);
             }
             catch (Exception e)
