@@ -111,8 +111,13 @@ namespace Services.Servicios
 				{
 					throw new ArgumentException("Esta cuota no corresponde a uno de tus préstamos");
 				}
-     
-                Cuenta cuenta = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(pago.CuentaIdentificador);
+
+				if (cuota.FechaPago != DateTime.MinValue)
+				{
+					throw new ArgumentException("Esta cuota ya ha sido pagada");
+				}
+
+				Cuenta cuenta = await _unidadDeTrabajo.CuentaRepositorio.ObtenerPorIdAsincrono(pago.CuentaIdentificador);
 
 				if (cuenta == null)
 				{
